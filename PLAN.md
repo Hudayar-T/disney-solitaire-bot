@@ -46,31 +46,50 @@
 
 ---
 
-## Phase 2 — Card Vision
-> Goal: Given a screenshot, detect and classify every visible card by rank.
+## Phase 2 — Card Detection & Classification
+> Goal: Detect ALL cards (face-up and face-down) and classify face-up cards by rank.
 
+### 2A — Card Segmentation (find all card regions)
 | # | Step | Status | Notes |
 |---|------|--------|-------|
-| 2.1 | Move card templates to `vision/templates/` | ⬜ | Rename/organise from `img/cards/` |
-| 2.2 | Inspect template sizes vs screenshot card sizes | ⬜ | Check if scaling is needed |
-| 2.3 | Write `vision/detector.py` — template matching per rank | ⬜ | OpenCV `matchTemplate`, multi-scale if needed |
-| 2.4 | Detect face-down (blue back) cards separately | ⬜ | Need a card-back template |
-| 2.5 | Test detector on static screenshots | ⬜ | Print all matches with positions + ranks |
-| 2.6 | Tune confidence threshold | ⬜ | Minimize false positives/negatives |
+| 2A.1 | HSV color segmentation — separate blue backs from white faces | ⬜ | `cv2.inRange` on HSV; blue backs have distinctive Mickey watermark |
+| 2A.2 | Contour detection — find card boundaries from both masks | ⬜ | `cv2.findContours` + `cv2.minAreaRect` for rotated cards |
+| 2A.3 | Filter contours by area — reject noise, keep card-sized blobs | ⬜ | Min/max area thresholds based on known card size (~195×295 px) |
+| 2A.4 | Classify each contour as FACE_UP or FACE_DOWN | ⬜ | Based on which color mask it came from |
+| 2A.5 | Test segmentation on all 5 static screenshots | ⬜ | Draw detected card outlines, visually verify |
+
+### 2B — Face-Up Rank Recognition
+| # | Step | Status | Notes |
+|---|------|--------|-------|
+| 2B.1 | Templates already in `vision/templates/` | ✅ | A–K + BACK, ~136×210 px each |
+| 2B.2 | Measure template vs in-game size, determine scale factor | ⬜ | From screenshots: in-game ~195×295 → scale ~1.42× |
+| 2B.3 | For each FACE_UP contour: crop → template match per rank | ⬜ | Match within the card's bounding box only (not full screen) |
+| 2B.4 | Multi-scale matching fallback if single scale has weak hits | ⬜ | Range 1.25–1.60 in steps of 0.05 |
+| 2B.5 | NMS to deduplicate overlapping detections | ✅ | Already implemented in `detector.py` |
+| 2B.6 | Test rank recognition on all 5 screenshots | ⬜ | Print detected rank + confidence per card, compare with visual |
+
+### 2C — Waste/Stock/UI Detection
+| # | Step | Status | Notes |
+|---|------|--------|-------|
+| 2C.1 | Detect waste pile card (bottom-center, fixed ROI) | ⬜ | Template match in small region around `config.WASTE_CENTER` |
+| 2C.2 | Detect stock pile presence (is deck empty?) | ⬜ | Blue card presence check in `config.STOCK_CENTER` region |
+| 2C.3 | Detect WILD card availability | ⬜ | Check yellow WILD icon in bottom-right region |
+| 2C.4 | Test UI detection on screenshots | ⬜ | Verify waste rank, stock empty/not, WILD available |
 
 ---
 
-## Phase 3 — Board State Parser
-> Goal: Turn detected cards into a structured `BoardState` (piles, top cards, positions).
+## Phase 3 — Board State & Dependency Graph
+> Goal: Build a structured board state with a DAG representing which cards block which.
 
 | # | Step | Status | Notes |
 |---|------|--------|-------|
-| 3.1 | Understand pile topology from screenshots | ⬜ | Cards overlap haphazardly — need occlusion logic |
-| 3.2 | Write `board/state.py` — Card, Pile, BoardState dataclasses | ⬜ | Card has: rank, suit(optional), (x,y), is_playable |
-| 3.3 | Write `board/parser.py` — detections → BoardState | ⬜ | Use y-position + overlap to determine top card per pile |
-| 3.4 | Identify waste pile card position | ⬜ | Fixed position bottom-center (confirmed in screenshots) |
-| 3.5 | Identify stock pile position | ⬜ | Fixed position bottom-left |
-| 3.6 | Test parser on static screenshots | ⬜ | Print parsed state, verify which cards are playable |
+| 3.1 | Write `board/state.py` — Card, BoardState dataclasses | ⬜ | Card: rank, position, bbox polygon, is_face_up, is_playable |
+| 3.2 | Build polygon representations for each detected card | ⬜ | Shapely `Polygon` from `cv2.minAreaRect` corners |
+| 3.3 | Compute pairwise polygon intersections → overlap graph | ⬜ | `poly_A.intersects(poly_B)` with area threshold |
+| 3.4 | Resolve Z-order / occlusion to determine blocking | ⬜ | Face-up on top of face-down; contour completeness for same-type |
+| 3.5 | Determine playable cards (top of stack = not covered by any other card) | ⬜ | Leaf nodes in the DAG = playable |
+| 3.6 | Write `board/parser.py` — screenshot → BoardState pipeline | ⬜ | Combines Phase 2 detection + Phase 3 DAG construction |
+| 3.7 | Test parser on all 5 static screenshots | ⬜ | Print BoardState, verify playable cards match visual |
 
 ---
 
@@ -112,12 +131,15 @@
 ---
 
 ## Open Questions / Blockers
-- [ ] How exactly does pile occlusion work? Which card is "on top" when they overlap?
-- [ ] Is the WILD card always in the bottom-right or does it move?
+- [x] How exactly does pile occlusion work? → Face-up cards sit ON TOP of face-down; contour completeness resolves same-type overlap
+- [x] Is the WILD card always in the bottom-right or does it move? → Yes, always bottom-right (confirmed across all 5 screenshots)
 - [ ] Does the game have idle timeout or screen lock during play?
-- [ ] Are card templates the right scale vs in-game cards? (need to measure)
+- [x] Are card templates the right scale vs in-game cards? → Templates ~136×210, in-game ~195×295, scale factor ~1.42×
 - [ ] Are there any animated transitions that might confuse screencap timing?
+- [ ] Screenshots are in **landscape** (2400×1080) — need to confirm ADB screencap orientation vs PIL orientation
+- [ ] Some face-down cards are **rotated/angled** — `minAreaRect` handles this, but need to verify detection
+- [ ] Need to add `shapely` to requirements.txt for polygon intersection
 
 ---
 
-*Last updated: Phase 1 ✅ COMPLETE — 1080×2400 resolution confirmed, ADB live screencap working*
+*Last updated: Phase 2 starting — plan revised with HSV segmentation + DAG approach from suggestions*

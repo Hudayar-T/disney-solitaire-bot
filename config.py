@@ -3,29 +3,34 @@
 # Never hardcode coords in other files — always import from here.
 
 # ── Screen ────────────────────────────────────────────────────────────────────
-SCREEN_WIDTH  = 1080  # px — Redmi Note 14 FHD+ (verify with live screencap)
-SCREEN_HEIGHT = 2400  # px
+# Redmi Note 14 FHD+ — screenshots come in LANDSCAPE from ADB
+SCREEN_WIDTH  = 2400  # px (landscape width)
+SCREEN_HEIGHT = 1080  # px (landscape height)
 
-# ── Tableau region (upper area where card piles live) ────────────────────────
-# Rough bounding box; exact card positions are detected dynamically
-TABLEAU_ROI = (0, 80, 1080, 1550)  # (x, y, w, h)
+# ── Tableau region (where card piles live, excluding UI bars) ─────────────────
+# Measured from landscape screenshots:
+#   Top boundary: ~100px (below status bar + score)
+#   Bottom boundary: ~750px (above stock/waste row)
+#   Left boundary: ~300px (right of Tinkerbell/chest)
+#   Right boundary: ~2100px (left of right edge decorations)
+TABLEAU_ROI = (300, 100, 1900, 750)  # (x, y, w, h) in landscape coords
 
-# ── Fixed UI element positions (from screenshots) ────────────────────────────
-# Stock pile (blue face-down deck) — bottom-left
-STOCK_CENTER = (620, 1900)  # (x, y) — tap here to draw
+# ── Fixed UI element positions (landscape coords, measured from screenshots) ──
+# Stock pile (blue face-down deck)
+STOCK_CENTER = (1134, 937)  # (x, y) — confirmed across all 5 screenshots
 
-# Waste pile (current face-up card) — bottom-center
-WASTE_CENTER = (810, 1900)  # (x, y) — read rank from here
+# Waste pile (current face-up card) — right of stock
+WASTE_CENTER = (1336, 937)  # (x, y) — confirmed across all 5 screenshots
 
-# Undo button — green circular arrow, bottom-center-right
-UNDO_CENTER = (1000, 1900)
+# Undo button — green circular arrow, right of waste
+UNDO_CENTER = (1530, 930)
 
-# WILD card button — bottom-right corner
-WILD_CENTER = (1480, 1900)
+# WILD card button — far right edge
+WILD_CENTER = (1480, 620)
 
 # ── Template matching ─────────────────────────────────────────────────────────
 TEMPLATE_MATCH_THRESHOLD = 0.75   # minimum confidence score (0–1)
-TEMPLATE_SCALE_FACTORS   = [1.0, 0.95, 0.90, 0.85]  # multi-scale search range
+TEMPLATE_SCALE_FACTORS   = [1.0, 0.95, 0.90, 0.85, 1.05, 1.10]  # multi-scale search
 
 # ── Timing ────────────────────────────────────────────────────────────────────
 TAP_DELAY_MIN = 0.3   # seconds — minimum pause between taps

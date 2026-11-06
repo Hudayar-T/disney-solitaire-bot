@@ -71,7 +71,7 @@ disney-solitaire-bot/
 - Do NOT hardcode coords — always derive from config.py constants
 
 ## Template Notes
-- Card templates are in `vision/templates/` (moved from `img/cards/`)
+- Card templates are in `vision/templates/`
 - Templates show full card face — rank glyph is large and centered
 - Cards in-game may appear at different scale than templates — handle with resize or multi-scale matching
 - Two color families: red suits (♥♦) and dark suits (♠♣) — only rank matters for logic
