@@ -111,7 +111,9 @@ class CardDetector:
         self._load_glyph_templates()
         self._undo_tmpl = self._load_template("UNDO.jpg")
         self._wild_tmpl = self._load_template("WILD.jpg")
+        self._end_level_tmpl = self._load_template("end_level.png")
         self.last_wild_coord: tuple[int, int] = config.WILD_CENTER
+        self.last_end_level_coord: tuple[int, int] = config.END_LEVEL_CENTER
 
     def _load_template(self, filename: str) -> Optional[np.ndarray]:
         path = TEMPLATES_DIR / filename
@@ -400,6 +402,37 @@ class CardDetector:
             cy = ry + max_loc[1] - int(th * 0.3) + th // 2
             self.last_wild_coord = (cx, cy)
             logger.debug(f"WILD button detected at ({cx}, {cy}) (conf={max_val:.2f})")
+            return True
+
+        return False
+
+    def detect_end_level_present(self, screen: np.ndarray) -> bool:
+        """Check if END LEVEL button is visible in bottom-left corner."""
+        rx, ry, rw, rh = config.END_LEVEL_ROI
+        roi = screen[ry:min(screen.shape[0], ry+rh), rx:min(screen.shape[1], rx+rw)]
+        if roi.size == 0:
+            return False
+
+        if self._end_level_tmpl is not None:
+            gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
+            th, tw = self._end_level_tmpl.shape
+            if gray.shape[0] >= th and gray.shape[1] >= tw:
+                res = cv2.matchTemplate(gray, self._end_level_tmpl, cv2.TM_CCOEFF_NORMED)
+                _, max_val, _, max_loc = cv2.minMaxLoc(res)
+                if max_val >= 0.75:
+                    cx = rx + max_loc[0] + tw // 2
+                    cy = ry + max_loc[1] + th // 2
+                    self.last_end_level_coord = (cx, cy)
+                    logger.debug(f"END LEVEL button detected at ({cx}, {cy}) (conf={max_val:.2f})")
+                    return True
+
+        # Fallback: check prominent red pill color in the ROI
+        hsv = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
+        mask = cv2.inRange(hsv, (0, 150, 120), (10, 255, 255)) | cv2.inRange(hsv, (170, 150, 120), (180, 255, 255))
+        red_ratio = float((mask > 0).mean())
+        if red_ratio >= 0.35:
+            self.last_end_level_coord = config.END_LEVEL_CENTER
+            logger.debug(f"END LEVEL button detected by HSV red ratio ({red_ratio:.2f})")
             return True
 
         return False

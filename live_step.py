@@ -59,6 +59,8 @@ def annotate_proposed_move(
         action_label = "DRAW STOCK"
     elif move.move_type == MoveType.PLAY_WILD:
         action_label = "PLAY WILD"
+    elif move.move_type == MoveType.END_LEVEL:
+        action_label = "END LEVEL"
     else:
         action_label = move.move_type.name
 
@@ -119,6 +121,7 @@ def run_interactive_loop():
         print(f"  • Normal Stock:     {'YES' if state.has_normal_stock else 'EMPTY'}")
         print(f"  • Center WILD:      {'YES' if state.stock_has_wild else 'NO'}")
         print(f"  • Bottom-Right WILD:{'AVAILABLE' if state.has_wild else 'NONE'}")
+        print(f"  • End Level Button: {'AVAILABLE' if state.has_end_level else 'NONE'}")
 
         # Check win condition
         if len(state.tableau) == 0:
@@ -151,6 +154,9 @@ def run_interactive_loop():
         elif move.move_type == MoveType.PLAY_WILD:
             action_desc = "PLAY WILD CARD"
             tap_prompt = f"👉 Play WILD card at ({actual_tx}, {actual_ty})? [Enter=YES, s=skip, q=quit]: "
+        elif move.move_type == MoveType.END_LEVEL:
+            action_desc = "END LEVEL"
+            tap_prompt = f"👉 Tap END LEVEL at ({actual_tx}, {actual_ty})? [Enter=YES, s=skip, q=quit]: "
         else:
             action_desc = move.move_type.name
             tap_prompt = f"👉 Execute tap at ({actual_tx}, {actual_ty}) on device? [Enter=YES, s=skip, q=quit]: "

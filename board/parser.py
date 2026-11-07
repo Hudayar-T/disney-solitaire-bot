@@ -148,6 +148,8 @@ class BoardParser:
         has_undo = self.detector.detect_undo_present(screen)
         has_wild = self.detector.detect_wild_present(screen)
         wild_coord = self.detector.last_wild_coord if has_wild else config.WILD_CENTER
+        has_end_level = self.detector.detect_end_level_present(screen)
+        end_level_coord = self.detector.last_end_level_coord if has_end_level else config.END_LEVEL_CENTER
 
         state = BoardState(
             tableau=cards,
@@ -157,6 +159,8 @@ class BoardParser:
             has_undo=has_undo,
             has_wild=has_wild,
             wild_coord=wild_coord,
+            has_end_level=has_end_level,
+            end_level_coord=end_level_coord,
         )
 
         logger.info(f"Parsed {state}")

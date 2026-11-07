@@ -49,4 +49,7 @@ for ss_path in screenshots:
 
     wild = detector.detect_wild_present(img)
     print(f"  Wild:      {'Available' if wild else 'Unavailable'}")
+
+    end_lvl = detector.detect_end_level_present(img)
+    print(f"  End Level: {'Available' if end_lvl else 'Unavailable'}")
     print()

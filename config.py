@@ -25,6 +25,10 @@ UNDO_CENTER = (1548, 909)
 WILD_CENTER = (2277, 875)
 WILD_ROI = (2050, 720, 350, 330)  # (x, y, w, h) search region in landscape coords
 
+# END LEVEL button — red pill button on bottom-left ("<- END LEVEL")
+END_LEVEL_CENTER = (571, 978)
+END_LEVEL_ROI = (380, 900, 380, 150)  # (x, y, w, h) search region in landscape coords
+
 # ── Template matching ─────────────────────────────────────────────────────────
 TEMPLATE_MATCH_THRESHOLD = 0.72   # minimum confidence score for center glyphs
 TEMPLATE_ANGLES          = [0, -10, 10, -20, 20, -30, 30, -40, 40, -48, 48]  # angles to handle steep card tilts up to ±48°

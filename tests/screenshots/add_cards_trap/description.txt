@@ -1,0 +1,1 @@
+The next logical move here is play 8, but after that, the game should be ended, because no logical moves left. Drawing from the waste that has "+5" is a BIG TRAP. Those trap wastes have yellow border indicator. They are not for free.

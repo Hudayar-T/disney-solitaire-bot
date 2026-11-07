@@ -1178,3 +1178,472 @@
 2026-11-07 22:59:35 | DEBUG    | Tapped (927, 586) [offset=(-12, +37)] after 0.74s delay
 2026-11-07 22:59:35 | DEBUG    | Tapped (927, 586)
 2026-11-07 22:59:36 | INFO     | ── Step 68 ──────────────────────────────────
+2026-11-07 22:59:38 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 22:59:38 | DEBUG    | Waste pile: A (conf=0.99)
+2026-11-07 22:59:38 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 22:59:41 | DEBUG    | Detected 10 tableau cards (10 face-up, 0 face-down)
+2026-11-07 22:59:41 | DEBUG    | Waste pile: A (conf=0.99)
+2026-11-07 22:59:41 | DEBUG    | WILD button detected at (2277, 875) (conf=0.93)
+2026-11-07 22:59:41 | INFO     | Parsed BoardState(waste=A, playable=['J', '8', '8', 'J', '6', '5', '6', '2', '7', '3'], faceup=10, facedown=0, stock=True, wild=True)
+2026-11-07 22:59:41 | INFO     | Waste=[A]  Playable=10 (J#0, 8#1, 8#2, J#3, 6#4, 5#5, 6#6, 2#7, 7#8, 3#9)  Tableau=10  Stock=YES  StockWILD=NO  WILD=YES
+2026-11-07 22:59:41 | DEBUG    | Candidate Move: 2 at (716, 656) -> score=30.0 (enables chain of 2 (2 -> 3))
+2026-11-07 22:59:41 | INFO     | Move: PLAY_CARD  target=2  coord=(np.int64(716), np.int64(656))  score=30.0  reason=enables chain of 2 (2 -> 3)
+2026-11-07 22:59:43 | DEBUG    | Tapped (721, 664) [offset=(+5, +8)] after 1.56s delay
+2026-11-07 22:59:43 | DEBUG    | Tapped (721, 664)
+2026-11-07 22:59:44 | INFO     | ── Step 69 ──────────────────────────────────
+2026-11-07 22:59:46 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 22:59:46 | DEBUG    | Waste pile: 2 (conf=0.99)
+2026-11-07 22:59:46 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 22:59:49 | DEBUG    | Detected 10 tableau cards (10 face-up, 0 face-down)
+2026-11-07 22:59:49 | DEBUG    | Waste pile: 2 (conf=0.99)
+2026-11-07 22:59:49 | DEBUG    | Yellow in stock ROI (7.3%) confined to left edge (right=0.0%) — deck with buried card, continuing blue check
+2026-11-07 22:59:49 | DEBUG    | WILD button detected at (2277, 875) (conf=0.82)
+2026-11-07 22:59:49 | INFO     | Parsed BoardState(waste=2, playable=['J', '8', '8', 'J', '6', '5', '6', '4', '7', '3'], faceup=10, facedown=0, stock=True, wild=True)
+2026-11-07 22:59:49 | INFO     | Waste=[2]  Playable=10 (J#0, 8#1, 8#2, J#3, 6#4, 5#5, 6#6, 4#7, 7#8, 3#9)  Tableau=10  Stock=YES  StockWILD=NO  WILD=YES
+2026-11-07 22:59:49 | DEBUG    | Candidate Move: 3 at (1298, 691) -> score=110.0 (enables chain of 6 (3 -> 4 -> 5 -> 6 -> 7 -> 8))
+2026-11-07 22:59:49 | INFO     | Move: PLAY_CARD  target=3  coord=(np.int64(1298), np.int64(691))  score=110.0  reason=enables chain of 6 (3 -> 4 -> 5 -> 6 -> 7 -> 8)
+2026-11-07 22:59:50 | DEBUG    | Tapped (1296, 699) [offset=(-2, +8)] after 0.70s delay
+2026-11-07 22:59:50 | DEBUG    | Tapped (1296, 699)
+2026-11-07 22:59:51 | INFO     | ── Step 70 ──────────────────────────────────
+2026-11-07 22:59:53 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 22:59:53 | DEBUG    | Waste pile: 3 (conf=0.99)
+2026-11-07 22:59:53 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 22:59:57 | DEBUG    | Detected 9 tableau cards (9 face-up, 0 face-down)
+2026-11-07 22:59:57 | DEBUG    | Waste pile: 3 (conf=0.99)
+2026-11-07 22:59:57 | DEBUG    | Yellow in stock ROI (7.3%) confined to left edge (right=0.0%) — deck with buried card, continuing blue check
+2026-11-07 22:59:57 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-07 22:59:57 | INFO     | Parsed BoardState(waste=3, playable=['J', '8', '8', 'J', '6', '5', '6', '4', '7'], faceup=9, facedown=0, stock=True, wild=True)
+2026-11-07 22:59:57 | INFO     | Waste=[3]  Playable=9 (J#0, 8#1, 8#2, J#3, 6#4, 5#5, 6#6, 4#7, 7#8)  Tableau=9  Stock=YES  StockWILD=NO  WILD=YES
+2026-11-07 22:59:57 | DEBUG    | Candidate Move: 4 at (730, 656) -> score=90.0 (enables chain of 5 (4 -> 5 -> 6 -> 7 -> 8))
+2026-11-07 22:59:57 | INFO     | Move: PLAY_CARD  target=4  coord=(np.int64(730), np.int64(656))  score=90.0  reason=enables chain of 5 (4 -> 5 -> 6 -> 7 -> 8)
+2026-11-07 22:59:58 | DEBUG    | Tapped (719, 645) [offset=(-11, -11)] after 1.12s delay
+2026-11-07 22:59:58 | DEBUG    | Tapped (719, 645)
+2026-11-07 22:59:59 | INFO     | ── Step 71 ──────────────────────────────────
+2026-11-07 23:00:01 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:00:01 | DEBUG    | Waste pile: 4 (conf=0.99)
+2026-11-07 23:00:01 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 23:00:04 | DEBUG    | Detected 8 tableau cards (8 face-up, 0 face-down)
+2026-11-07 23:00:04 | DEBUG    | Waste pile: 4 (conf=0.99)
+2026-11-07 23:00:04 | DEBUG    | Yellow in stock ROI (7.3%) confined to left edge (right=0.0%) — deck with buried card, continuing blue check
+2026-11-07 23:00:04 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-07 23:00:04 | INFO     | Parsed BoardState(waste=4, playable=['J', '8', '8', 'J', '6', '5', '6', '7'], faceup=8, facedown=0, stock=True, wild=True)
+2026-11-07 23:00:04 | INFO     | Waste=[4]  Playable=8 (J#0, 8#1, 8#2, J#3, 6#4, 5#5, 6#6, 7#7)  Tableau=8  Stock=YES  StockWILD=NO  WILD=YES
+2026-11-07 23:00:04 | DEBUG    | Candidate Move: 5 at (932, 547) -> score=70.0 (enables chain of 4 (5 -> 6 -> 7 -> 8))
+2026-11-07 23:00:04 | INFO     | Move: PLAY_CARD  target=5  coord=(np.int64(932), np.int64(547))  score=70.0  reason=enables chain of 4 (5 -> 6 -> 7 -> 8)
+2026-11-07 23:00:05 | DEBUG    | Tapped (934, 546) [offset=(+2, -1)] after 0.45s delay
+2026-11-07 23:00:05 | DEBUG    | Tapped (934, 546)
+2026-11-07 23:00:06 | INFO     | ── Step 72 ──────────────────────────────────
+2026-11-07 23:00:08 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:00:08 | DEBUG    | Waste pile: 5 (conf=1.00)
+2026-11-07 23:00:08 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 23:00:13 | DEBUG    | Detected 7 tableau cards (7 face-up, 0 face-down)
+2026-11-07 23:00:13 | DEBUG    | Waste pile: 5 (conf=1.00)
+2026-11-07 23:00:13 | DEBUG    | Yellow in stock ROI (7.3%) confined to left edge (right=0.0%) — deck with buried card, continuing blue check
+2026-11-07 23:00:13 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-07 23:00:13 | INFO     | Parsed BoardState(waste=5, playable=['J', '8', '8', 'J', '6', '6', '7'], faceup=7, facedown=0, stock=True, wild=True)
+2026-11-07 23:00:13 | INFO     | Waste=[5]  Playable=7 (J#0, 8#1, 8#2, J#3, 6#4, 6#5, 7#6)  Tableau=7  Stock=YES  StockWILD=NO  WILD=YES
+2026-11-07 23:00:13 | DEBUG    | Candidate Move: 6 at (634, 390) -> score=50.0 (enables chain of 3 (6 -> 7 -> 8))
+2026-11-07 23:00:13 | DEBUG    | Candidate Move: 6 at (1461, 547) -> score=50.0 (enables chain of 3 (6 -> 7 -> 8))
+2026-11-07 23:00:13 | INFO     | Move: PLAY_CARD  target=6  coord=(np.int64(634), np.int64(390))  score=50.0  reason=enables chain of 3 (6 -> 7 -> 8)
+2026-11-07 23:00:14 | DEBUG    | Tapped (627, 377) [offset=(-7, -13)] after 0.32s delay
+2026-11-07 23:00:14 | DEBUG    | Tapped (627, 377)
+2026-11-07 23:00:15 | INFO     | ── Step 73 ──────────────────────────────────
+2026-11-07 23:00:17 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:00:17 | DEBUG    | Waste pile: 6 (conf=0.99)
+2026-11-07 23:00:17 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 23:00:20 | DEBUG    | Detected 6 tableau cards (6 face-up, 0 face-down)
+2026-11-07 23:00:20 | DEBUG    | Waste pile: 6 (conf=0.99)
+2026-11-07 23:00:20 | DEBUG    | Yellow in stock ROI (7.3%) confined to left edge (right=0.0%) — deck with buried card, continuing blue check
+2026-11-07 23:00:20 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-07 23:00:20 | INFO     | Parsed BoardState(waste=6, playable=['J', '8', '8', 'J', '6', '7'], faceup=6, facedown=0, stock=True, wild=True)
+2026-11-07 23:00:20 | INFO     | Waste=[6]  Playable=6 (J#0, 8#1, 8#2, J#3, 6#4, 7#5)  Tableau=6  Stock=YES  StockWILD=NO  WILD=YES
+2026-11-07 23:00:20 | DEBUG    | Candidate Move: 7 at (1667, 656) -> score=30.0 (enables chain of 2 (7 -> 8))
+2026-11-07 23:00:20 | INFO     | Move: PLAY_CARD  target=7  coord=(np.int64(1667), np.int64(656))  score=30.0  reason=enables chain of 2 (7 -> 8)
+2026-11-07 23:00:21 | DEBUG    | Tapped (1670, 654) [offset=(+3, -2)] after 0.85s delay
+2026-11-07 23:00:21 | DEBUG    | Tapped (1670, 654)
+2026-11-07 23:00:22 | INFO     | ── Step 74 ──────────────────────────────────
+2026-11-07 23:00:24 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:00:24 | DEBUG    | Waste pile: 7 (conf=0.99)
+2026-11-07 23:00:24 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 23:00:27 | DEBUG    | Detected 5 tableau cards (5 face-up, 0 face-down)
+2026-11-07 23:00:27 | DEBUG    | Waste pile: 7 (conf=0.99)
+2026-11-07 23:00:27 | DEBUG    | Yellow in stock ROI (7.3%) confined to left edge (right=0.0%) — deck with buried card, continuing blue check
+2026-11-07 23:00:27 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-07 23:00:27 | INFO     | Parsed BoardState(waste=7, playable=['J', '8', '8', 'J', '6'], faceup=5, facedown=0, stock=True, wild=True)
+2026-11-07 23:00:27 | INFO     | Waste=[7]  Playable=5 (J#0, 8#1, 8#2, J#3, 6#4)  Tableau=5  Stock=YES  StockWILD=NO  WILD=YES
+2026-11-07 23:00:27 | DEBUG    | Candidate Move: 8 at (1042, 309) -> score=10.0 (plays 8)
+2026-11-07 23:00:27 | DEBUG    | Candidate Move: 8 at (1782, 309) -> score=10.0 (plays 8)
+2026-11-07 23:00:27 | DEBUG    | Candidate Move: 6 at (1461, 547) -> score=10.0 (plays 6)
+2026-11-07 23:00:27 | INFO     | Move: PLAY_CARD  target=8  coord=(np.int64(1042), np.int64(309))  score=10.0  reason=plays 8
+2026-11-07 23:00:28 | DEBUG    | Tapped (1046, 314) [offset=(+4, +5)] after 0.82s delay
+2026-11-07 23:00:28 | DEBUG    | Tapped (1046, 314)
+2026-11-07 23:00:29 | INFO     | ── Step 75 ──────────────────────────────────
+2026-11-07 23:00:31 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:00:31 | DEBUG    | Waste pile: 8 (conf=0.99)
+2026-11-07 23:00:31 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 23:00:35 | DEBUG    | Detected 4 tableau cards (4 face-up, 0 face-down)
+2026-11-07 23:00:35 | DEBUG    | Waste pile: 8 (conf=0.99)
+2026-11-07 23:00:35 | DEBUG    | Yellow in stock ROI (7.3%) confined to left edge (right=0.0%) — deck with buried card, continuing blue check
+2026-11-07 23:00:35 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-07 23:00:35 | INFO     | Parsed BoardState(waste=8, playable=['J', '8', 'J', '6'], faceup=4, facedown=0, stock=True, wild=True)
+2026-11-07 23:00:35 | INFO     | Waste=[8]  Playable=4 (J#0, 8#1, J#2, 6#3)  Tableau=4  Stock=YES  StockWILD=NO  WILD=YES
+2026-11-07 23:00:35 | INFO     | Move: DRAW_STOCK  target=—  coord=(1134, 937)  score=5.0  reason=No legal tableau moves, draw next card from stock
+2026-11-07 23:00:35 | DEBUG    | Tapped (1141, 952) [offset=(+7, +15)] after 0.34s delay
+2026-11-07 23:00:35 | DEBUG    | Tapped (1141, 952)
+2026-11-07 23:00:36 | INFO     | ── Step 76 ──────────────────────────────────
+2026-11-07 23:00:39 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:00:39 | DEBUG    | Waste pile: 4 (conf=0.99)
+2026-11-07 23:00:39 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 23:00:42 | DEBUG    | Detected 4 tableau cards (4 face-up, 0 face-down)
+2026-11-07 23:00:42 | DEBUG    | Waste pile: 4 (conf=0.99)
+2026-11-07 23:00:42 | DEBUG    | Yellow in stock ROI (8.8%) confined to left edge (right=0.0%) — deck with buried card, continuing blue check
+2026-11-07 23:00:42 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-07 23:00:42 | INFO     | Parsed BoardState(waste=4, playable=['J', '8', 'J', '6'], faceup=4, facedown=0, stock=True, wild=True)
+2026-11-07 23:00:42 | INFO     | Waste=[4]  Playable=4 (J#0, 8#1, J#2, 6#3)  Tableau=4  Stock=YES  StockWILD=NO  WILD=YES
+2026-11-07 23:00:42 | INFO     | Move: DRAW_STOCK  target=—  coord=(1134, 937)  score=5.0  reason=No legal tableau moves, draw next card from stock
+2026-11-07 23:00:44 | DEBUG    | Tapped (1121, 916) [offset=(-13, -21)] after 1.55s delay
+2026-11-07 23:00:44 | DEBUG    | Tapped (1121, 916)
+2026-11-07 23:00:45 | INFO     | ── Step 77 ──────────────────────────────────
+2026-11-07 23:00:47 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:00:47 | DEBUG    | Waste pile: 6 (conf=0.99)
+2026-11-07 23:00:47 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 23:00:50 | DEBUG    | Detected 4 tableau cards (4 face-up, 0 face-down)
+2026-11-07 23:00:50 | DEBUG    | Waste pile: 6 (conf=0.99)
+2026-11-07 23:00:50 | DEBUG    | Yellow in stock ROI (64.6%) but WILD card detected in stock — not a buy-prompt, continuing blue check
+2026-11-07 23:00:50 | DEBUG    | WILD button detected at (2277, 875) (conf=0.78)
+2026-11-07 23:00:50 | INFO     | Parsed BoardState(waste=6, playable=['J', '8', 'J', '6'], faceup=4, facedown=0, stock=True, wild=True)
+2026-11-07 23:00:50 | INFO     | Waste=[6]  Playable=4 (J#0, 8#1, J#2, 6#3)  Tableau=4  Stock=EMPTY  StockWILD=YES  WILD=YES
+2026-11-07 23:00:50 | INFO     | Move: DRAW_STOCK  target=—  coord=(1134, 937)  score=90.0  reason=WILD is in the center stack — play undoubtedly!
+2026-11-07 23:00:51 | DEBUG    | Tapped (1150, 942) [offset=(+16, +5)] after 0.66s delay
+2026-11-07 23:00:51 | DEBUG    | Tapped (1150, 942)
+2026-11-07 23:00:52 | INFO     | ── Step 78 ──────────────────────────────────
+2026-11-07 23:00:53 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:00:54 | DEBUG    | Waste pile: WILD (conf=0.81)
+2026-11-07 23:00:54 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 23:00:57 | DEBUG    | Detected 4 tableau cards (4 face-up, 0 face-down)
+2026-11-07 23:00:57 | DEBUG    | Waste pile: WILD (conf=0.81)
+2026-11-07 23:00:57 | DEBUG    | WILD button detected at (2277, 875) (conf=0.76)
+2026-11-07 23:00:57 | INFO     | Parsed BoardState(waste=WILD, playable=['J', '8', 'J', '6'], faceup=4, facedown=0, stock=True, wild=True)
+2026-11-07 23:00:57 | INFO     | Waste=[WILD]  Playable=4 (J#0, 8#1, J#2, 6#3)  Tableau=4  Stock=YES  StockWILD=NO  WILD=YES
+2026-11-07 23:00:57 | DEBUG    | Candidate Move: J at (1357, 308) -> score=10.0 (plays J)
+2026-11-07 23:00:57 | DEBUG    | Candidate Move: 8 at (1782, 309) -> score=10.0 (plays 8)
+2026-11-07 23:00:57 | DEBUG    | Candidate Move: J at (1624, 383) -> score=10.0 (plays J)
+2026-11-07 23:00:57 | DEBUG    | Candidate Move: 6 at (1461, 547) -> score=10.0 (plays 6)
+2026-11-07 23:00:57 | INFO     | Move: PLAY_CARD  target=J  coord=(np.int64(1357), np.int64(308))  score=10.0  reason=plays J
+2026-11-07 23:00:58 | DEBUG    | Tapped (1353, 316) [offset=(-4, +8)] after 0.76s delay
+2026-11-07 23:00:58 | DEBUG    | Tapped (1353, 316)
+2026-11-07 23:00:59 | INFO     | ── Step 79 ──────────────────────────────────
+2026-11-07 23:01:00 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:01:01 | DEBUG    | Waste pile: J (conf=1.00)
+2026-11-07 23:01:01 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 23:01:03 | DEBUG    | Detected 3 tableau cards (3 face-up, 0 face-down)
+2026-11-07 23:01:03 | DEBUG    | Waste pile: J (conf=1.00)
+2026-11-07 23:01:03 | DEBUG    | WILD button detected at (2277, 875) (conf=0.81)
+2026-11-07 23:01:03 | INFO     | Parsed BoardState(waste=J, playable=['8', 'J', '6'], faceup=3, facedown=0, stock=True, wild=True)
+2026-11-07 23:01:03 | INFO     | Waste=[J]  Playable=3 (8#0, J#1, 6#2)  Tableau=3  Stock=YES  StockWILD=NO  WILD=YES
+2026-11-07 23:01:03 | INFO     | Move: DRAW_STOCK  target=—  coord=(1134, 937)  score=5.0  reason=No legal tableau moves, draw next card from stock
+2026-11-07 23:01:04 | DEBUG    | Tapped (1119, 963) [offset=(-15, +26)] after 0.83s delay
+2026-11-07 23:01:04 | DEBUG    | Tapped (1119, 963)
+2026-11-07 23:01:06 | INFO     | ── Step 80 ──────────────────────────────────
+2026-11-07 23:01:07 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:01:07 | DEBUG    | Waste pile: 2 (conf=0.99)
+2026-11-07 23:01:07 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 23:01:10 | DEBUG    | Detected 3 tableau cards (3 face-up, 0 face-down)
+2026-11-07 23:01:10 | DEBUG    | Waste pile: 2 (conf=0.99)
+2026-11-07 23:01:10 | DEBUG    | WILD button detected at (2277, 875) (conf=0.80)
+2026-11-07 23:01:10 | INFO     | Parsed BoardState(waste=2, playable=['8', 'J', '6'], faceup=3, facedown=0, stock=True, wild=True)
+2026-11-07 23:01:10 | INFO     | Waste=[2]  Playable=3 (8#0, J#1, 6#2)  Tableau=3  Stock=YES  StockWILD=NO  WILD=YES
+2026-11-07 23:01:10 | INFO     | Move: DRAW_STOCK  target=—  coord=(1134, 937)  score=5.0  reason=No legal tableau moves, draw next card from stock
+2026-11-07 23:01:11 | DEBUG    | Tapped (1122, 950) [offset=(-12, +13)] after 0.89s delay
+2026-11-07 23:01:11 | DEBUG    | Tapped (1122, 950)
+2026-11-07 23:01:12 | INFO     | ── Step 81 ──────────────────────────────────
+2026-11-07 23:01:14 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:01:14 | DEBUG    | Waste pile: J (conf=1.00)
+2026-11-07 23:01:14 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 23:01:17 | DEBUG    | Detected 3 tableau cards (3 face-up, 0 face-down)
+2026-11-07 23:01:17 | DEBUG    | Waste pile: J (conf=1.00)
+2026-11-07 23:01:17 | DEBUG    | WILD button detected at (2277, 875) (conf=0.83)
+2026-11-07 23:01:17 | INFO     | Parsed BoardState(waste=J, playable=['8', 'J', '6'], faceup=3, facedown=0, stock=True, wild=True)
+2026-11-07 23:01:17 | INFO     | Waste=[J]  Playable=3 (8#0, J#1, 6#2)  Tableau=3  Stock=YES  StockWILD=NO  WILD=YES
+2026-11-07 23:01:17 | INFO     | Move: DRAW_STOCK  target=—  coord=(1134, 937)  score=5.0  reason=No legal tableau moves, draw next card from stock
+2026-11-07 23:01:18 | DEBUG    | Tapped (1126, 940) [offset=(-8, +3)] after 0.82s delay
+2026-11-07 23:01:18 | DEBUG    | Tapped (1126, 940)
+2026-11-07 23:01:19 | INFO     | ── Step 82 ──────────────────────────────────
+2026-11-07 23:01:21 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:01:21 | DEBUG    | Waste pile: A (conf=0.99)
+2026-11-07 23:01:21 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 23:01:24 | DEBUG    | Detected 3 tableau cards (3 face-up, 0 face-down)
+2026-11-07 23:01:24 | DEBUG    | Waste pile: A (conf=0.99)
+2026-11-07 23:01:24 | DEBUG    | WILD button detected at (2277, 875) (conf=0.79)
+2026-11-07 23:01:24 | INFO     | Parsed BoardState(waste=A, playable=['8', 'J', '6'], faceup=3, facedown=0, stock=True, wild=True)
+2026-11-07 23:01:24 | INFO     | Waste=[A]  Playable=3 (8#0, J#1, 6#2)  Tableau=3  Stock=YES  StockWILD=NO  WILD=YES
+2026-11-07 23:01:24 | INFO     | Move: DRAW_STOCK  target=—  coord=(1134, 937)  score=5.0  reason=No legal tableau moves, draw next card from stock
+2026-11-07 23:01:24 | DEBUG    | Tapped (1110, 910) [offset=(-24, -27)] after 0.41s delay
+2026-11-07 23:01:24 | DEBUG    | Tapped (1110, 910)
+2026-11-07 23:01:25 | INFO     | ── Step 83 ──────────────────────────────────
+2026-11-07 23:01:27 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:01:27 | DEBUG    | Waste pile: 7 (conf=0.99)
+2026-11-07 23:01:27 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 23:01:30 | DEBUG    | Detected 3 tableau cards (3 face-up, 0 face-down)
+2026-11-07 23:01:30 | DEBUG    | Waste pile: 7 (conf=0.99)
+2026-11-07 23:01:30 | INFO     | Parsed BoardState(waste=7, playable=['8', 'J', '6'], faceup=3, facedown=0, stock=True, wild=False)
+2026-11-07 23:01:30 | INFO     | Waste=[7]  Playable=3 (8#0, J#1, 6#2)  Tableau=3  Stock=YES  StockWILD=NO  WILD=NO
+2026-11-07 23:01:30 | DEBUG    | Candidate Move: 8 at (1782, 309) -> score=10.0 (plays 8)
+2026-11-07 23:01:30 | DEBUG    | Candidate Move: 6 at (1461, 547) -> score=10.0 (plays 6)
+2026-11-07 23:01:30 | INFO     | Move: PLAY_CARD  target=8  coord=(np.int64(1782), np.int64(309))  score=10.0  reason=plays 8
+2026-11-07 23:01:31 | DEBUG    | Tapped (1787, 321) [offset=(+5, +12)] after 1.21s delay
+2026-11-07 23:01:31 | DEBUG    | Tapped (1787, 321)
+2026-11-07 23:01:32 | INFO     | ── Step 84 ──────────────────────────────────
+2026-11-07 23:01:34 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:01:34 | DEBUG    | Waste pile: 8 (conf=0.99)
+2026-11-07 23:01:34 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 23:01:37 | DEBUG    | Detected 4 tableau cards (2 face-up, 2 face-down)
+2026-11-07 23:01:37 | DEBUG    | Occlusion: Card 2 (J) blocks Card 0 (BACK) [overlap=3329px²]
+2026-11-07 23:01:37 | DEBUG    | Waste pile: 8 (conf=0.99)
+2026-11-07 23:01:37 | DEBUG    | WILD button detected at (2277, 875) (conf=0.75)
+2026-11-07 23:01:37 | INFO     | Parsed BoardState(waste=8, playable=['J', '6'], faceup=2, facedown=2, stock=True, wild=True)
+2026-11-07 23:01:37 | INFO     | Waste=[8]  Playable=2 (J#2, 6#3)  Tableau=4  Stock=YES  StockWILD=NO  WILD=YES
+2026-11-07 23:01:37 | INFO     | Move: DRAW_STOCK  target=—  coord=(1134, 937)  score=5.0  reason=No legal tableau moves, draw next card from stock
+2026-11-07 23:01:38 | DEBUG    | Tapped (1131, 976) [offset=(-3, +39)] after 0.42s delay
+2026-11-07 23:01:38 | DEBUG    | Tapped (1131, 976)
+2026-11-07 23:01:39 | INFO     | ── Step 85 ──────────────────────────────────
+2026-11-07 23:01:40 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:01:40 | DEBUG    | Waste pile: 9 (conf=1.00)
+2026-11-07 23:01:40 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 23:01:43 | DEBUG    | Detected 4 tableau cards (2 face-up, 2 face-down)
+2026-11-07 23:01:43 | DEBUG    | Occlusion: Card 2 (J) blocks Card 0 (BACK) [overlap=3329px²]
+2026-11-07 23:01:43 | DEBUG    | Waste pile: 9 (conf=1.00)
+2026-11-07 23:01:43 | INFO     | Parsed BoardState(waste=9, playable=['J', '6'], faceup=2, facedown=2, stock=True, wild=False)
+2026-11-07 23:01:43 | INFO     | Waste=[9]  Playable=2 (J#2, 6#3)  Tableau=4  Stock=YES  StockWILD=NO  WILD=NO
+2026-11-07 23:01:43 | INFO     | Move: DRAW_STOCK  target=—  coord=(1134, 937)  score=5.0  reason=No legal tableau moves, draw next card from stock
+2026-11-07 23:01:45 | DEBUG    | Tapped (1118, 938) [offset=(-16, +1)] after 1.25s delay
+2026-11-07 23:01:45 | DEBUG    | Tapped (1118, 938)
+2026-11-07 23:01:46 | INFO     | ── Step 86 ──────────────────────────────────
+2026-11-07 23:01:47 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:01:48 | DEBUG    | Waste pile: 9 (conf=1.00)
+2026-11-07 23:01:48 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 23:01:50 | DEBUG    | Detected 4 tableau cards (2 face-up, 2 face-down)
+2026-11-07 23:01:50 | DEBUG    | Occlusion: Card 2 (J) blocks Card 0 (BACK) [overlap=3329px²]
+2026-11-07 23:01:51 | DEBUG    | Waste pile: 9 (conf=1.00)
+2026-11-07 23:01:51 | INFO     | Parsed BoardState(waste=9, playable=['J', '6'], faceup=2, facedown=2, stock=True, wild=False)
+2026-11-07 23:01:51 | INFO     | Waste=[9]  Playable=2 (J#2, 6#3)  Tableau=4  Stock=YES  StockWILD=NO  WILD=NO
+2026-11-07 23:01:51 | INFO     | Move: DRAW_STOCK  target=—  coord=(1134, 937)  score=5.0  reason=No legal tableau moves, draw next card from stock
+2026-11-07 23:01:52 | DEBUG    | Tapped (1148, 897) [offset=(+14, -40)] after 1.11s delay
+2026-11-07 23:01:52 | DEBUG    | Tapped (1148, 897)
+2026-11-07 23:01:53 | INFO     | ── Step 87 ──────────────────────────────────
+2026-11-07 23:01:54 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:01:54 | DEBUG    | Waste pile: 9 (conf=1.00)
+2026-11-07 23:01:54 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 23:01:57 | DEBUG    | Detected 4 tableau cards (2 face-up, 2 face-down)
+2026-11-07 23:01:57 | DEBUG    | Occlusion: Card 2 (J) blocks Card 0 (BACK) [overlap=3329px²]
+2026-11-07 23:01:57 | DEBUG    | Waste pile: 9 (conf=1.00)
+2026-11-07 23:01:57 | DEBUG    | WILD button detected at (2277, 875) (conf=0.78)
+2026-11-07 23:01:57 | INFO     | Parsed BoardState(waste=9, playable=['J', '6'], faceup=2, facedown=2, stock=True, wild=True)
+2026-11-07 23:01:57 | INFO     | Waste=[9]  Playable=2 (J#2, 6#3)  Tableau=4  Stock=YES  StockWILD=NO  WILD=YES
+2026-11-07 23:01:57 | INFO     | Move: DRAW_STOCK  target=—  coord=(1134, 937)  score=5.0  reason=No legal tableau moves, draw next card from stock
+2026-11-07 23:01:58 | DEBUG    | Tapped (1143, 925) [offset=(+9, -12)] after 0.89s delay
+2026-11-07 23:01:58 | DEBUG    | Tapped (1143, 925)
+2026-11-07 23:02:00 | INFO     | ── Step 88 ──────────────────────────────────
+2026-11-07 23:02:01 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:02:01 | DEBUG    | Waste pile: 10 (conf=1.00)
+2026-11-07 23:02:01 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 23:02:04 | DEBUG    | Detected 4 tableau cards (2 face-up, 2 face-down)
+2026-11-07 23:02:04 | DEBUG    | Occlusion: Card 2 (J) blocks Card 0 (BACK) [overlap=3329px²]
+2026-11-07 23:02:04 | DEBUG    | Waste pile: 10 (conf=1.00)
+2026-11-07 23:02:04 | DEBUG    | WILD button detected at (2277, 875) (conf=0.77)
+2026-11-07 23:02:04 | INFO     | Parsed BoardState(waste=10, playable=['J', '6'], faceup=2, facedown=2, stock=True, wild=True)
+2026-11-07 23:02:04 | INFO     | Waste=[10]  Playable=2 (J#2, 6#3)  Tableau=4  Stock=YES  StockWILD=NO  WILD=YES
+2026-11-07 23:02:04 | DEBUG    | Candidate Move: J at (1624, 383) -> score=35.0 (uncovers facedown #0)
+2026-11-07 23:02:04 | INFO     | Move: PLAY_CARD  target=J  coord=(np.int64(1624), np.int64(383))  score=35.0  reason=uncovers facedown #0
+2026-11-07 23:02:05 | DEBUG    | Tapped (1649, 386) [offset=(+25, +3)] after 0.60s delay
+2026-11-07 23:02:05 | DEBUG    | Tapped (1649, 386)
+2026-11-07 23:02:06 | INFO     | ── Step 89 ──────────────────────────────────
+2026-11-07 23:02:07 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:02:08 | DEBUG    | Waste pile: J (conf=1.00)
+2026-11-07 23:02:08 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 23:02:11 | DEBUG    | Detected 3 tableau cards (3 face-up, 0 face-down)
+2026-11-07 23:02:11 | DEBUG    | Waste pile: J (conf=1.00)
+2026-11-07 23:02:11 | DEBUG    | WILD button detected at (2277, 875) (conf=0.79)
+2026-11-07 23:02:11 | INFO     | Parsed BoardState(waste=J, playable=['K', '8', '6'], faceup=3, facedown=0, stock=True, wild=True)
+2026-11-07 23:02:11 | INFO     | Waste=[J]  Playable=3 (K#0, 8#1, 6#2)  Tableau=3  Stock=YES  StockWILD=NO  WILD=YES
+2026-11-07 23:02:11 | INFO     | Move: DRAW_STOCK  target=—  coord=(1134, 937)  score=5.0  reason=No legal tableau moves, draw next card from stock
+2026-11-07 23:02:12 | DEBUG    | Tapped (1131, 957) [offset=(-3, +20)] after 1.27s delay
+2026-11-07 23:02:12 | DEBUG    | Tapped (1131, 957)
+2026-11-07 23:02:13 | INFO     | ── Step 90 ──────────────────────────────────
+2026-11-07 23:02:15 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:02:15 | DEBUG    | Waste pile: J (conf=1.00)
+2026-11-07 23:02:15 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 23:02:18 | DEBUG    | Detected 3 tableau cards (3 face-up, 0 face-down)
+2026-11-07 23:02:18 | DEBUG    | Waste pile: J (conf=1.00)
+2026-11-07 23:02:18 | DEBUG    | WILD button detected at (2277, 875) (conf=0.81)
+2026-11-07 23:02:18 | INFO     | Parsed BoardState(waste=J, playable=['K', '8', '6'], faceup=3, facedown=0, stock=True, wild=True)
+2026-11-07 23:02:18 | INFO     | Waste=[J]  Playable=3 (K#0, 8#1, 6#2)  Tableau=3  Stock=YES  StockWILD=NO  WILD=YES
+2026-11-07 23:02:18 | INFO     | Move: DRAW_STOCK  target=—  coord=(1134, 937)  score=5.0  reason=No legal tableau moves, draw next card from stock
+2026-11-07 23:02:19 | DEBUG    | Tapped (1110, 899) [offset=(-24, -38)] after 1.51s delay
+2026-11-07 23:02:19 | DEBUG    | Tapped (1110, 899)
+2026-11-07 23:02:21 | INFO     | ── Step 91 ──────────────────────────────────
+2026-11-07 23:02:22 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:02:22 | DEBUG    | Waste pile: J (conf=1.00)
+2026-11-07 23:02:22 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 23:02:25 | DEBUG    | Detected 3 tableau cards (3 face-up, 0 face-down)
+2026-11-07 23:02:25 | DEBUG    | Waste pile: J (conf=1.00)
+2026-11-07 23:02:25 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-07 23:02:25 | INFO     | Parsed BoardState(waste=J, playable=['K', '8', '6'], faceup=3, facedown=0, stock=True, wild=True)
+2026-11-07 23:02:25 | INFO     | Waste=[J]  Playable=3 (K#0, 8#1, 6#2)  Tableau=3  Stock=YES  StockWILD=NO  WILD=YES
+2026-11-07 23:02:25 | INFO     | Move: DRAW_STOCK  target=—  coord=(1134, 937)  score=5.0  reason=No legal tableau moves, draw next card from stock
+2026-11-07 23:02:27 | DEBUG    | Tapped (1113, 957) [offset=(-21, +20)] after 1.16s delay
+2026-11-07 23:02:27 | DEBUG    | Tapped (1113, 957)
+2026-11-07 23:02:28 | INFO     | ── Step 92 ──────────────────────────────────
+2026-11-07 23:02:29 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:02:29 | DEBUG    | Waste pile: A (conf=0.99)
+2026-11-07 23:02:29 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 23:02:32 | DEBUG    | Detected 3 tableau cards (3 face-up, 0 face-down)
+2026-11-07 23:02:32 | DEBUG    | Waste pile: A (conf=0.99)
+2026-11-07 23:02:32 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-07 23:02:32 | INFO     | Parsed BoardState(waste=A, playable=['K', '8', '6'], faceup=3, facedown=0, stock=True, wild=True)
+2026-11-07 23:02:32 | INFO     | Waste=[A]  Playable=3 (K#0, 8#1, 6#2)  Tableau=3  Stock=YES  StockWILD=NO  WILD=YES
+2026-11-07 23:02:32 | DEBUG    | Candidate Move: K at (1608, 314) -> score=10.0 (plays K)
+2026-11-07 23:02:32 | INFO     | Move: PLAY_CARD  target=K  coord=(np.int64(1608), np.int64(314))  score=10.0  reason=plays K
+2026-11-07 23:02:33 | DEBUG    | Tapped (1617, 302) [offset=(+9, -12)] after 0.71s delay
+2026-11-07 23:02:33 | DEBUG    | Tapped (1617, 302)
+2026-11-07 23:02:34 | INFO     | ── Step 93 ──────────────────────────────────
+2026-11-07 23:02:36 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:02:36 | DEBUG    | Waste pile: K (conf=1.00)
+2026-11-07 23:02:36 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 23:02:39 | DEBUG    | Detected 2 tableau cards (2 face-up, 0 face-down)
+2026-11-07 23:02:39 | DEBUG    | Waste pile: K (conf=1.00)
+2026-11-07 23:02:39 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-07 23:02:39 | INFO     | Parsed BoardState(waste=K, playable=['8', '6'], faceup=2, facedown=0, stock=True, wild=True)
+2026-11-07 23:02:39 | INFO     | Waste=[K]  Playable=2 (8#0, 6#1)  Tableau=2  Stock=YES  StockWILD=NO  WILD=YES
+2026-11-07 23:02:39 | INFO     | Move: DRAW_STOCK  target=—  coord=(1134, 937)  score=5.0  reason=No legal tableau moves, draw next card from stock
+2026-11-07 23:02:40 | DEBUG    | Tapped (1129, 952) [offset=(-5, +15)] after 0.88s delay
+2026-11-07 23:02:40 | DEBUG    | Tapped (1129, 952)
+2026-11-07 23:02:41 | INFO     | ── Step 94 ──────────────────────────────────
+2026-11-07 23:02:42 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:02:42 | DEBUG    | Waste pile: 8 (conf=0.99)
+2026-11-07 23:02:42 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 23:02:45 | DEBUG    | Detected 2 tableau cards (2 face-up, 0 face-down)
+2026-11-07 23:02:45 | DEBUG    | Waste pile: 8 (conf=0.99)
+2026-11-07 23:02:45 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-07 23:02:45 | INFO     | Parsed BoardState(waste=8, playable=['8', '6'], faceup=2, facedown=0, stock=True, wild=True)
+2026-11-07 23:02:45 | INFO     | Waste=[8]  Playable=2 (8#0, 6#1)  Tableau=2  Stock=YES  StockWILD=NO  WILD=YES
+2026-11-07 23:02:45 | INFO     | Move: DRAW_STOCK  target=—  coord=(1134, 937)  score=5.0  reason=No legal tableau moves, draw next card from stock
+2026-11-07 23:02:47 | DEBUG    | Tapped (1135, 944) [offset=(+1, +7)] after 1.19s delay
+2026-11-07 23:02:47 | DEBUG    | Tapped (1135, 944)
+2026-11-07 23:02:48 | INFO     | ── Step 95 ──────────────────────────────────
+2026-11-07 23:02:49 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:02:49 | DEBUG    | Waste pile: 5 (conf=1.00)
+2026-11-07 23:02:49 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 23:02:52 | DEBUG    | Detected 2 tableau cards (2 face-up, 0 face-down)
+2026-11-07 23:02:53 | DEBUG    | Waste pile: 5 (conf=1.00)
+2026-11-07 23:02:53 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-07 23:02:53 | INFO     | Parsed BoardState(waste=5, playable=['8', '6'], faceup=2, facedown=0, stock=True, wild=True)
+2026-11-07 23:02:53 | INFO     | Waste=[5]  Playable=2 (8#0, 6#1)  Tableau=2  Stock=YES  StockWILD=NO  WILD=YES
+2026-11-07 23:02:53 | DEBUG    | Candidate Move: 6 at (1461, 547) -> score=10.0 (plays 6)
+2026-11-07 23:02:53 | INFO     | Move: PLAY_CARD  target=6  coord=(np.int64(1461), np.int64(547))  score=10.0  reason=plays 6
+2026-11-07 23:02:54 | DEBUG    | Tapped (1456, 570) [offset=(-5, +23)] after 1.39s delay
+2026-11-07 23:02:54 | DEBUG    | Tapped (1456, 570)
+2026-11-07 23:02:55 | INFO     | ── Step 96 ──────────────────────────────────
+2026-11-07 23:02:57 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:02:57 | DEBUG    | Waste pile: 6 (conf=0.99)
+2026-11-07 23:02:57 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 23:03:00 | DEBUG    | Detected 2 tableau cards (2 face-up, 0 face-down)
+2026-11-07 23:03:00 | DEBUG    | Waste pile: 6 (conf=0.99)
+2026-11-07 23:03:00 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-07 23:03:00 | INFO     | Parsed BoardState(waste=6, playable=['8', 'J'], faceup=2, facedown=0, stock=True, wild=True)
+2026-11-07 23:03:00 | INFO     | Waste=[6]  Playable=2 (8#0, J#1)  Tableau=2  Stock=YES  StockWILD=NO  WILD=YES
+2026-11-07 23:03:00 | INFO     | Move: DRAW_STOCK  target=—  coord=(1134, 937)  score=5.0  reason=No legal tableau moves, draw next card from stock
+2026-11-07 23:03:01 | DEBUG    | Tapped (1142, 918) [offset=(+8, -19)] after 1.44s delay
+2026-11-07 23:03:01 | DEBUG    | Tapped (1142, 918)
+2026-11-07 23:03:03 | INFO     | ── Step 97 ──────────────────────────────────
+2026-11-07 23:03:04 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:03:04 | DEBUG    | Waste pile: 7 (conf=0.99)
+2026-11-07 23:03:04 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 23:03:07 | DEBUG    | Detected 2 tableau cards (2 face-up, 0 face-down)
+2026-11-07 23:03:07 | DEBUG    | Waste pile: 7 (conf=0.99)
+2026-11-07 23:03:07 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-07 23:03:07 | INFO     | Parsed BoardState(waste=7, playable=['8', 'J'], faceup=2, facedown=0, stock=True, wild=True)
+2026-11-07 23:03:07 | INFO     | Waste=[7]  Playable=2 (8#0, J#1)  Tableau=2  Stock=YES  StockWILD=NO  WILD=YES
+2026-11-07 23:03:07 | DEBUG    | Candidate Move: 8 at (1765, 390) -> score=10.0 (plays 8)
+2026-11-07 23:03:07 | INFO     | Move: PLAY_CARD  target=8  coord=(np.int64(1765), np.int64(390))  score=10.0  reason=plays 8
+2026-11-07 23:03:08 | DEBUG    | Tapped (1765, 413) [offset=(+0, +23)] after 0.83s delay
+2026-11-07 23:03:08 | DEBUG    | Tapped (1765, 413)
+2026-11-07 23:03:09 | INFO     | ── Step 98 ──────────────────────────────────
+2026-11-07 23:03:11 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:03:11 | DEBUG    | Waste pile: 8 (conf=0.99)
+2026-11-07 23:03:11 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 23:03:14 | DEBUG    | Detected 1 tableau cards (1 face-up, 0 face-down)
+2026-11-07 23:03:14 | DEBUG    | Waste pile: 8 (conf=0.99)
+2026-11-07 23:03:14 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-07 23:03:14 | INFO     | Parsed BoardState(waste=8, playable=['J'], faceup=1, facedown=0, stock=True, wild=True)
+2026-11-07 23:03:14 | INFO     | Waste=[8]  Playable=1 (J#0)  Tableau=1  Stock=YES  StockWILD=NO  WILD=YES
+2026-11-07 23:03:14 | INFO     | Move: DRAW_STOCK  target=—  coord=(1134, 937)  score=5.0  reason=No legal tableau moves, draw next card from stock
+2026-11-07 23:03:15 | DEBUG    | Tapped (1133, 924) [offset=(-1, -13)] after 0.88s delay
+2026-11-07 23:03:15 | DEBUG    | Tapped (1133, 924)
+2026-11-07 23:03:16 | INFO     | ── Step 99 ──────────────────────────────────
+2026-11-07 23:03:17 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:03:18 | DEBUG    | Waste pile: 8 (conf=0.99)
+2026-11-07 23:03:18 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 23:03:20 | DEBUG    | Detected 1 tableau cards (1 face-up, 0 face-down)
+2026-11-07 23:03:21 | DEBUG    | Waste pile: 8 (conf=0.99)
+2026-11-07 23:03:21 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-07 23:03:21 | INFO     | Parsed BoardState(waste=8, playable=['J'], faceup=1, facedown=0, stock=True, wild=True)
+2026-11-07 23:03:21 | INFO     | Waste=[8]  Playable=1 (J#0)  Tableau=1  Stock=YES  StockWILD=NO  WILD=YES
+2026-11-07 23:03:21 | INFO     | Move: DRAW_STOCK  target=—  coord=(1134, 937)  score=5.0  reason=No legal tableau moves, draw next card from stock
+2026-11-07 23:03:22 | DEBUG    | Tapped (1118, 950) [offset=(-16, +13)] after 0.90s delay
+2026-11-07 23:03:22 | DEBUG    | Tapped (1118, 950)
+2026-11-07 23:03:23 | INFO     | ── Step 100 ──────────────────────────────────
+2026-11-07 23:03:24 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:03:24 | DEBUG    | Waste pile: A (conf=0.99)
+2026-11-07 23:03:24 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 23:03:27 | DEBUG    | Detected 1 tableau cards (1 face-up, 0 face-down)
+2026-11-07 23:03:27 | DEBUG    | Waste pile: A (conf=0.99)
+2026-11-07 23:03:27 | INFO     | Stock buy-prompt detected (10.1% yellow, right border 7.4%) — treating stock as EMPTY
+2026-11-07 23:03:27 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-07 23:03:27 | INFO     | Parsed BoardState(waste=A, playable=['J'], faceup=1, facedown=0, stock=False, wild=True)
+2026-11-07 23:03:27 | INFO     | Waste=[A]  Playable=1 (J#0)  Tableau=1  Stock=EMPTY  StockWILD=NO  WILD=YES
+2026-11-07 23:03:27 | INFO     | Move: PLAY_WILD  target=—  coord=(2277, 875)  score=100.0  reason=Stock empty and only 1 card left — use right bottom WILD to finish!
+2026-11-07 23:03:28 | DEBUG    | Tapped (2289, 859) [offset=(+12, -16)] after 0.64s delay
+2026-11-07 23:03:28 | DEBUG    | Tapped (2289, 859)
+2026-11-07 23:03:29 | INFO     | ── Step 101 ──────────────────────────────────
+2026-11-07 23:03:31 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:03:31 | DEBUG    | Waste pile: A (conf=0.99)
+2026-11-07 23:03:31 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 23:03:33 | DEBUG    | Detected 1 tableau cards (1 face-up, 0 face-down)
+2026-11-07 23:03:34 | DEBUG    | Waste pile: A (conf=0.99)
+2026-11-07 23:03:34 | INFO     | Stock buy-prompt detected (10.1% yellow, right border 7.4%) — treating stock as EMPTY
+2026-11-07 23:03:34 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-07 23:03:34 | INFO     | Parsed BoardState(waste=A, playable=['J'], faceup=1, facedown=0, stock=False, wild=True)
+2026-11-07 23:03:34 | INFO     | Waste=[A]  Playable=1 (J#0)  Tableau=1  Stock=EMPTY  StockWILD=NO  WILD=YES
+2026-11-07 23:03:34 | INFO     | Move: PLAY_WILD  target=—  coord=(2277, 875)  score=100.0  reason=Stock empty and only 1 card left — use right bottom WILD to finish!
+2026-11-07 23:03:35 | DEBUG    | Tapped (2274, 883) [offset=(-3, +8)] after 1.10s delay
+2026-11-07 23:03:35 | DEBUG    | Tapped (2274, 883)
+2026-11-07 23:03:36 | INFO     | ── Step 102 ──────────────────────────────────
+2026-11-07 23:03:37 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:03:37 | WARNING  | Waste pile card not detected
+2026-11-07 23:03:37 | INFO     | Detected screen state: CARDS_DEALING (Animations in progress)
+2026-11-07 23:03:37 | INFO     | Cards are being dealt. Waiting 2.0s for board to settle...
+2026-11-07 23:03:39 | INFO     | ── Step 103 ──────────────────────────────────
+2026-11-07 23:03:41 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:03:41 | WARNING  | Waste pile card not detected
+2026-11-07 23:03:41 | INFO     | Detected screen state: CARDS_DEALING (Animations in progress)
+2026-11-07 23:03:41 | INFO     | Cards are being dealt. Waiting 2.0s for board to settle...
+2026-11-07 23:03:43 | INFO     | ── Step 104 ──────────────────────────────────
+2026-11-07 23:03:44 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:03:44 | INFO     | Detected screen state: MAIN_MENU_COLLECT (Main Menu)
+2026-11-07 23:03:44 | INFO     | Navigation: MAIN_MENU_COLLECT -> Claimed hourly bonus (tapped purple COLLECT button) at (1240, 950)
+2026-11-07 23:03:46 | DEBUG    | Tapped (1232, 953) [offset=(-8, +3)] after 1.28s delay
+2026-11-07 23:03:46 | DEBUG    | Executed navigation tap at (1232, 953)
+2026-11-07 23:03:48 | INFO     | ── Step 105 ──────────────────────────────────
+2026-11-07 23:03:49 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:03:49 | INFO     | Detected screen state: PRE_LEVEL_MODAL (Level Start Confirmation)
+2026-11-07 23:03:49 | INFO     | Navigation: PRE_LEVEL_MODAL -> Started level (tapped green PLAY button in modal) at (1204, 814)
+2026-11-07 23:03:50 | DEBUG    | Tapped (1212, 804) [offset=(+8, -10)] after 0.90s delay
+2026-11-07 23:03:50 | DEBUG    | Executed navigation tap at (1212, 804)
+2026-11-07 23:03:52 | INFO     | ── Step 106 ──────────────────────────────────
+2026-11-07 23:03:54 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 23:03:54 | WARNING  | Waste pile card not detected
+2026-11-07 23:03:54 | INFO     | Detected screen state: CARDS_DEALING (Animations in progress)
+2026-11-07 23:03:54 | INFO     | Cards are being dealt. Waiting 2.0s for board to settle...
+2026-11-07 23:03:56 | INFO     | ── Step 107 ──────────────────────────────────
+2026-11-07 23:03:56 | INFO     | Interrupted by user (Ctrl+C). Exiting.

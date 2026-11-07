@@ -61,6 +61,8 @@ class BoardState:
     has_undo: bool = False
     has_wild: bool = False           # Bought/expensive WILD card in bottom-right corner
     wild_coord: tuple[int, int] = (2277, 875)  # Coordinates of bottom-right WILD card
+    has_end_level: bool = False      # END LEVEL button visible in bottom-left corner
+    end_level_coord: tuple[int, int] = (571, 978)  # Coordinates of END LEVEL button
 
     @property
     def has_stock(self) -> bool:
@@ -101,5 +103,6 @@ class BoardState:
             f"playable={playable}, "
             f"faceup={len(self.faceup_cards)}, "
             f"facedown={len(self.facedown_cards)}, "
-            f"stock={self.has_stock}, wild={self.has_wild})"
+            f"stock={self.has_stock}, wild={self.has_wild}, "
+            f"end_level={self.has_end_level})"
         )

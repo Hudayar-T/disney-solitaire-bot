@@ -44,7 +44,7 @@ The bot runs a continuous loop: **Screencap → Menu Check → Board Parse → S
 Single source of truth for every coordinate, ROI, threshold, and timing constant. **All other modules import from here — never hardcode coordinates.**
 
 - **L7-12:** Screen dimensions (2400×1080 landscape) and `TABLEAU_ROI` (where card piles live).
-- **L16-26:** Fixed UI positions — `STOCK_CENTER`, `WASTE_CENTER`, `UNDO_CENTER`, `WILD_CENTER/ROI`.
+- **L16-28:** Fixed UI positions — `STOCK_CENTER`, `WASTE_CENTER`, `UNDO_CENTER`, `WILD_CENTER/ROI`, `END_LEVEL_CENTER/ROI`.
 - **L29-37:** Template matching settings (threshold 0.72, angles ±48°) and anti-bot timing/jitter constants.
 - **L41-53:** Menu/modal button ROIs and tap centers (`MENU_COLLECT`, `MENU_PLAY`, `MODAL_PLAY`, `POPUP_DISMISS_COORD`).
 - **L56-63:** HSV color ranges for menu detection and `DEAL_ANIMATION_WAIT = 2.0s`.
@@ -68,7 +68,7 @@ Core card detection engine. Segments face-down cards via HSV color, identifies f
 - **L150-259:** Card detection — `detect_facedown()` uses HSV segmentation + contour analysis; `detect_faceup()` uses multi-angle template matching (threshold ≥ 0.72); `detect()` combines both, sorted by position.
 - **L261-286:** `detect_waste()` — glyph match in 220×320 ROI around waste center, with WILD template fallback.
 - **L288-368:** Stock detection — `detect_normal_stock_present()` implements the WILD-first disambiguation algorithm (yellow ratio → WILD template → right-half yellow check → blue ratio fallback); `detect_stock_has_wild()` and `detect_stock_present()` wrap the logic.
-- **L370-405:** `detect_undo_present()` and `detect_wild_present()` — template matches for undo button and bottom-right corner WILD card.
+- **L370-435:** `detect_undo_present()`, `detect_wild_present()`, and `detect_end_level_present()` — template matches for undo button, bottom-right corner WILD card, and bottom-left red END LEVEL button (with HSV red fallback).
 
 **Also in `vision/`:**
 - `menu_detector.py` (147 lines) — See §5 below.
@@ -94,10 +94,10 @@ The `handle_menu_navigation/` folder is **reference screenshots only** (no code)
 
 Move selection, chain search, and WILD usage rules.
 
-- **L22-45:** Constants, `MoveType` enum (`PLAY_CARD`, `DRAW_STOCK`, `PLAY_WILD`, `NO_MOVES`), and `Move` dataclass.
+- **L22-45:** Constants, `MoveType` enum (`PLAY_CARD`, `DRAW_STOCK`, `PLAY_WILD`, `END_LEVEL`, `NO_MOVES`), and `Move` dataclass.
 - **L48-102:** Move helpers — `are_ranks_adjacent()` (±1 with A↔K wrap), `get_legal_tableau_moves()`, `simulate_play_card()` (removes card from DAG).
 - **L112-229:** Scoring engine — `find_best_chain()` does recursive DFS lookahead (max depth 10) with unblock bonuses (+35 mystery, +25 facedown, +15 faceup); `can_chain_clear_tableau()` tests full clearability for WILD decisions; `score_tableau_move()` combines immediate unblocks + chain lookahead.
-- **L238-320:** `Solver.choose_move()` — **Decision hierarchy**: ① highest-scored tableau move; ② stock WILD on top (score=90); ③ normal stock draw (score=5); ④ corner WILD only if 1 card left or can chain-clear; ⑤ NO_MOVES.
+- **L238-335:** `Solver.choose_move()` — **Decision hierarchy**: ① highest-scored tableau move; ② stock WILD on top (score=90); ③ normal stock draw (score=5); ④ corner WILD only if 1 card left or can chain-clear; ⑤ END_LEVEL if button is visible / board un-clearable; ⑥ NO_MOVES.
 
 ### 7. Game Loop — `main.py` (229 lines) & `live_step.py` (197 lines)
 
@@ -125,7 +125,7 @@ main.py loop:
   Solver.choose_move(state)  (engine/solver.py:238)
     → get_legal_tableau_moves()   rank ±1 adjacency  (engine/solver.py:64)
     → score_tableau_move()        unblock value + DFS chain  (engine/solver.py:188)
-    → Move decision hierarchy     play > draw > wild > no_moves
+    → Move decision hierarchy     play > draw > wild > end_level > no_moves
     ↓
   adb_controller.tap(dev, x, y)  Gaussian jitter + random delay  (adb_controller.py:83)
     ↓

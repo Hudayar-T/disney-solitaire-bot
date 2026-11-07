@@ -27,6 +27,7 @@ class MoveType(Enum):
     PLAY_CARD = auto()   # Tap a playable card on the tableau
     DRAW_STOCK = auto()  # Tap stock deck to flip next card
     PLAY_WILD = auto()   # Tap wild card (last resort)
+    END_LEVEL = auto()   # Tap END LEVEL button when out of moves/stock
     NO_MOVES = auto()    # Game stuck / out of moves
 
 
@@ -312,7 +313,18 @@ class Solver:
             else:
                 logger.info("Right bottom WILD available, but remaining cards cannot finish the game without more cards.")
 
-        # 4. Out of moves
+        # 4. Out of moves / stock empty:
+        # If END LEVEL button is visible (or stock empty and remaining cards cannot finish),
+        # tap END LEVEL to end the level gracefully.
+        if state.has_end_level:
+            return Move(
+                move_type=MoveType.END_LEVEL,
+                tap_coord=state.end_level_coord,
+                score=1.0,
+                reason="Stock empty and remaining cards cannot finish board — tap END LEVEL",
+            )
+
+        # 5. Out of moves (stuck mid-level or no END LEVEL button visible)
         return Move(
             move_type=MoveType.NO_MOVES,
             score=0.0,

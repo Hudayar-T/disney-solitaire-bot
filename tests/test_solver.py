@@ -124,12 +124,43 @@ state_g = BoardState(
     waste=Card(card_id=0, rank="J", cx=1336, cy=937, w=130, h=200),
     has_normal_stock=False,
     stock_has_wild=False,
-    has_wild=True
+    has_wild=True,
+    has_end_level=False
 )
 move_g = solver.choose_move(state_g)
-print("\nCase G (Right bottom WILD only, un-chainable cards -> STRICT RULE: NO_MOVES):")
+print("\nCase G (Right bottom WILD only, un-chainable cards, no end level -> STRICT RULE: NO_MOVES):")
 print(f"  Expected: NO_MOVES | Got: {move_g.move_type.name} ({move_g.reason})")
 assert move_g.move_type == MoveType.NO_MOVES, "Right bottom WILD must obey strict rules!"
+
+# Case H: Stock empty, un-chainable cards, END LEVEL button visible -> TAP END LEVEL!
+state_h = BoardState(
+    tableau=[
+        Card(card_id=1, rank="2", cx=1000, cy=500, w=130, h=200),
+        Card(card_id=2, rank="6", cx=1200, cy=500, w=130, h=200),
+    ],
+    waste=Card(card_id=0, rank="J", cx=1336, cy=937, w=130, h=200),
+    has_normal_stock=False,
+    stock_has_wild=False,
+    has_wild=True,
+    has_end_level=True,
+    end_level_coord=(571, 978)
+)
+move_h = solver.choose_move(state_h)
+print("\nCase H (Stock empty, cannot clear, END LEVEL button visible -> TAP END LEVEL):")
+print(f"  Expected: END_LEVEL | Got: {move_h.move_type.name} ({move_h.reason})")
+assert move_h.move_type == MoveType.END_LEVEL, "Should tap END LEVEL when stock empty and board un-clearable!"
+assert move_h.tap_coord == (571, 978), f"Tap coord should match end_level_coord, got {move_h.tap_coord}"
+
+# Case I: Real end_level screenshot -> MUST CHOOSE END_LEVEL
+img_end = cv2.imread("tests/screenshots/end_level/end_level_20261107_223046.png")
+if img_end is not None:
+    state_end = parser.parse(img_end)
+    move_end = solver.choose_move(state_end)
+    print("\nCase I (Real Screenshot end_level_20261107_223046.png):")
+    print(f"  has_end_level: {state_end.has_end_level}")
+    print(f"  Decision: {move_end}")
+    assert state_end.has_end_level is True, "end_level button must be detected in real screenshot!"
+    assert move_end.move_type == MoveType.END_LEVEL, "Solver must choose END_LEVEL on real end_level screenshot!"
 
 print("\n" + "=" * 60)
 print("ALL DECISION ENGINE TESTS PASSED!")

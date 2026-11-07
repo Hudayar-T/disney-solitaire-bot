@@ -170,7 +170,8 @@ def run(args: argparse.Namespace) -> None:
             f"Tableau={len(state.tableau)}  "
             f"Stock={'YES' if state.has_normal_stock else 'EMPTY'}  "
             f"StockWILD={'YES' if state.stock_has_wild else 'NO'}  "
-            f"WILD={'YES' if state.has_wild else 'NO'}"
+            f"WILD={'YES' if state.has_wild else 'NO'}  "
+            f"EndLevel={'YES' if state.has_end_level else 'NO'}"
         )
 
         # ── 4. Win check ───────────────────────────────────────────────────────
@@ -216,6 +217,14 @@ def run(args: argparse.Namespace) -> None:
             break
 
         # ── 6. Wait for animations ─────────────────────────────────────────────
+        if move.move_type == MoveType.END_LEVEL:
+            logger.warning("Ending level — waiting for defeat/transition screen...")
+            if args.single_level:
+                logger.info("Stopping because --single-level was specified.")
+                break
+            time.sleep(2.5)  # Allow transition to settle
+            continue
+
         time.sleep(config.SCREENCAP_INTERVAL)
 
     logger.info("Bot session ended.")

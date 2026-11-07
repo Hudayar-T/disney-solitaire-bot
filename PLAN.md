@@ -27,7 +27,7 @@
 
 ### Phase 6 — Game Loop & Live Testing
 - [x] **6.1 Autonomous Game Loop:** `main.py` pipeline (capture → parse → solve → tap → settle) with `--max-steps` and `--save-screens`.
-- [x] **6.2 Basic Win & Stuck Handling:** Board cleared win check (`len(state.tableau) == 0`) and patience retry streak (`no_move_streak >= NO_MOVE_PATIENCE`).
+- [x] **6.2 Win, Stuck & Out-of-Stock Handling:** Board cleared win check (`len(state.tableau) == 0`), patience retry streak (`no_move_streak >= NO_MOVE_PATIENCE`), and graceful level exit via bottom-left red "END LEVEL" button when stock is depleted and tableau cannot be finished with WILD.
 - [ ] **6.3 End-to-End Live Play Test:** Let the bot play a full live level autonomously on device; verify animation settling delays and reliability.
 
 ### Phase 7 — Menu Navigation & Level Progression (`handle_menu_navigation/`)
