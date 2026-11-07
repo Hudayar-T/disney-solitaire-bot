@@ -74,6 +74,7 @@
 | 2C.1 | Detect waste pile card (bottom-center, fixed ROI) | ✅ | Verified (5/5 accurate with 0.96-1.00 conf) |
 | 2C.2 | Detect stock pile presence (is deck empty?) | ✅ | Blue presence ratio check at `STOCK_CENTER` |
 | 2C.2b | Detect "buy +N cards" yellow border trap on stock pile | ✅ | Yellow/gold border HSV detection added to `detect_normal_stock_present()`. Checks for yellow pixels (H:15-40, S:80+, V:150+) before blue check. ≥5% yellow → stock treated as EMPTY. Verified: 0% yellow on real stock (1-11.jpg), 10.7% on buy prompt (13.jpg). |
+| 2C.2c | **Bug fix:** WILD cards in stock mistaken for buy-prompt | ✅ | Yellow WILD cards sitting in the stock pile also triggered the ≥5% yellow threshold, causing `detect_normal_stock_present()` to falsely return `False`. Fix: when yellow is detected in the stock ROI, first run `detect_stock_has_wild()` (template match). If a WILD is found → yellow comes from the WILD card, not the buy-prompt border → skip the false alarm and continue to the blue-card check. If no WILD → yellow is the buy-prompt → return `False`. Regression tests in `tests/test_stock_yellow_bug.py` cover: real screenshot with WILDs alongside blue cards, synthetic buy-prompt, synthetic WILD-body-yellow + blue center, and `proposed_move.jpg` (+5 for 7,500 coins prompt → correctly `False`). |
 | 2C.3 | Detect WILD card availability | ✅ | Template match with user's cropped WILD template |
 | 2C.4 | Test UI detection on screenshots | ✅ | Waste, stock, undo, wild verified on all 5 images |
 
@@ -144,4 +145,4 @@
 
 ---
 
-*Last updated: Phase 2 starting — plan revised with HSV segmentation + DAG approach from suggestions*
+*Last updated: Bug fix 2C.2c — WILD-in-stock yellow disambiguation for buy-prompt detection*

@@ -286,25 +286,48 @@ class CardDetector:
 
     def detect_normal_stock_present(self, screen: np.ndarray) -> bool:
         """Check if regular blue-backed cards remain in the stock pile.
-        
-        IMPORTANT: First checks for the yellow/gold border that indicates
-        a paid "buy +N cards" prompt. If the yellow border is detected,
-        the stock is treated as EMPTY regardless of blue pixel presence
-        (the buy prompt still shows blue card imagery inside the border).
+
+        IMPORTANT: Detects the yellow/gold *border* that indicates a paid
+        "buy +N cards" prompt, while NOT being fooled by yellow WILD cards
+        that may be sitting in the stock pile.
+
+        Strategy — WILD-first disambiguation:
+          Before checking for the yellow buy-prompt border, we first run a
+          template match for a WILD card in the stock area.  If a WILD card is
+          detected there, any yellow in the ROI belongs to the WILD card, NOT
+          to a buy-prompt border.  We skip the yellow check entirely in that
+          case and fall straight through to the blue-card check.
+
+          If no WILD is found in the stock, yellow in the ROI reliably signals
+          the buy-prompt, and we return False (stock empty / do not tap).
         """
         sx, sy = config.STOCK_CENTER
         hw, hh = 100, 100
         roi = screen[sy-hh:sy+hh, sx-hw:sx+hw]
         hsv = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
 
-        # Check for yellow/gold border (buy prompt trap)
         yellow_mask = cv2.inRange(hsv, YELLOW_LOWER, YELLOW_UPPER)
         yellow_ratio = float(np.count_nonzero(yellow_mask)) / yellow_mask.size
-        if yellow_ratio > YELLOW_BORDER_THRESHOLD:
-            logger.info(f"Stock pile has yellow border ({yellow_ratio*100:.1f}% yellow) — 'buy cards' prompt detected, treating as EMPTY")
-            return False
 
-        # No yellow border — check for actual blue cards
+        if yellow_ratio > YELLOW_BORDER_THRESHOLD:
+            # Yellow detected — could be buy-prompt OR a WILD card in the stock.
+            # Disambiguate with a template match for the WILD card.
+            wild_in_stock = self.detect_stock_has_wild(screen)
+            if wild_in_stock:
+                # Yellow comes from the WILD card(s) — NOT a buy prompt.
+                logger.debug(
+                    f"Yellow in stock ROI ({yellow_ratio*100:.1f}%) but WILD card "
+                    f"detected in stock — not a buy-prompt, continuing blue check"
+                )
+            else:
+                # No WILD card found — yellow border is the buy-prompt trap.
+                logger.info(
+                    f"Stock buy-prompt detected ({yellow_ratio*100:.1f}% yellow, "
+                    f"no WILD in stock) — treating stock as EMPTY"
+                )
+                return False
+
+        # No buy prompt — check for actual blue cards in the central area
         small_roi = screen[sy-40:sy+40, sx-40:sx+40]
         hsv_small = cv2.cvtColor(small_roi, cv2.COLOR_BGR2HSV)
         blue_mask = cv2.inRange(hsv_small, BLUE_LOWER, BLUE_UPPER)
