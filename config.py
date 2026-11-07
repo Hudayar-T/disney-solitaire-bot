@@ -30,7 +30,7 @@ TEMPLATE_ANGLES          = [0, -10, 10, -20, 20, -30, 30, -40, 40, -48, 48]  # a
 
 # ── Timing & Anti-Bot Jitter ──────────────────────────────────────────────────
 TAP_DELAY_MIN = 0.3   # seconds — minimum pause between taps
-TAP_DELAY_MAX = 0.6   # seconds — maximum pause (randomised for human feel)
+TAP_DELAY_MAX = 1.6   # seconds — maximum pause (randomised for human feel)
 TAP_JITTER_X  = 30    # px — maximum random horizontal offset from center (68)
 TAP_JITTER_Y  = 40    # px — maximum random vertical offset from center (92)
 SCREENCAP_INTERVAL = 1.2  # seconds — wait after tap for flight & flip animations to settle

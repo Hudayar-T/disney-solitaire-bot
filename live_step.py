@@ -125,6 +125,7 @@ def run_interactive_loop():
             logger.success("🎉 CONGRATULATIONS! Tableau is completely cleared! GAME WON! 🎉")
             break
 
+        move = solver.choose_move(state)
         if move.move_type == MoveType.NO_MOVES:
             logger.warning(f"⛔ NO LEGAL MOVES AVAILABLE: {move.reason}")
             action = input("\n[r] to retry capture, [q] to quit: ").strip().lower()
@@ -163,33 +164,33 @@ def run_interactive_loop():
         print("=" * 60)
 
         # User confirmation prompt
-        # try:
-        #     choice = input(f"\n{tap_prompt}").strip().lower()
-        # except (KeyboardInterrupt, EOFError):
-        #     print("\nExiting interactive runner.")
-        #     break
-
-        # if choice == "q":
-        #     logger.info("Session stopped by user.")
-        #     break
-        # elif choice == "s":
-        #     logger.info("Move skipped by user. Re-evaluating next frame...")
-        #     continue
-        # else:
-        # Execute tap at the exact pre-computed target (apply_jitter=False)
-        logger.info(f"Tapping ({actual_tx}, {actual_ty})...")
         try:
-            ax, ay = adb_controller.tap(dev, actual_tx, actual_ty, apply_jitter=False)
-            logger.info(f"Tapped ({ax}, {ay}) on device")
-        except RuntimeError as e:
-            logger.error(f"\n{e}\n")
-            input("Press [Enter] after enabling the setting on your phone to retry...")
-            continue
+            choice = input(f"\n{tap_prompt}").strip().lower()
+        except (KeyboardInterrupt, EOFError):
+            print("\nExiting interactive runner.")
+            break
 
-        # Wait for animation to settle
-        settle_time = config.SCREENCAP_INTERVAL
-        logger.debug(f"Waiting {settle_time:.1f}s for animations...")
-        time.sleep(settle_time)
+        if choice == "q":
+            logger.info("Session stopped by user.")
+            break
+        elif choice == "s":
+            logger.info("Move skipped by user. Re-evaluating next frame...")
+            continue
+        else:
+            # Execute tap at the exact pre-computed target (apply_jitter=False)
+            logger.info(f"Tapping ({actual_tx}, {actual_ty})...")
+            try:
+                ax, ay = adb_controller.tap(dev, actual_tx, actual_ty, apply_jitter=False)
+                logger.info(f"Tapped ({ax}, {ay}) on device")
+            except RuntimeError as e:
+                logger.error(f"\n{e}\n")
+                input("Press [Enter] after enabling the setting on your phone to retry...")
+                continue
+
+            # Wait for animation to settle
+            settle_time = config.SCREENCAP_INTERVAL
+            logger.debug(f"Waiting {settle_time:.1f}s for animations...")
+            time.sleep(settle_time)
 
 
 if __name__ == "__main__":
