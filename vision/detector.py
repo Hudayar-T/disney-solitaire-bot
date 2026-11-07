@@ -257,21 +257,48 @@ class CardDetector:
 
         faceup = self.detect_faceup(screen, region)
         if not faceup:
+            # Check if a WILD card is sitting on the waste pile
+            if self._wild_tmpl is not None:
+                roi = screen[max(0, wy-hh):min(screen.shape[0], wy+hh), max(0, wx-hw):min(screen.shape[1], wx+hw)]
+                gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
+                th, tw = self._wild_tmpl.shape
+                wild_body = self._wild_tmpl[int(th * 0.3):, :]
+                res = cv2.matchTemplate(gray, wild_body, cv2.TM_CCOEFF_NORMED)
+                if float(res.max()) >= 0.70:
+                    logger.debug(f"Waste pile: WILD (conf={float(res.max()):.2f})")
+                    return Detection(rank="WILD", cx=wx, cy=wy, confidence=float(res.max()), tw=tw, th=th)
+
             logger.warning("Waste pile card not detected")
             return None
         best = max(faceup, key=lambda d: d.confidence)
         logger.debug(f"Waste pile: {best.rank} (conf={best.confidence:.2f})")
         return best
 
-    def detect_stock_present(self, screen: np.ndarray) -> bool:
-        """Check if cards remain in the stock pile."""
+    def detect_normal_stock_present(self, screen: np.ndarray) -> bool:
+        """Check if regular blue-backed cards remain in the stock pile."""
         sx, sy = config.STOCK_CENTER
         roi = screen[sy-40:sy+40, sx-40:sx+40]
         hsv = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
         blue_mask = cv2.inRange(hsv, BLUE_LOWER, BLUE_UPPER)
         ratio = float(np.count_nonzero(blue_mask)) / blue_mask.size
-        is_present = ratio > 0.40
-        return is_present
+        return ratio > 0.40
+
+    def detect_stock_has_wild(self, screen: np.ndarray) -> bool:
+        """Check if the stock pile currently holds a bought/expensive WILD card."""
+        if self._wild_tmpl is None:
+            return False
+        sx, sy = config.STOCK_CENTER
+        hw, hh = 100, 120
+        roi = screen[max(0, sy-hh):min(screen.shape[0], sy+hh), max(0, sx-hw):min(screen.shape[1], sx+hw)]
+        gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
+        th, tw = self._wild_tmpl.shape
+        wild_body = self._wild_tmpl[int(th * 0.3):, :]
+        res = cv2.matchTemplate(gray, wild_body, cv2.TM_CCOEFF_NORMED)
+        return float(res.max()) >= 0.70
+
+    def detect_stock_present(self, screen: np.ndarray) -> bool:
+        """Check if any cards (normal or WILD) remain in the stock pile."""
+        return self.detect_normal_stock_present(screen) or self.detect_stock_has_wild(screen)
 
     def detect_undo_present(self, screen: np.ndarray) -> bool:
         """Check if UNDO button is visible and active."""
@@ -299,4 +326,4 @@ class CardDetector:
         wild_body = self._wild_tmpl[int(th * 0.3):, :]
         res = cv2.matchTemplate(gray, wild_body, cv2.TM_CCOEFF_NORMED)
         max_val = float(res.max())
-        return max_val >= 0.80
+        return max_val >= 0.75

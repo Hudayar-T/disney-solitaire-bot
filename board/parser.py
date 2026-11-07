@@ -28,16 +28,46 @@ def _compute_overlap_area(c1: Card, c2: Card) -> float:
     return float(cv2.contourArea(pts))
 
 
-def build_dependency_graph(cards: list[Card]) -> None:
+def _determine_front_by_edge(img: np.ndarray, c1: Card, c2: Card) -> tuple[Card, Card]:
+    """
+    When two overlapping cards are at similar heights, check which card has its
+    contour edges unbroken across the intersection with the other card.
+    The card on top will have higher edge continuity.
+    """
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    edges = cv2.Canny(gray, 50, 150)
+
+    box1 = np.int32(cv2.boxPoints(c1.rotated_rect))
+    box2 = np.int32(cv2.boxPoints(c2.rotated_rect))
+
+    mask1 = np.zeros_like(gray)
+    cv2.fillPoly(mask1, [box1], 255)
+    mask2 = np.zeros_like(gray)
+    cv2.fillPoly(mask2, [box2], 255)
+
+    cont1 = np.zeros_like(gray)
+    cv2.polylines(cont1, [box1], True, 255, 3)
+    cont2 = np.zeros_like(gray)
+    cv2.polylines(cont2, [box2], True, 255, 3)
+
+    e1 = cv2.countNonZero(cv2.bitwise_and(edges, cv2.bitwise_and(cont1, mask2)))
+    e2 = cv2.countNonZero(cv2.bitwise_and(edges, cv2.bitwise_and(cont2, mask1)))
+
+    if e1 != e2:
+        return (c1, c2) if e1 > e2 else (c2, c1)
+    return (c1, c2) if c1.cy > c2.cy else (c2, c1)
+
+
+def build_dependency_graph(cards: list[Card], img: Optional[np.ndarray] = None) -> None:
     """
     Computes pairwise card intersections and resolves occlusion (Z-order)
     to populate card.blocked_by and card.blocks.
     
     Z-order rules:
       1. Face-up cards are strictly rendered on top of face-down cards.
-      2. When two cards of the same type (face-up vs face-up or face-down vs face-down)
-         overlap vertically, the card lower on the screen (larger cy) is rendered in front of
-         the card higher on the screen (smaller cy).
+      2. When two cards of the same type overlap:
+         - If vertical distance is significant (>40px) or img is None, lower is in front.
+         - If vertical distance is small (<=40px), edge continuity determines the front card.
     """
     n = len(cards)
     for i in range(n):
@@ -55,11 +85,13 @@ def build_dependency_graph(cards: list[Card]) -> None:
             elif c2.is_face_up and c1.is_face_down:
                 top, bottom = c2, c1
             else:
-                # Same type: lower on screen (larger cy) is in front
-                if c1.cy > c2.cy:
-                    top, bottom = c1, c2
+                if abs(c1.cy - c2.cy) > 40 or img is None:
+                    if c1.cy > c2.cy:
+                        top, bottom = c1, c2
+                    else:
+                        top, bottom = c2, c1
                 else:
-                    top, bottom = c2, c1
+                    top, bottom = _determine_front_by_edge(img, c1, c2)
 
             top.blocks.append(bottom.card_id)
             bottom.blocked_by.append(top.card_id)
@@ -95,7 +127,7 @@ class BoardParser:
             ))
 
         # Build DAG
-        build_dependency_graph(cards)
+        build_dependency_graph(cards, img=screen)
 
         # Detect UI elements
         waste_det = self.detector.detect_waste(screen)
@@ -111,14 +143,16 @@ class BoardParser:
                 confidence=waste_det.confidence,
             )
 
-        has_stock = self.detector.detect_stock_present(screen)
+        has_normal_stock = self.detector.detect_normal_stock_present(screen)
+        stock_has_wild = self.detector.detect_stock_has_wild(screen)
         has_undo = self.detector.detect_undo_present(screen)
         has_wild = self.detector.detect_wild_present(screen)
 
         state = BoardState(
             tableau=cards,
             waste=waste_card,
-            has_stock=has_stock,
+            has_normal_stock=has_normal_stock,
+            stock_has_wild=stock_has_wild,
             has_undo=has_undo,
             has_wild=has_wild,
         )

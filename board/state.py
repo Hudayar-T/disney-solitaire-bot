@@ -56,9 +56,20 @@ class BoardState:
     """Full snapshot of the board at a given moment."""
     tableau: list[Card] = field(default_factory=list)
     waste: Optional[Card] = None
-    has_stock: bool = True
+    has_normal_stock: bool = True     # Blue regular stock cards remaining
+    stock_has_wild: bool = False      # Bought/expensive WILD card sitting in stock
     has_undo: bool = False
-    has_wild: bool = False
+    has_wild: bool = False           # Bought/expensive WILD card in bottom-right corner
+
+    @property
+    def has_stock(self) -> bool:
+        """True if any card (normal or wild) can be drawn from the stock pile."""
+        return self.has_normal_stock or self.stock_has_wild
+
+    @property
+    def has_expensive_wild(self) -> bool:
+        """True if an expensive WILD card is available (either in stock or bottom-right button)."""
+        return self.stock_has_wild or self.has_wild
 
     @property
     def playable_cards(self) -> list[Card]:

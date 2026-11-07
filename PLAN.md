@@ -98,12 +98,12 @@
 
 | # | Step | Status | Notes |
 |---|------|--------|-------|
-| 4.1 | Implement legal move generator | ⬜ | Top cards ±1 rank from waste top (A↔K wrap) |
-| 4.2 | Implement WILD card handling | ⬜ | WILD can play on anything — use it strategically |
-| 4.3 | Implement chain/streak scorer | ⬜ | Prefer moves that extend chains, unblock more cards |
-| 4.4 | Implement stock draw fallback | ⬜ | Draw when no tableau move available |
-| 4.5 | Write `engine/solver.py` | ⬜ | |
-| 4.6 | Test solver on known board states | ⬜ | Unit tests with hand-crafted BoardState objects |
+| 4.1 | Implement legal move generator | ✅ | Playable cards ±1 rank from waste top (A↔K wrap) |
+| 4.2 | Implement restricted WILD card handling | ✅ | If WILD is in the center (stack/waste) -> play undoubtedly! If WILD is in the right bottom corner -> apply strict rules (only when stock is empty AND 1 card left or 100% chain clear). |
+| 4.3 | Implement chain/streak scorer & lookahead | ✅ | Lookahead simulation + unblocking heuristics (bonus for mystery cards) |
+| 4.4 | Implement stock draw fallback | ✅ | Falls back to `STOCK_CENTER` when no tableau moves exist |
+| 4.5 | Write `engine/solver.py` | ✅ | Clean Solver and Move data structures |
+| 4.6 | Test solver on known board states | ✅ | Verified on all 12 screenshots + synthetic edge cases |
 
 ---
 
