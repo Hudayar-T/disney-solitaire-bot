@@ -22,9 +22,19 @@ decides the best move, and taps the screen — all in a loop.
 - **Streak Bonus** mechanic — consecutive chains increase score multiplier
 - Goal: clear all tableau cards
 
+### ⚠️ Stock Pile — "Buy More Cards" Trap
+- When the stock pile runs out of real cards, the game shows a **paid "+N cards" prompt**
+  in the stock pile area (e.g. "+5" with a coin cost like "7,500" underneath)
+- This prompt **looks like blue cards** but has a **yellow/gold border** around it
+- The "+N" number and coin cost may increase as the game progresses
+- The **yellow border** is the reliable indicator — it persists across all buy-prompt variants
+- **NEVER tap the stock when it has a yellow border** — it spends real in-game currency
+- Treat yellow-bordered stock as **STOCK EMPTY** — no cards remain to draw
+
 ## UI Layout (confirmed from screenshots)
 - Tableau: upper 70% of screen, haphazard overlapping card piles
 - Stock pile: bottom-left (blue face-down deck)
+  - ⚠️ When empty, transforms into a **yellow-bordered "buy +N cards" button** — DO NOT TAP
 - Waste pile: bottom-center (current face-up card)
 - Undo button: bottom-center-right (green circular arrow)
 - WILD card: bottom-right corner

@@ -53,6 +53,11 @@ BLUE_UPPER = np.array([125, 255, 255])
 GREEN_LOWER = np.array([40, 60, 50])
 GREEN_UPPER = np.array([85, 255, 220])
 
+# Yellow/gold border on "buy +N cards" prompt (stock empty trap)
+YELLOW_LOWER = np.array([15, 80, 150])
+YELLOW_UPPER = np.array([40, 255, 255])
+YELLOW_BORDER_THRESHOLD = 0.05  # 5% yellow pixels in stock ROI → buy prompt detected
+
 MIN_FACEDOWN_AREA = 8000
 MAX_FACEDOWN_AREA = 45000
 
@@ -171,12 +176,15 @@ class CardDetector:
             center, (w, h), angle = rect
             cx = int(center[0]) + rx
             cy = int(center[1]) + ry
+            # Standard card dimensions for occlusion DAG (even if only sliver is exposed)
+            card_w = max(int(min(w, h)), 136)
+            card_h = max(int(max(w, h)), 185)
             facedown_cards.append(Detection(
                 rank="BACK",
                 cx=cx, cy=cy,
                 confidence=1.0,
-                tw=int(max(w, h)),
-                th=int(min(w, h)),
+                tw=card_w,
+                th=card_h,
                 angle=angle,
             ))
 
@@ -190,12 +198,14 @@ class CardDetector:
             center, (w, h), angle = rect
             cx = int(center[0]) + rx
             cy = int(center[1]) + ry
+            card_w = max(int(min(w, h)), 136)
+            card_h = max(int(max(w, h)), 185)
             facedown_cards.append(Detection(
                 rank="MYSTERY",
                 cx=cx, cy=cy,
                 confidence=1.0,
-                tw=int(max(w, h)),
-                th=int(min(w, h)),
+                tw=card_w,
+                th=card_h,
                 angle=angle,
             ))
 
@@ -275,11 +285,29 @@ class CardDetector:
         return best
 
     def detect_normal_stock_present(self, screen: np.ndarray) -> bool:
-        """Check if regular blue-backed cards remain in the stock pile."""
+        """Check if regular blue-backed cards remain in the stock pile.
+        
+        IMPORTANT: First checks for the yellow/gold border that indicates
+        a paid "buy +N cards" prompt. If the yellow border is detected,
+        the stock is treated as EMPTY regardless of blue pixel presence
+        (the buy prompt still shows blue card imagery inside the border).
+        """
         sx, sy = config.STOCK_CENTER
-        roi = screen[sy-40:sy+40, sx-40:sx+40]
+        hw, hh = 100, 100
+        roi = screen[sy-hh:sy+hh, sx-hw:sx+hw]
         hsv = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
-        blue_mask = cv2.inRange(hsv, BLUE_LOWER, BLUE_UPPER)
+
+        # Check for yellow/gold border (buy prompt trap)
+        yellow_mask = cv2.inRange(hsv, YELLOW_LOWER, YELLOW_UPPER)
+        yellow_ratio = float(np.count_nonzero(yellow_mask)) / yellow_mask.size
+        if yellow_ratio > YELLOW_BORDER_THRESHOLD:
+            logger.info(f"Stock pile has yellow border ({yellow_ratio*100:.1f}% yellow) — 'buy cards' prompt detected, treating as EMPTY")
+            return False
+
+        # No yellow border — check for actual blue cards
+        small_roi = screen[sy-40:sy+40, sx-40:sx+40]
+        hsv_small = cv2.cvtColor(small_roi, cv2.COLOR_BGR2HSV)
+        blue_mask = cv2.inRange(hsv_small, BLUE_LOWER, BLUE_UPPER)
         ratio = float(np.count_nonzero(blue_mask)) / blue_mask.size
         return ratio > 0.40
 

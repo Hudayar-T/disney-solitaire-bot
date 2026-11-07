@@ -63,16 +63,17 @@
 |---|------|--------|-------|
 | 2B.1 | Templates already in `vision/templates/` | ✅ | A–K, BACK, UNDO, WILD |
 | 2B.2 | Measure template vs in-game size, determine scale factor | ✅ | 1:1 scale confirmed in landscape |
-| 2B.3 | Multi-angle template matching per rank | ✅ | Pre-rotated templates (0°, ±12°, ±25°) |
+| 2B.3 | Multi-angle template matching per rank | ✅ | Pre-rotated templates covering steep card tilts up to ±48° |
 | 2B.4 | Multi-scale matching fallback | ✅ | Standard scale works with high confidence |
 | 2B.5 | NMS to deduplicate overlapping detections | ✅ | IoU 0.35 threshold in `detector.py` |
-| 2B.6 | Test rank recognition on all 5 screenshots | ✅ | 100% accuracy (29/29 face-up cards detected) |
+| 2B.6 | Test rank recognition on all screenshots | ✅ | 100% accuracy across all test screenshots including extreme ±40° tilts |
 
 ### 2C — Waste/Stock/UI Detection
 | # | Step | Status | Notes |
 |---|------|--------|-------|
 | 2C.1 | Detect waste pile card (bottom-center, fixed ROI) | ✅ | Verified (5/5 accurate with 0.96-1.00 conf) |
 | 2C.2 | Detect stock pile presence (is deck empty?) | ✅ | Blue presence ratio check at `STOCK_CENTER` |
+| 2C.2b | Detect "buy +N cards" yellow border trap on stock pile | ✅ | Yellow/gold border HSV detection added to `detect_normal_stock_present()`. Checks for yellow pixels (H:15-40, S:80+, V:150+) before blue check. ≥5% yellow → stock treated as EMPTY. Verified: 0% yellow on real stock (1-11.jpg), 10.7% on buy prompt (13.jpg). |
 | 2C.3 | Detect WILD card availability | ✅ | Template match with user's cropped WILD template |
 | 2C.4 | Test UI detection on screenshots | ✅ | Waste, stock, undo, wild verified on all 5 images |
 
@@ -104,6 +105,7 @@
 | 4.4 | Implement stock draw fallback | ✅ | Falls back to `STOCK_CENTER` when no tableau moves exist |
 | 4.5 | Write `engine/solver.py` | ✅ | Clean Solver and Move data structures |
 | 4.6 | Test solver on known board states | ✅ | Verified on all 12 screenshots + synthetic edge cases |
+| 4.7 | Unblock-aware lookahead chain optimization | ✅ | Chain search evaluates both streak length and unblocked cards along the branch; prioritizes paths uncovering face-down cards. |
 
 ---
 
@@ -113,7 +115,7 @@
 | # | Step | Status | Notes |
 |---|------|--------|-------|
 | 5.1 | Add `tap(x, y)` to `adb_controller.py` | ✅ | `adb shell input tap` with coordinate passing |
-| 5.2 | Add randomized delay (jitter) | ✅ | Configurable min/max delay to mimic human touch |
+| 5.2 | Add randomized delay (jitter) | ✅ | Configurable min/max delay + 2D Gaussian spatial offset (anti-bot) |
 | 5.3 | Test tap on known coordinates | ✅ | Interactive confirmation mode in `live_step.py` |
 
 ---

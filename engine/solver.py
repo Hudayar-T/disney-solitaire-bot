@@ -102,32 +102,66 @@ def simulate_play_card(cards: list[Card], played_card_id: int) -> list[Card]:
     return new_cards
 
 
-def find_longest_chain(waste_rank: str, cards: list[Card], max_depth: int = 8) -> tuple[int, list[str]]:
+def _get_card_from_list(cards: list[Card], card_id: int) -> Optional[Card]:
+    for c in cards:
+        if c.card_id == card_id:
+            return c
+    return None
+
+
+def find_best_chain(waste_rank: str, cards: list[Card], max_depth: int = 10) -> tuple[int, float, list[str]]:
     """
-    Search for the longest sequence of playable cards starting from waste_rank.
-    Returns (chain_length, list_of_ranks_in_chain).
+    Search for the optimal sequence of playable cards starting from waste_rank.
+    Optimizes for:
+      1. Longest chain (streak bonus)
+      2. Maximum unblocking value of covered cards along the path
+    Returns (chain_length, total_chain_value, list_of_ranks_in_chain).
     """
     if max_depth <= 0:
-        return (0, [])
+        return (0, 0.0, [])
 
     playable = [c for c in cards if c.is_playable]
     legal_candidates = [c for c in playable if are_ranks_adjacent(c.rank, waste_rank)]
 
     if not legal_candidates:
-        return (0, [])
+        return (0, 0.0, [])
 
     best_len = 0
+    best_score = -1.0
     best_path = []
 
     for candidate in legal_candidates:
         sim_cards = simulate_play_card(cards, candidate.card_id)
-        sub_len, sub_path = find_longest_chain(candidate.rank, sim_cards, max_depth - 1)
+        # Check all newly uncovered cards (both face-up and face-down!)
+        newly_uncovered = [
+            c for c in sim_cards 
+            if len(c.blocked_by) == 0 and len(_get_card_from_list(cards, c.card_id).blocked_by) > 0
+        ]
+
+        step_score = 20.0  # streak length bonus
+        for unblocked in newly_uncovered:
+            if unblocked.is_mystery:
+                step_score += 35.0
+            elif unblocked.is_face_down:
+                step_score += 25.0
+            else:
+                step_score += 15.0
+
+        for blocked_id in candidate.blocks:
+            c_obj = _get_card_from_list(cards, blocked_id)
+            if c_obj and len(c_obj.blocked_by) > 1:
+                step_score += 5.0
+
+        sub_len, sub_score, sub_path = find_best_chain(candidate.rank, sim_cards, max_depth - 1)
         total_len = 1 + sub_len
-        if total_len > best_len:
+        total_score = step_score + sub_score
+
+        if total_score > best_score:
+            best_score = total_score
             best_len = total_len
             best_path = [candidate.rank] + sub_path
 
-    return (best_len, best_path)
+    return (best_len, best_score, best_path)
 
 
 def can_chain_clear_tableau(cards: list[Card]) -> bool:
@@ -145,7 +179,7 @@ def can_chain_clear_tableau(cards: list[Card]) -> bool:
     playable = [c for c in cards if c.is_playable]
     for first_card in playable:
         sim_cards = simulate_play_card(cards, first_card.card_id)
-        chain_len, _ = find_longest_chain(first_card.rank, sim_cards, max_depth=total_cards)
+        chain_len, _, _ = find_best_chain(first_card.rank, sim_cards, max_depth=total_cards)
         if 1 + chain_len == total_cards:
             return True
     return False
@@ -154,23 +188,26 @@ def can_chain_clear_tableau(cards: list[Card]) -> bool:
 def score_tableau_move(candidate: Card, state: BoardState) -> tuple[float, str]:
     """
     Score a legal tableau move based on:
-      1. Immediate unblocking of covered cards (+15 per normal card, +35 per mystery card)
+      1. Immediate unblocking of covered cards (+15 per normal card, +25 per facedown, +35 per mystery card)
       2. Partial unblocking (reducing blocker count of cards underneath)
-      3. Lookahead chain potential (+20 per additional card in sequence)
+      3. Lookahead streak potential & multi-step unblocking along the best chain
     """
     score = 10.0  # Base score for any legal play
     reasons = []
 
-    # 1. Unblocking analysis
+    # 1. Unblocking analysis of candidate itself
     new_cards = simulate_play_card(state.tableau, candidate.card_id)
-    newly_playable = [c for c in new_cards if c.is_playable and not state.get_card(c.card_id).is_playable]
+    newly_uncovered = [
+        c for c in new_cards 
+        if len(c.blocked_by) == 0 and len(state.get_card(c.card_id).blocked_by) > 0
+    ]
 
-    for unblocked in newly_playable:
+    for unblocked in newly_uncovered:
         if unblocked.is_mystery:
             score += 35.0
             reasons.append(f"unblocks MYSTERY (?) #{unblocked.card_id}")
         elif unblocked.is_face_down:
-            score += 20.0
+            score += 25.0
             reasons.append(f"uncovers facedown #{unblocked.card_id}")
         else:
             score += 15.0
@@ -182,11 +219,10 @@ def score_tableau_move(candidate: Card, state: BoardState) -> tuple[float, str]:
         if card_obj and len(card_obj.blocked_by) > 1:
             score += 5.0
 
-    # 2. Lookahead streak potential
-    chain_len, chain_ranks = find_longest_chain(candidate.rank, new_cards, max_depth=10)
+    # 2. Lookahead streak & chain evaluation
+    chain_len, chain_score, chain_ranks = find_best_chain(candidate.rank, new_cards, max_depth=10)
     if chain_len > 0:
-        chain_bonus = chain_len * 20.0
-        score += chain_bonus
+        score += chain_score
         reasons.append(f"enables chain of {chain_len + 1} ({' -> '.join([candidate.rank] + chain_ranks)})")
 
     reason_str = ", ".join(reasons) if reasons else f"plays {candidate.rank}"

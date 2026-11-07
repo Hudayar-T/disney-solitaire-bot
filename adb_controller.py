@@ -68,21 +68,41 @@ def save_screenshot(image: Image.Image, folder: str = "tests/screenshots") -> Pa
     return path
 
 
-def tap(device, x: int, y: int) -> None:
+def compute_jittered_coord(x: int, y: int) -> tuple[int, int]:
+    """
+    Compute a randomized (jittered) coordinate around (x, y) using Gaussian distribution,
+    clamped to max jitter bounds (config.TAP_JITTER_X, config.TAP_JITTER_Y).
+    """
+    jx = int(random.gauss(0, config.TAP_JITTER_X / 2.5))
+    jy = int(random.gauss(0, config.TAP_JITTER_Y / 2.5))
+    jx = max(-config.TAP_JITTER_X, min(config.TAP_JITTER_X, jx))
+    jy = max(-config.TAP_JITTER_Y, min(config.TAP_JITTER_Y, jy))
+    return x + jx, y + jy
+
+
+def tap(device, x: int, y: int, apply_jitter: bool = True) -> tuple[int, int]:
     """
     Send a tap event to the device at (x, y).
-    Applies a small random jitter to humanise timing.
+    Applies timing jitter and spatial offset (anti-bot protection)
+    while staying safely within the inner core of the card/button.
+    Returns the actual (tap_x, tap_y) tapped.
     """
-    jitter = random.uniform(config.TAP_DELAY_MIN, config.TAP_DELAY_MAX)
-    time.sleep(jitter)
-    out = device.shell(f"input tap {x} {y}")
+    if apply_jitter:
+        tap_x, tap_y = compute_jittered_coord(x, y)
+    else:
+        tap_x, tap_y = x, y
+
+    delay = random.uniform(config.TAP_DELAY_MIN, config.TAP_DELAY_MAX)
+    time.sleep(delay)
+    out = device.shell(f"input tap {tap_x} {tap_y}")
     if out and ("SecurityException" in out or "Exception" in out):
         raise RuntimeError(
             f"Tap failed on device: {out.strip()}\n"
             "On Xiaomi/Redmi devices, you MUST enable:\n"
             "  Settings -> Additional settings -> Developer options -> 'USB debugging (Security settings)'"
         )
-    logger.debug(f"Tapped ({x}, {y}) after {jitter:.2f}s delay")
+    logger.debug(f"Tapped ({tap_x}, {tap_y}) [offset=({tap_x - x:+d}, {tap_y - y:+d})] after {delay:.2f}s delay")
+    return (tap_x, tap_y)
 
 
 # ── Quick sanity-check (run this file directly) ───────────────────────────────
