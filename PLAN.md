@@ -112,9 +112,9 @@
 
 | # | Step | Status | Notes |
 |---|------|--------|-------|
-| 5.1 | Add `tap(x, y)` to `adb_controller.py` | ⬜ | `adb shell input tap` |
-| 5.2 | Add randomized delay (jitter) | ⬜ | Mimic human rhythm, avoid anti-bot detection |
-| 5.3 | Test tap on known coordinates | ⬜ | Tap waste pile, stock pile — verify correct response |
+| 5.1 | Add `tap(x, y)` to `adb_controller.py` | ✅ | `adb shell input tap` with coordinate passing |
+| 5.2 | Add randomized delay (jitter) | ✅ | Configurable min/max delay to mimic human touch |
+| 5.3 | Test tap on known coordinates | ✅ | Interactive confirmation mode in `live_step.py` |
 
 ---
 

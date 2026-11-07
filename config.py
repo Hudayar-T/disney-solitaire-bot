@@ -30,5 +30,5 @@ TEMPLATE_ANGLES          = [0, -11, 11, -21, 21]  # angles to handle tilted card
 
 # ── Timing ────────────────────────────────────────────────────────────────────
 TAP_DELAY_MIN = 0.3   # seconds — minimum pause between taps
-TAP_DELAY_MAX = 0.7   # seconds — maximum pause (randomised for human feel)
-SCREENCAP_INTERVAL = 0.5  # seconds — wait after tap before next capture
+TAP_DELAY_MAX = 0.6   # seconds — maximum pause (randomised for human feel)
+SCREENCAP_INTERVAL = 1.2  # seconds — wait after tap for flight & flip animations to settle

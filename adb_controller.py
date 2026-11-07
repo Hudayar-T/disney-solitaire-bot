@@ -4,9 +4,14 @@ Handles all ADB communication: device connection, screen capture, and taps.
 """
 
 import io
+import os
 import random
 import time
 from pathlib import Path
+
+# Ensure local ADB socket connection ignores terminal proxy
+os.environ["NO_PROXY"] = "*"
+os.environ["no_proxy"] = "*"
 
 from adbutils import adb, AdbError
 from loguru import logger
@@ -70,7 +75,13 @@ def tap(device, x: int, y: int) -> None:
     """
     jitter = random.uniform(config.TAP_DELAY_MIN, config.TAP_DELAY_MAX)
     time.sleep(jitter)
-    device.shell(f"input tap {x} {y}")
+    out = device.shell(f"input tap {x} {y}")
+    if out and ("SecurityException" in out or "Exception" in out):
+        raise RuntimeError(
+            f"Tap failed on device: {out.strip()}\n"
+            "On Xiaomi/Redmi devices, you MUST enable:\n"
+            "  Settings -> Additional settings -> Developer options -> 'USB debugging (Security settings)'"
+        )
     logger.debug(f"Tapped ({x}, {y}) after {jitter:.2f}s delay")
 
 
