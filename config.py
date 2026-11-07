@@ -35,3 +35,29 @@ TAP_DELAY_MAX = 1.6   # seconds — maximum pause (randomised for human feel)
 TAP_JITTER_X  = 30    # px — maximum random horizontal offset from center (68)
 TAP_JITTER_Y  = 40    # px — maximum random vertical offset from center (92)
 SCREENCAP_INTERVAL = 1.2  # seconds — wait after tap for flight & flip animations to settle
+
+# ── Menu & Navigation Positions (landscape coords) ───────────────────────────
+# Main menu: Purple "COLLECT" button (hourly coin bonus)
+MENU_COLLECT_ROI    = (1080, 860, 320, 180)  # (x, y, w, h)
+MENU_COLLECT_CENTER = (1240, 950)
+
+# Main menu: Green play button (bottom-right level button)
+MENU_PLAY_ROI       = (2140, 815, 220, 230)  # (x, y, w, h)
+MENU_PLAY_CENTER    = (2250, 930)
+
+# Pre-level modal: Green "PLAY" button at modal center-bottom
+MODAL_PLAY_ROI      = (1034, 736, 340, 156)  # (x, y, w, h)
+MODAL_PLAY_CENTER   = (1204, 814)
+
+# Neutral dismiss tap coordinate for popups ("TAP TO COLLECT", "TAP ANYWHERE TO COLLECT")
+POPUP_DISMISS_COORD = (1200, 930)
+
+# ── Menu Detection Thresholds & Color Ranges ──────────────────────────────────
+GREEN_HSV_LOWER     = (35, 100, 100)
+GREEN_HSV_UPPER     = (85, 255, 255)
+
+PURPLE_HSV_LOWER    = (125, 60, 60)
+PURPLE_HSV_UPPER    = (160, 255, 255)
+
+# Wait time when cards are being dealt (seconds)
+DEAL_ANIMATION_WAIT = 2.0

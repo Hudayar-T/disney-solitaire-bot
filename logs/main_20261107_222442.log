@@ -1,0 +1,115 @@
+2026-11-07 22:24:42 | INFO     | ============================================================
+2026-11-07 22:24:42 | INFO     | DISNEY SOLITAIRE BOT — AUTONOMOUS MODE
+2026-11-07 22:24:42 | INFO     | ============================================================
+2026-11-07 22:24:42 | INFO     | Max steps : unlimited
+2026-11-07 22:24:42 | INFO     | Save screens: False
+2026-11-07 22:24:42 | INFO     | Connected to device: uknzs47tv8bugekf
+2026-11-07 22:24:42 | INFO     | Loaded 13 rank glyphs (143 rotated variants)
+2026-11-07 22:24:42 | DEBUG    | Loaded menu template: tap_anywhere_to_collect.png ((32, 530, 3))
+2026-11-07 22:24:42 | DEBUG    | Loaded menu template: tap_to_collect.png ((30, 300, 3))
+2026-11-07 22:24:42 | INFO     | ── Step 1 ──────────────────────────────────
+2026-11-07 22:24:43 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 22:24:43 | INFO     | Loaded 13 rank glyphs (143 rotated variants)
+2026-11-07 22:24:44 | DEBUG    | Waste pile: K (conf=1.00)
+2026-11-07 22:24:44 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 22:24:47 | DEBUG    | Detected 6 tableau cards (3 face-up, 3 face-down)
+2026-11-07 22:24:47 | DEBUG    | Occlusion: Card 0 (8) blocks Card 1 (BACK) [overlap=7644px²]
+2026-11-07 22:24:47 | DEBUG    | Occlusion: Card 3 (Q) blocks Card 2 (BACK) [overlap=6334px²]
+2026-11-07 22:24:47 | DEBUG    | Occlusion: Card 5 (5) blocks Card 4 (BACK) [overlap=3608px²]
+2026-11-07 22:24:47 | DEBUG    | Waste pile: K (conf=1.00)
+2026-11-07 22:24:47 | DEBUG    | WILD button detected at (2277, 875) (conf=0.86)
+2026-11-07 22:24:47 | INFO     | Parsed BoardState(waste=K, playable=['8', 'Q', '5'], faceup=3, facedown=3, stock=True, wild=True)
+2026-11-07 22:24:47 | INFO     | Waste=[K]  Playable=3 (8#0, Q#3, 5#5)  Tableau=6  Stock=YES  StockWILD=NO  WILD=YES
+2026-11-07 22:24:47 | DEBUG    | Candidate Move: Q at (1448, 524) -> score=35.0 (uncovers facedown #2)
+2026-11-07 22:24:47 | INFO     | Move: PLAY_CARD  target=Q  coord=(np.int64(1448), np.int64(524))  score=35.0  reason=uncovers facedown #2
+2026-11-07 22:24:47 | DEBUG    | Tapped (1453, 542) [offset=(+5, +18)] after 0.47s delay
+2026-11-07 22:24:47 | DEBUG    | Tapped (1453, 542)
+2026-11-07 22:24:48 | INFO     | ── Step 2 ──────────────────────────────────
+2026-11-07 22:24:50 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 22:24:50 | DEBUG    | Waste pile: Q (conf=0.99)
+2026-11-07 22:24:50 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 22:24:53 | DEBUG    | Detected 5 tableau cards (3 face-up, 2 face-down)
+2026-11-07 22:24:53 | DEBUG    | Occlusion: Card 0 (8) blocks Card 1 (BACK) [overlap=7644px²]
+2026-11-07 22:24:53 | DEBUG    | Occlusion: Card 4 (5) blocks Card 3 (BACK) [overlap=3608px²]
+2026-11-07 22:24:53 | DEBUG    | Waste pile: Q (conf=0.99)
+2026-11-07 22:24:53 | DEBUG    | Yellow in stock ROI (8.8%) confined to left edge (right=0.0%) — deck with buried card, continuing blue check
+2026-11-07 22:24:53 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-07 22:24:53 | INFO     | Parsed BoardState(waste=Q, playable=['8', '10', '5'], faceup=3, facedown=2, stock=True, wild=True)
+2026-11-07 22:24:53 | INFO     | Waste=[Q]  Playable=3 (8#0, 10#2, 5#4)  Tableau=5  Stock=YES  StockWILD=NO  WILD=YES
+2026-11-07 22:24:53 | INFO     | Move: DRAW_STOCK  target=—  coord=(1134, 937)  score=5.0  reason=No legal tableau moves, draw next card from stock
+2026-11-07 22:24:54 | DEBUG    | Tapped (1113, 930) [offset=(-21, -7)] after 0.39s delay
+2026-11-07 22:24:54 | DEBUG    | Tapped (1113, 930)
+2026-11-07 22:24:55 | INFO     | ── Step 3 ──────────────────────────────────
+2026-11-07 22:24:56 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 22:24:56 | DEBUG    | Waste pile: 10 (conf=1.00)
+2026-11-07 22:24:56 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 22:24:59 | DEBUG    | Detected 5 tableau cards (3 face-up, 2 face-down)
+2026-11-07 22:24:59 | DEBUG    | Occlusion: Card 0 (8) blocks Card 1 (BACK) [overlap=7644px²]
+2026-11-07 22:24:59 | DEBUG    | Occlusion: Card 4 (5) blocks Card 3 (BACK) [overlap=3608px²]
+2026-11-07 22:24:59 | DEBUG    | Waste pile: 10 (conf=1.00)
+2026-11-07 22:24:59 | DEBUG    | Yellow in stock ROI (64.8%) but WILD card detected in stock — not a buy-prompt, continuing blue check
+2026-11-07 22:24:59 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-07 22:24:59 | INFO     | Parsed BoardState(waste=10, playable=['8', '10', '5'], faceup=3, facedown=2, stock=True, wild=True)
+2026-11-07 22:24:59 | INFO     | Waste=[10]  Playable=3 (8#0, 10#2, 5#4)  Tableau=5  Stock=EMPTY  StockWILD=YES  WILD=YES
+2026-11-07 22:24:59 | INFO     | Move: DRAW_STOCK  target=—  coord=(1134, 937)  score=90.0  reason=WILD is in the center stack — play undoubtedly!
+2026-11-07 22:25:01 | DEBUG    | Tapped (1141, 955) [offset=(+7, +18)] after 1.43s delay
+2026-11-07 22:25:01 | DEBUG    | Tapped (1141, 955)
+2026-11-07 22:25:02 | INFO     | ── Step 4 ──────────────────────────────────
+2026-11-07 22:25:03 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 22:25:03 | DEBUG    | Waste pile: WILD (conf=0.81)
+2026-11-07 22:25:03 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 22:25:06 | DEBUG    | Detected 5 tableau cards (3 face-up, 2 face-down)
+2026-11-07 22:25:06 | DEBUG    | Occlusion: Card 0 (8) blocks Card 1 (BACK) [overlap=7644px²]
+2026-11-07 22:25:06 | DEBUG    | Occlusion: Card 4 (5) blocks Card 3 (BACK) [overlap=3608px²]
+2026-11-07 22:25:06 | DEBUG    | Waste pile: WILD (conf=0.81)
+2026-11-07 22:25:06 | INFO     | Stock buy-prompt detected (10.1% yellow, right border 7.5%) — treating stock as EMPTY
+2026-11-07 22:25:06 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-07 22:25:06 | INFO     | Parsed BoardState(waste=WILD, playable=['8', '10', '5'], faceup=3, facedown=2, stock=False, wild=True)
+2026-11-07 22:25:06 | INFO     | Waste=[WILD]  Playable=3 (8#0, 10#2, 5#4)  Tableau=5  Stock=EMPTY  StockWILD=NO  WILD=YES
+2026-11-07 22:25:06 | DEBUG    | Candidate Move: 8 at (1835, 267) -> score=35.0 (uncovers facedown #1)
+2026-11-07 22:25:06 | DEBUG    | Candidate Move: 10 at (1523, 481) -> score=10.0 (plays 10)
+2026-11-07 22:25:06 | DEBUG    | Candidate Move: 5 at (1834, 716) -> score=35.0 (uncovers facedown #3)
+2026-11-07 22:25:06 | INFO     | Move: PLAY_CARD  target=8  coord=(np.int64(1835), np.int64(267))  score=35.0  reason=uncovers facedown #1
+2026-11-07 22:25:07 | DEBUG    | Tapped (1831, 246) [offset=(-4, -21)] after 0.79s delay
+2026-11-07 22:25:07 | DEBUG    | Tapped (1831, 246)
+2026-11-07 22:25:09 | INFO     | ── Step 5 ──────────────────────────────────
+2026-11-07 22:25:10 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 22:25:10 | DEBUG    | Waste pile: 8 (conf=0.99)
+2026-11-07 22:25:10 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 22:25:13 | DEBUG    | Detected 4 tableau cards (3 face-up, 1 face-down)
+2026-11-07 22:25:13 | DEBUG    | Occlusion: Card 3 (5) blocks Card 2 (BACK) [overlap=3608px²]
+2026-11-07 22:25:13 | DEBUG    | Waste pile: 8 (conf=0.99)
+2026-11-07 22:25:13 | INFO     | Stock buy-prompt detected (10.1% yellow, right border 7.5%) — treating stock as EMPTY
+2026-11-07 22:25:13 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-07 22:25:13 | INFO     | Parsed BoardState(waste=8, playable=['Q', '10', '5'], faceup=3, facedown=1, stock=False, wild=True)
+2026-11-07 22:25:13 | INFO     | Waste=[8]  Playable=3 (Q#0, 10#1, 5#3)  Tableau=4  Stock=EMPTY  StockWILD=NO  WILD=YES
+2026-11-07 22:25:13 | INFO     | Right bottom WILD available, but remaining cards cannot finish the game without more cards.
+2026-11-07 22:25:13 | WARNING  | No legal moves (1/3): No legal moves, stock empty, right bottom WILD cannot finish board
+2026-11-07 22:25:14 | INFO     | ── Step 6 ──────────────────────────────────
+2026-11-07 22:25:15 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 22:25:16 | DEBUG    | Waste pile: 8 (conf=0.99)
+2026-11-07 22:25:16 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 22:25:18 | DEBUG    | Detected 4 tableau cards (3 face-up, 1 face-down)
+2026-11-07 22:25:18 | DEBUG    | Occlusion: Card 3 (5) blocks Card 2 (BACK) [overlap=3608px²]
+2026-11-07 22:25:19 | DEBUG    | Waste pile: 8 (conf=0.99)
+2026-11-07 22:25:19 | INFO     | Stock buy-prompt detected (10.1% yellow, right border 7.5%) — treating stock as EMPTY
+2026-11-07 22:25:19 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-07 22:25:19 | INFO     | Parsed BoardState(waste=8, playable=['Q', '10', '5'], faceup=3, facedown=1, stock=False, wild=True)
+2026-11-07 22:25:19 | INFO     | Waste=[8]  Playable=3 (Q#0, 10#1, 5#3)  Tableau=4  Stock=EMPTY  StockWILD=NO  WILD=YES
+2026-11-07 22:25:19 | INFO     | Right bottom WILD available, but remaining cards cannot finish the game without more cards.
+2026-11-07 22:25:19 | WARNING  | No legal moves (2/3): No legal moves, stock empty, right bottom WILD cannot finish board
+2026-11-07 22:25:20 | INFO     | ── Step 7 ──────────────────────────────────
+2026-11-07 22:25:21 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 22:25:21 | DEBUG    | Waste pile: 8 (conf=0.99)
+2026-11-07 22:25:21 | DEBUG    | Detected screen state: IN_GAME
+2026-11-07 22:25:24 | DEBUG    | Detected 4 tableau cards (3 face-up, 1 face-down)
+2026-11-07 22:25:24 | DEBUG    | Occlusion: Card 3 (5) blocks Card 2 (BACK) [overlap=3608px²]
+2026-11-07 22:25:24 | DEBUG    | Waste pile: 8 (conf=0.99)
+2026-11-07 22:25:24 | INFO     | Stock buy-prompt detected (10.1% yellow, right border 7.5%) — treating stock as EMPTY
+2026-11-07 22:25:24 | DEBUG    | WILD button detected at (2277, 875) (conf=0.89)
+2026-11-07 22:25:24 | INFO     | Parsed BoardState(waste=8, playable=['Q', '10', '5'], faceup=3, facedown=1, stock=False, wild=True)
+2026-11-07 22:25:24 | INFO     | Waste=[8]  Playable=3 (Q#0, 10#1, 5#3)  Tableau=4  Stock=EMPTY  StockWILD=NO  WILD=YES
+2026-11-07 22:25:24 | INFO     | Right bottom WILD available, but remaining cards cannot finish the game without more cards.
+2026-11-07 22:25:24 | WARNING  | No legal moves (3/3): No legal moves, stock empty, right bottom WILD cannot finish board
+2026-11-07 22:25:24 | ERROR    | ⛔ Stuck for 3 consecutive frames — giving up.
+2026-11-07 22:25:24 | INFO     | Bot session ended.

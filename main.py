@@ -2,21 +2,24 @@
 main.py
 Disney Solitaire Bot — Autonomous Game Loop.
 
-Runs continuously without user confirmation:
+Runs continuously across multiple levels:
   1. Capture live screen via ADB
-  2. Parse board state (card detection + DAG)
-  3. Decide best move (solver)
-  4. Execute tap on device
-  5. Wait for animations to settle → repeat
+  2. Detect screen state (Main Menu / Popups / Victory / Dealing Guard)
+  3. Automatically navigate menus, claim hourly bonuses, dismiss rewards, and launch levels
+  4. Parse active board state (card detection + DAG)
+  5. Decide best move (solver)
+  6. Execute tap with humanized jitter → repeat
 
 Stops automatically on:
-  - Win (tableau cleared)
-  - No legal moves with empty stock (stuck)
+  - Specified step limit (`--max-steps`)
+  - End of level when `--single-level` is active
+  - No legal moves with empty stock (stuck for N patience attempts)
   - ADB connection failure
   - KeyboardInterrupt (Ctrl+C)
 
 Usage:
-    python main.py                  # run until game over
+    python main.py                  # autonomous continuous play across levels
+    python main.py --single-level   # stop after one level is completed
     python main.py --max-steps 50   # stop after 50 steps (safety cap)
     python main.py --save-screens   # save every screenshot to tests/screenshots/
 """
@@ -36,6 +39,8 @@ import config
 import adb_controller
 from board.parser import BoardParser
 from engine.solver import Solver, MoveType
+from navigation.menu_handler import MenuHandler
+from vision.menu_detector import ScreenState
 
 
 # ── Logging setup ──────────────────────────────────────────────────────────────
@@ -77,6 +82,11 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Save every captured screenshot to tests/screenshots/",
     )
+    p.add_argument(
+        "--single-level",
+        action="store_true",
+        help="Stop after completing one level rather than proceeding to the next level",
+    )
     return p.parse_args()
 
 
@@ -106,6 +116,7 @@ def run(args: argparse.Namespace) -> None:
 
     parser = BoardParser()
     solver = Solver()
+    menu_handler = MenuHandler()
 
     step = 0
     no_move_streak = 0
@@ -137,7 +148,18 @@ def run(args: argparse.Namespace) -> None:
                 folder="tests/screenshots",
             )
 
-        # ── 2. Parse board state ───────────────────────────────────────────────
+        # ── 2. Menu / Popup / Dealing Guard ───────────────────────────────────
+        nav_action = menu_handler.handle(screen, dev=dev)
+        if not nav_action.is_gameplay_ready:
+            no_move_streak = 0
+            if nav_action.state == ScreenState.POST_WIN:
+                logger.success("🎉 Level Cleared! Victory screen dismissed.")
+                if args.single_level:
+                    logger.info("Stopping because --single-level was specified.")
+                    break
+            continue
+
+        # ── 3. Parse board state ───────────────────────────────────────────────
         state = parser.parse(screen)
 
         waste_rank = state.waste.rank if state.waste else "NONE"
@@ -151,12 +173,15 @@ def run(args: argparse.Namespace) -> None:
             f"WILD={'YES' if state.has_wild else 'NO'}"
         )
 
-        # ── 3. Win check ───────────────────────────────────────────────────────
+        # ── 4. Win check ───────────────────────────────────────────────────────
         if len(state.tableau) == 0:
-            logger.success("🎉 GAME WON! Tableau is fully cleared!")
-            break
+            logger.success("🎉 Tableau is fully cleared! Waiting for victory celebration screen...")
+            if args.single_level:
+                break
+            time.sleep(2.5)  # allow victory celebration to appear
+            continue
 
-        # ── 4. Decide move ─────────────────────────────────────────────────────
+        # ── 5. Decide move ─────────────────────────────────────────────────────
         move = solver.choose_move(state)
 
         if move.move_type == MoveType.NO_MOVES:

@@ -312,21 +312,36 @@ class CardDetector:
 
         if yellow_ratio > YELLOW_BORDER_THRESHOLD:
             # Yellow detected — could be buy-prompt OR a WILD card in the stock.
-            # Disambiguate with a template match for the WILD card.
+            # 1. Disambiguate with template match if WILD card is on top of the stock.
             wild_in_stock = self.detect_stock_has_wild(screen)
             if wild_in_stock:
-                # Yellow comes from the WILD card(s) — NOT a buy prompt.
+                # Yellow comes from the WILD card on top — NOT a buy prompt.
                 logger.debug(
                     f"Yellow in stock ROI ({yellow_ratio*100:.1f}%) but WILD card "
                     f"detected in stock — not a buy-prompt, continuing blue check"
                 )
             else:
-                # No WILD card found — yellow border is the buy-prompt trap.
-                logger.info(
-                    f"Stock buy-prompt detected ({yellow_ratio*100:.1f}% yellow, "
-                    f"no WILD in stock) — treating stock as EMPTY"
-                )
-                return False
+                # 2. Check if yellow forms a full perimeter button border.
+                # A real buy-prompt button has a gold border wrapping the entire perimeter,
+                # including the right half (x > sx).
+                # A buried card stacked underneath fans out exclusively to the LEFT,
+                # leaving the right side with 0 yellow pixels.
+                right_mask = yellow_mask[:, hw:]
+                right_yellow_ratio = float(np.count_nonzero(right_mask)) / right_mask.size
+
+                if right_yellow_ratio >= 0.03:
+                    # Confirmed buy-prompt border framing the card
+                    logger.info(
+                        f"Stock buy-prompt detected ({yellow_ratio*100:.1f}% yellow, "
+                        f"right border {right_yellow_ratio*100:.1f}%) — treating stock as EMPTY"
+                    )
+                    return False
+                else:
+                    # Yellow is only on left stacked edge (buried WILD in deck)
+                    logger.debug(
+                        f"Yellow in stock ROI ({yellow_ratio*100:.1f}%) confined to left edge "
+                        f"(right={right_yellow_ratio*100:.1f}%) — deck with buried card, continuing blue check"
+                    )
 
         # No buy prompt — check for actual blue cards in the central area
         small_roi = screen[sy-40:sy+40, sx-40:sx+40]
