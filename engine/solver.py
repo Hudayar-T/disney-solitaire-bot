@@ -298,14 +298,14 @@ class Solver:
             if remaining_tableau == 1:
                 return Move(
                     move_type=MoveType.PLAY_WILD,
-                    tap_coord=config.WILD_CENTER,
+                    tap_coord=state.wild_coord,
                     score=100.0,
                     reason="Stock empty and only 1 card left — use right bottom WILD to finish!",
                 )
             elif remaining_tableau > 1 and can_chain_clear_tableau(state.tableau):
                 return Move(
                     move_type=MoveType.PLAY_WILD,
-                    tap_coord=config.WILD_CENTER,
+                    tap_coord=state.wild_coord,
                     score=90.0,
                     reason=f"Stock empty: remaining {remaining_tableau} cards can be 100% chain-cleared with right bottom WILD!",
                 )

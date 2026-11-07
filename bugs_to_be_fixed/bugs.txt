@@ -1,3 +1,0 @@
-yellow_of_wild_cards_mistaken_for_yellow_border_of_stock.jpg
-
-In gemini.md, there is a paragraph about "Buy more cards" trap. Our current solution is to measure the percentage of yellow color in the stock. But the logic fails when there is a WILD card(s) in the stock which are also yellow. Need to come with a better solution.

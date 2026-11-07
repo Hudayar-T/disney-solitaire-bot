@@ -1,148 +1,44 @@
 # 🃏 Disney Solitaire Bot — Master Plan
 
-> **Game:** Disney Solitaire (TriPeaks-style) · **Device:** Redmi Note 14 (1080×2400) · **Stack:** Python + ADB + OpenCV
+> **Game:** Disney Solitaire (TriPeaks-style) · **Device:** Redmi Note 14 (2400×1080 landscape) · **Stack:** Python + ADB + OpenCV
 
-## Legend
+## Status Legend
 - ✅ Done
 - 🔄 In Progress
 - ⬜ Not Started
-- ❌ Blocked
 
 ---
 
-## Game Mechanics (observed from screenshots)
+## Milestone Progress
 
-- Cards are stacked in **haphazard overlapping piles** — NOT a fixed grid (like Mahjong Titans)
-- Number of cards per pile varies; piles grow and shrink as cards are removed
-- **Only the top card of each pile** is playable (face-up, fully visible rank)
-- Cards under another card are face-up but blocked (rank visible, not tappable)
-- Bottom row: **Stock pile** (blue face-down deck) + **Waste pile** (current face-up card) + **Undo button**
-- **WILD card** exists (bottom-right) — can be played on anything
-- **Streak Bonus** bar in top-right — consecutive chain rewards
-- Two card **color families**: red suits (♥♦) and blue/dark suits (♠♣)
-- Rank displayed both top-left (small) and center (large) — large rank is the template target
-
-## Template Strategy (observed from card crops)
-- Templates show **full card face** at consistent size
-- Cards in screenshots appear **slightly larger** than templates — will need scale handling or resize
-- Rank label is large and centered — good for template matching on the large rank glyph
-- Suits vary per card but rank is what matters for game logic
-- Likely need **rank-only ROI** (crop top-left corner) for matching, ignoring the suit and center art
+| Phase | Description | Status | Key Deliverables |
+|---|---|---|---|
+| **Phase 1** | ADB Setup & Screencap | ✅ Done | `adb_controller.py` screencap & tap, 2400×1080 landscape confirmed |
+| **Phase 2** | Card Detection & UI | ✅ Done | Multi-angle templates (±48°), HSV masks, yellow buy-trap & WILD guard |
+| **Phase 3** | Board State & DAG | ✅ Done | Overlap detection (`rotatedRectangleIntersection`), Z-order occlusion rules |
+| **Phase 4** | Decision Engine | ✅ Done | Lookahead chain search, mystery card unblocking bonus, strict WILD rules |
+| **Phase 5** | Tap Automation | ✅ Done | Anti-bot Gaussian spatial jitter + randomized human delays |
+| **Phase 6** | Game Loop & Live Play | 🔄 In Progress | Autonomous loop in `main.py`, win/stuck detection, live testing |
 
 ---
 
-## Phase 1 — ADB Setup & Screen Capture
-> Goal: Connect to phone, grab a screenshot from Python, confirm resolution.
+## Active & Upcoming Tasks (Phase 6 & Beyond)
 
-| # | Step | Status | Notes |
-|---|------|--------|-------|
-| 1.1 | Enable Developer Options on Redmi Note 14 | ✅ | |
-| 1.2 | Enable USB Debugging | ✅ | |
-| 1.3 | Install ADB platform-tools on Windows | ✅ | |
-| 1.4 | Plug in phone via USB, authorize RSA fingerprint | ✅ | Device serial: `uknzs47tv8bugekf` |
-| 1.5 | Install Python dependencies | ✅ | Venv at `.venv/`, all packages installed |
-| 1.6 | Write `adb_controller.py` | ✅ | connect + screencap + tap + save |
-| 1.7 | Run live screencap test, confirm resolution | ✅ | **1080×2400 px confirmed** ✓ |
+### Phase 6 — Game Loop & Live Testing
+- [x] **6.1 Autonomous Game Loop:** `main.py` pipeline (capture → parse → solve → tap → settle) with `--max-steps` and `--save-screens`.
+- [x] **6.2 Basic Win & Stuck Handling:** Board cleared win check (`len(state.tableau) == 0`) and patience retry streak (`no_move_streak >= NO_MOVE_PATIENCE`).
+- [ ] **6.3 End-Screen & Result Dialog Detection:** Detect Victory / Defeat popups and result overlays to cleanly finalize a level.
+- [ ] **6.4 End-to-End Live Play Test:** Let the bot play full live levels autonomously on device; verify animation settling delays and reliability.
 
----
-
-## Phase 2 — Card Detection & Classification
-> Goal: Detect ALL cards (face-up and face-down) and classify face-up cards by rank.
-
-### 2A — Card Segmentation (find all card regions)
-| # | Step | Status | Notes |
-|---|------|--------|-------|
-| 2A.1 | HSV color segmentation — separate blue backs from white faces | ✅ | Calibrated HSV ranges in `config.py` |
-| 2A.2 | Contour detection — find card boundaries from both masks | ✅ | `cv2.findContours` + `cv2.minAreaRect` |
-| 2A.3 | Filter contours by area — reject noise, keep card-sized blobs | ✅ | Area thresholds (12k to 45k px²) |
-| 2A.4 | Classify each contour as FACE_UP or FACE_DOWN | ✅ | HSV segmentation for backs, template matching for faces |
-| 2A.5 | Test segmentation on all 5 static screenshots | ✅ | Verified across all test images |
-
-### 2B — Face-Up Rank Recognition
-| # | Step | Status | Notes |
-|---|------|--------|-------|
-| 2B.1 | Templates already in `vision/templates/` | ✅ | A–K, BACK, UNDO, WILD |
-| 2B.2 | Measure template vs in-game size, determine scale factor | ✅ | 1:1 scale confirmed in landscape |
-| 2B.3 | Multi-angle template matching per rank | ✅ | Pre-rotated templates covering steep card tilts up to ±48° |
-| 2B.4 | Multi-scale matching fallback | ✅ | Standard scale works with high confidence |
-| 2B.5 | NMS to deduplicate overlapping detections | ✅ | IoU 0.35 threshold in `detector.py` |
-| 2B.6 | Test rank recognition on all screenshots | ✅ | 100% accuracy across all test screenshots including extreme ±40° tilts |
-
-### 2C — Waste/Stock/UI Detection
-| # | Step | Status | Notes |
-|---|------|--------|-------|
-| 2C.1 | Detect waste pile card (bottom-center, fixed ROI) | ✅ | Verified (5/5 accurate with 0.96-1.00 conf) |
-| 2C.2 | Detect stock pile presence (is deck empty?) | ✅ | Blue presence ratio check at `STOCK_CENTER` |
-| 2C.2b | Detect "buy +N cards" yellow border trap on stock pile | ✅ | Yellow/gold border HSV detection added to `detect_normal_stock_present()`. Checks for yellow pixels (H:15-40, S:80+, V:150+) before blue check. ≥5% yellow → stock treated as EMPTY. Verified: 0% yellow on real stock (1-11.jpg), 10.7% on buy prompt (13.jpg). |
-| 2C.2c | **Bug fix:** WILD cards in stock mistaken for buy-prompt | ✅ | Yellow WILD cards sitting in the stock pile also triggered the ≥5% yellow threshold, causing `detect_normal_stock_present()` to falsely return `False`. Fix: when yellow is detected in the stock ROI, first run `detect_stock_has_wild()` (template match). If a WILD is found → yellow comes from the WILD card, not the buy-prompt border → skip the false alarm and continue to the blue-card check. If no WILD → yellow is the buy-prompt → return `False`. Regression tests in `tests/test_stock_yellow_bug.py` cover: real screenshot with WILDs alongside blue cards, synthetic buy-prompt, synthetic WILD-body-yellow + blue center, and `proposed_move.jpg` (+5 for 7,500 coins prompt → correctly `False`). |
-| 2C.3 | Detect WILD card availability | ✅ | Template match with user's cropped WILD template |
-| 2C.4 | Test UI detection on screenshots | ✅ | Waste, stock, undo, wild verified on all 5 images |
+### Phase 7 — Post-MVP Enhancements (Optional)
+- [ ] **7.1 Auto-Progression:** Detect and tap "Next Level" / "Play Again" buttons between rounds.
+- [ ] **7.2 Speed Tuning:** Optimize template matching execution time and refine `SCREENCAP_INTERVAL` for snappier play.
 
 ---
 
-## Phase 3 — Board State & Dependency Graph
-> Goal: Build a structured board state with a DAG representing which cards block which.
-
-| # | Step | Status | Notes |
-|---|------|--------|-------|
-| 3.1 | Write `board/state.py` — Card, BoardState dataclasses | ✅ | Card, BoardState dataclasses with DAG tracking |
-| 3.2 | Build polygon representations for each detected card | ✅ | `cv2.boxPoints` from rotated rectangles |
-| 3.3 | Compute pairwise polygon intersections → overlap graph | ✅ | `cv2.rotatedRectangleIntersection` (exact & fast) |
-| 3.4 | Resolve Z-order / occlusion to determine blocking | ✅ | Face-up on top of face-down; lower-y on top of higher-y |
-| 3.5 | Determine playable cards (top of stack = not covered by any other card) | ✅ | `is_face_up` and `len(blocked_by) == 0` |
-| 3.6 | Write `board/parser.py` — screenshot → BoardState pipeline | ✅ | Vision detections → Card objects → DAG → BoardState |
-| 3.7 | Test parser on all 5 static screenshots | ✅ | Verified across all test images and visually annotated |
+## Open Questions & Considerations
+- [ ] Screen timeout: Ensure phone stays awake during prolonged runs (via ADB or phone developer settings).
+- [ ] Animated event popups: Check if mid-game event/bonus popups occur on certain levels that need dismiss taps.
 
 ---
-
-## Phase 4 — Decision Engine
-> Goal: Given a BoardState, pick the best legal move.
-
-| # | Step | Status | Notes |
-|---|------|--------|-------|
-| 4.1 | Implement legal move generator | ✅ | Playable cards ±1 rank from waste top (A↔K wrap) |
-| 4.2 | Implement restricted WILD card handling | ✅ | If WILD is in the center (stack/waste) -> play undoubtedly! If WILD is in the right bottom corner -> apply strict rules (only when stock is empty AND 1 card left or 100% chain clear). |
-| 4.3 | Implement chain/streak scorer & lookahead | ✅ | Lookahead simulation + unblocking heuristics (bonus for mystery cards) |
-| 4.4 | Implement stock draw fallback | ✅ | Falls back to `STOCK_CENTER` when no tableau moves exist |
-| 4.5 | Write `engine/solver.py` | ✅ | Clean Solver and Move data structures |
-| 4.6 | Test solver on known board states | ✅ | Verified on all 12 screenshots + synthetic edge cases |
-| 4.7 | Unblock-aware lookahead chain optimization | ✅ | Chain search evaluates both streak length and unblocked cards along the branch; prioritizes paths uncovering face-down cards. |
-
----
-
-## Phase 5 — Tap Automation
-> Goal: Send tap events to the phone via ADB.
-
-| # | Step | Status | Notes |
-|---|------|--------|-------|
-| 5.1 | Add `tap(x, y)` to `adb_controller.py` | ✅ | `adb shell input tap` with coordinate passing |
-| 5.2 | Add randomized delay (jitter) | ✅ | Configurable min/max delay + 2D Gaussian spatial offset (anti-bot) |
-| 5.3 | Test tap on known coordinates | ✅ | Interactive confirmation mode in `live_step.py` |
-
----
-
-## Phase 6 — Game Loop
-> Goal: Tie everything together into a working bot.
-
-| # | Step | Status | Notes |
-|---|------|--------|-------|
-| 6.1 | Write `main.py` — capture → parse → decide → tap loop | ⬜ | |
-| 6.2 | Add game-over / win detection | ⬜ | Detect end screen (empty board or result overlay) |
-| 6.3 | Add stuck detection | ⬜ | No moves + empty stock → game over |
-| 6.4 | End-to-end test: let bot play one full game | ⬜ | Record outcome |
-
----
-
-## Open Questions / Blockers
-- [x] How exactly does pile occlusion work? → Face-up cards sit ON TOP of face-down; contour completeness resolves same-type overlap
-- [x] Is the WILD card always in the bottom-right or does it move? → Yes, always bottom-right (confirmed across all 5 screenshots)
-- [ ] Does the game have idle timeout or screen lock during play?
-- [x] Are card templates the right scale vs in-game cards? → Templates ~136×210, in-game ~195×295, scale factor ~1.42×
-- [ ] Are there any animated transitions that might confuse screencap timing?
-- [ ] Screenshots are in **landscape** (2400×1080) — need to confirm ADB screencap orientation vs PIL orientation
-- [ ] Some face-down cards are **rotated/angled** — `minAreaRect` handles this, but need to verify detection
-- [ ] Need to add `shapely` to requirements.txt for polygon intersection
-
----
-
-*Last updated: Bug fix 2C.2c — WILD-in-stock yellow disambiguation for buy-prompt detection*
+*Detailed mechanics and architecture reference: see [GEMINI.md](GEMINI.md)*

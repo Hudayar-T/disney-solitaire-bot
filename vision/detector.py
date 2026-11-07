@@ -111,6 +111,7 @@ class CardDetector:
         self._load_glyph_templates()
         self._undo_tmpl = self._load_template("UNDO.jpg")
         self._wild_tmpl = self._load_template("WILD.jpg")
+        self.last_wild_coord: tuple[int, int] = config.WILD_CENTER
 
     def _load_template(self, filename: str) -> Optional[np.ndarray]:
         path = TEMPLATES_DIR / filename
@@ -364,17 +365,26 @@ class CardDetector:
         return max_val >= 0.80
 
     def detect_wild_present(self, screen: np.ndarray) -> bool:
-        """Check if WILD card is available (matches lower 70% to ignore badge count)."""
+        """Check if WILD card is available in bottom-right corner (matches lower 70% to ignore badge count).
+        Searches config.WILD_ROI to handle screen orientation safe-area shifts (e.g. camera notch padding).
+        """
         if self._wild_tmpl is None:
             return False
-        wx, wy = config.WILD_CENTER
-        hw, hh = 80, 120
-        roi = screen[wy-hh:wy+hh, wx-hw:wx+hw]
+        rx, ry, rw, rh = config.WILD_ROI
+        roi = screen[ry:min(screen.shape[0], ry+rh), rx:min(screen.shape[1], rx+rw)]
         gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
 
         # Match lower 70% of wild card
         th, tw = self._wild_tmpl.shape
         wild_body = self._wild_tmpl[int(th * 0.3):, :]
         res = cv2.matchTemplate(gray, wild_body, cv2.TM_CCOEFF_NORMED)
-        max_val = float(res.max())
-        return max_val >= 0.75
+        _, max_val, _, max_loc = cv2.minMaxLoc(res)
+
+        if max_val >= 0.75:
+            cx = rx + max_loc[0] + tw // 2
+            cy = ry + max_loc[1] - int(th * 0.3) + th // 2
+            self.last_wild_coord = (cx, cy)
+            logger.debug(f"WILD button detected at ({cx}, {cy}) (conf={max_val:.2f})")
+            return True
+
+        return False

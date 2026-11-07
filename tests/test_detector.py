@@ -25,6 +25,8 @@ print(f"Testing detector on {len(screenshots)} screenshots\n")
 
 for ss_path in screenshots:
     img = cv2.imread(str(ss_path))
+    if img is None or img.shape[:2] != (config.SCREEN_HEIGHT, config.SCREEN_WIDTH):
+        continue
     name = ss_path.stem
     print(f"=== Screenshot {name} ===")
 

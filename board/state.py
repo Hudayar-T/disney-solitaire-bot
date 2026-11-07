@@ -60,6 +60,7 @@ class BoardState:
     stock_has_wild: bool = False      # Bought/expensive WILD card sitting in stock
     has_undo: bool = False
     has_wild: bool = False           # Bought/expensive WILD card in bottom-right corner
+    wild_coord: tuple[int, int] = (2277, 875)  # Coordinates of bottom-right WILD card
 
     @property
     def has_stock(self) -> bool:

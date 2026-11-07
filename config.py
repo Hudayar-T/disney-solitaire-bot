@@ -21,8 +21,9 @@ WASTE_CENTER = (1336, 937)
 # Undo button — green circular arrow, right of waste
 UNDO_CENTER = (1548, 909)
 
-# WILD card button — bottom-right gold card
+# WILD card button — bottom-right gold card (WILD_ROI handles orientation shifts like notch padding)
 WILD_CENTER = (2277, 875)
+WILD_ROI = (2050, 720, 350, 330)  # (x, y, w, h) search region in landscape coords
 
 # ── Template matching ─────────────────────────────────────────────────────────
 TEMPLATE_MATCH_THRESHOLD = 0.72   # minimum confidence score for center glyphs

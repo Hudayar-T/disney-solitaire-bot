@@ -147,6 +147,7 @@ class BoardParser:
         stock_has_wild = self.detector.detect_stock_has_wild(screen)
         has_undo = self.detector.detect_undo_present(screen)
         has_wild = self.detector.detect_wild_present(screen)
+        wild_coord = self.detector.last_wild_coord if has_wild else config.WILD_CENTER
 
         state = BoardState(
             tableau=cards,
@@ -155,6 +156,7 @@ class BoardParser:
             stock_has_wild=stock_has_wild,
             has_undo=has_undo,
             has_wild=has_wild,
+            wild_coord=wild_coord,
         )
 
         logger.info(f"Parsed {state}")

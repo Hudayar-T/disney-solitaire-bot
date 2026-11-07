@@ -1,0 +1,38 @@
+2026-11-07 10:45:56 | INFO     | ============================================================
+2026-11-07 10:45:56 | INFO     | DISNEY SOLITAIRE BOT — AUTONOMOUS MODE
+2026-11-07 10:45:56 | INFO     | ============================================================
+2026-11-07 10:45:56 | INFO     | Max steps : unlimited
+2026-11-07 10:45:56 | INFO     | Save screens: False
+2026-11-07 10:45:56 | INFO     | Connected to device: uknzs47tv8bugekf
+2026-11-07 10:45:56 | INFO     | Loaded 13 rank glyphs (143 rotated variants)
+2026-11-07 10:45:56 | INFO     | ── Step 1 ──────────────────────────────────
+2026-11-07 10:45:57 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 10:46:00 | DEBUG    | Detected 1 tableau cards (1 face-up, 0 face-down)
+2026-11-07 10:46:00 | DEBUG    | Waste pile: 9 (conf=1.00)
+2026-11-07 10:46:00 | INFO     | Stock buy-prompt detected (10.0% yellow, no WILD in stock) — treating stock as EMPTY
+2026-11-07 10:46:00 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-07 10:46:00 | INFO     | Parsed BoardState(waste=9, playable=['6'], faceup=1, facedown=0, stock=False, wild=True)
+2026-11-07 10:46:00 | INFO     | Waste=[9]  Playable=1 (6#0)  Tableau=1  Stock=EMPTY  StockWILD=NO  WILD=YES
+2026-11-07 10:46:00 | INFO     | Move: PLAY_WILD  target=—  coord=(2277, 875)  score=100.0  reason=Stock empty and only 1 card left — use right bottom WILD to finish!
+2026-11-07 10:46:01 | DEBUG    | Tapped (2278, 868) [offset=(+1, -7)] after 0.52s delay
+2026-11-07 10:46:01 | DEBUG    | Tapped (2278, 868)
+2026-11-07 10:46:02 | INFO     | ── Step 2 ──────────────────────────────────
+2026-11-07 10:46:03 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 10:46:06 | DEBUG    | Detected 1 tableau cards (1 face-up, 0 face-down)
+2026-11-07 10:46:06 | DEBUG    | Waste pile: WILD (conf=0.81)
+2026-11-07 10:46:06 | INFO     | Stock buy-prompt detected (10.0% yellow, no WILD in stock) — treating stock as EMPTY
+2026-11-07 10:46:06 | INFO     | Parsed BoardState(waste=WILD, playable=['6'], faceup=1, facedown=0, stock=False, wild=False)
+2026-11-07 10:46:06 | INFO     | Waste=[WILD]  Playable=1 (6#0)  Tableau=1  Stock=EMPTY  StockWILD=NO  WILD=NO
+2026-11-07 10:46:06 | DEBUG    | Candidate Move: 6 at (1781, 452) -> score=10.0 (plays 6)
+2026-11-07 10:46:06 | INFO     | Move: PLAY_CARD  target=6  coord=(np.int64(1781), np.int64(452))  score=10.0  reason=plays 6
+2026-11-07 10:46:08 | DEBUG    | Tapped (1770, 444) [offset=(-11, -8)] after 1.37s delay
+2026-11-07 10:46:08 | DEBUG    | Tapped (1770, 444)
+2026-11-07 10:46:09 | INFO     | ── Step 3 ──────────────────────────────────
+2026-11-07 10:46:10 | DEBUG    | Screenshot captured: (2400, 1080)
+2026-11-07 10:46:13 | DEBUG    | Detected 0 tableau cards (0 face-up, 0 face-down)
+2026-11-07 10:46:13 | DEBUG    | Waste pile: 6 (conf=0.99)
+2026-11-07 10:46:13 | INFO     | Stock buy-prompt detected (5.4% yellow, no WILD in stock) — treating stock as EMPTY
+2026-11-07 10:46:13 | INFO     | Parsed BoardState(waste=6, playable=[], faceup=0, facedown=0, stock=False, wild=False)
+2026-11-07 10:46:13 | INFO     | Waste=[6]  Playable=0 (None)  Tableau=0  Stock=EMPTY  StockWILD=NO  WILD=NO
+2026-11-07 10:46:13 | SUCCESS  | 🎉 GAME WON! Tableau is fully cleared!
+2026-11-07 10:46:13 | INFO     | Bot session ended.
