@@ -1,17 +1,11 @@
 """
 vision/detector.py
-Hybrid card detection: template matching for face-up ranks + HSV segmentation for face-down cards.
-
-Pipeline per frame:
-  1. HSV segmentation to find face-down (blue) card regions
-  2. Template matching across tableau for face-up card rank identification
-  3. NMS to remove duplicate hits
-  4. Return list of Detection objects (face-up with rank, face-down with position)
-
-Key constants (derived from measurements):
-  - In-game face-up card:  ~135w × 208h px (in landscape screenshots)
-  - In-game face-down card: ~121w × 193h px
-  - Template size: ~136w × 210h px (nearly 1:1 with face-up cards)
+Hybrid card & UI detection:
+  - Face-up card rank detection via multi-angle center-glyph matching
+  - Face-down card detection (both blue backs and green '?' mystery cards) via HSV segmentation
+  - Waste pile rank detection
+  - Stock deck presence detection
+  - Undo & Wild button status detection
 """
 
 from __future__ import annotations
@@ -27,7 +21,6 @@ import config
 
 TEMPLATES_DIR = Path(__file__).parent / "templates"
 
-# All valid ranks + special tokens
 ALL_RANKS = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 RANK_VALUES = {r: i for i, r in enumerate(ALL_RANKS)}  # A=0 … K=12
 
@@ -38,58 +31,39 @@ class Detection:
     rank: str          # e.g. "K", "10", "A", or "BACK"
     cx: int            # center x in screen coords
     cy: int            # center y in screen coords
-    confidence: float  # match score 0–1 (1.0 for face-down cards)
+    confidence: float  # match score 0–1
     tw: int            # bounding box width
     th: int            # bounding box height
-    angle: float = 0.0 # rotation angle (for face-down cards)
+    angle: float = 0.0 # rotation angle in degrees
 
     @property
     def is_face_down(self) -> bool:
-        return self.rank == "BACK"
+        return self.rank in ("BACK", "MYSTERY")
 
     def __repr__(self):
-        return f"Detection(rank={self.rank}, pos=({self.cx},{self.cy}), conf={self.confidence:.2f})"
+        return f"Detection({self.rank}, pos=({self.cx},{self.cy}), conf={self.confidence:.2f}, ang={self.angle:.0f}°)"
 
 
-# ── HSV ranges (calibrated from screenshots) ────────────────────────────────
+# ── HSV ranges for facedown cards ───────────────────────────────────────────
+# Blue card backs
 BLUE_LOWER = np.array([95, 80, 120])
 BLUE_UPPER = np.array([125, 255, 255])
 
-# ── Face-down card area thresholds ───────────────────────────────────────────
-MIN_FACEDOWN_AREA = 12000
-MAX_FACEDOWN_AREA = 45000  # Larger = merged blob (skip or split)
+# Green mystery cards ('?')
+GREEN_LOWER = np.array([40, 60, 50])
+GREEN_UPPER = np.array([85, 255, 220])
+
+MIN_FACEDOWN_AREA = 8000
+MAX_FACEDOWN_AREA = 45000
 
 
-def _load_templates() -> dict[str, np.ndarray]:
-    """
-    Load all rank templates as grayscale OpenCV images.
-    Returns dict: rank_str → grayscale ndarray
-    """
-    templates = {}
-    for rank in ALL_RANKS:
-        path = TEMPLATES_DIR / f"{rank}.jpg"
-        if not path.exists():
-            logger.warning(f"Template missing: {path}")
-            continue
-        img = cv2.imread(str(path), cv2.IMREAD_GRAYSCALE)
-        if img is None:
-            logger.warning(f"Failed to load template: {path}")
-            continue
-        templates[rank] = img
-        logger.debug(f"Loaded template {rank}: {img.shape[1]}w×{img.shape[0]}h")
-    logger.info(f"Loaded {len(templates)} templates: {list(templates.keys())}")
-    return templates
-
-
-def _nms(detections: list[Detection], iou_threshold: float = 0.4) -> list[Detection]:
+def _nms(detections: list[Detection], iou_threshold: float = 0.30) -> list[Detection]:
     """
     Non-Maximum Suppression: remove overlapping detections, keep highest confidence.
-    Two detections overlap if their bounding boxes have IoU > threshold.
     """
     if not detections:
         return []
 
-    # Sort by confidence descending
     dets = sorted(detections, key=lambda d: d.confidence, reverse=True)
     kept = []
 
@@ -98,7 +72,6 @@ def _nms(detections: list[Detection], iou_threshold: float = 0.4) -> list[Detect
         kept.append(best)
         remaining = []
         for d in dets:
-            # Compute IoU between best and d
             bx1, by1 = best.cx - best.tw // 2, best.cy - best.th // 2
             bx2, by2 = best.cx + best.tw // 2, best.cy + best.th // 2
             dx1, dy1 = d.cx - d.tw // 2,   d.cy - d.th // 2
@@ -122,183 +95,208 @@ def _nms(detections: list[Detection], iou_threshold: float = 0.4) -> list[Detect
     return kept
 
 
-def _detect_facedown_cards(
-    screen: np.ndarray,
-    region: tuple[int, int, int, int],
-) -> list[Detection]:
-    """
-    Use HSV color segmentation to find face-down (blue) cards.
-    Returns Detection objects with rank="BACK".
-    """
-    x, y, w, h = region
-    roi = screen[y:y+h, x:x+w]
-    hsv_roi = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
-
-    # Blue mask
-    blue_mask = cv2.inRange(hsv_roi, BLUE_LOWER, BLUE_UPPER)
-
-    # Morphological cleanup
-    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5))
-    blue_mask = cv2.morphologyEx(blue_mask, cv2.MORPH_CLOSE, kernel)
-    blue_mask = cv2.morphologyEx(blue_mask, cv2.MORPH_OPEN, kernel)
-
-    # Find contours
-    contours, _ = cv2.findContours(blue_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
-    detections = []
-    for cnt in contours:
-        area = cv2.contourArea(cnt)
-        if area < MIN_FACEDOWN_AREA:
-            continue
-        if area > MAX_FACEDOWN_AREA:
-            # Merged blob — skip for now (could split later)
-            logger.debug(f"Skipping merged blue blob: area={area:.0f}")
-            continue
-
-        rect = cv2.minAreaRect(cnt)
-        center, (rw, rh), angle = rect
-
-        # Convert ROI-relative → screen-space
-        cx = int(center[0]) + x
-        cy = int(center[1]) + y
-
-        detections.append(Detection(
-            rank="BACK",
-            cx=cx, cy=cy,
-            confidence=1.0,
-            tw=int(max(rw, rh)),  # Normalize: longer side as width
-            th=int(min(rw, rh)),
-            angle=angle,
-        ))
-
-    logger.debug(f"Detected {len(detections)} face-down cards via HSV segmentation")
-    return detections
-
-
-def _detect_faceup_cards(
-    screen: np.ndarray,
-    templates: dict[str, np.ndarray],
-    region: tuple[int, int, int, int],
-    scales: list[float],
-    threshold: float,
-) -> list[Detection]:
-    """
-    Use multi-scale template matching to find face-up cards and identify their rank.
-    """
-    x, y, w, h = region
-    roi = screen[y:y+h, x:x+w]
-    gray_roi = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
-
-    all_detections: list[Detection] = []
-
-    for rank, tmpl_gray in templates.items():
-        tmpl_h, tmpl_w = tmpl_gray.shape[:2]
-
-        for scale in scales:
-            new_w = int(tmpl_w * scale)
-            new_h = int(tmpl_h * scale)
-            if new_w < 10 or new_h < 10:
-                continue
-            scaled = cv2.resize(tmpl_gray, (new_w, new_h), interpolation=cv2.INTER_AREA)
-
-            # Skip if template is larger than ROI
-            if new_h > gray_roi.shape[0] or new_w > gray_roi.shape[1]:
-                continue
-
-            result = cv2.matchTemplate(gray_roi, scaled, cv2.TM_CCOEFF_NORMED)
-            locs = np.where(result >= threshold)
-
-            for pt_y, pt_x in zip(*locs):
-                score = float(result[pt_y, pt_x])
-                # Convert ROI-relative top-left → screen-space center
-                cx = x + pt_x + new_w // 2
-                cy = y + pt_y + new_h // 2
-                all_detections.append(Detection(
-                    rank=rank, cx=cx, cy=cy,
-                    confidence=score, tw=new_w, th=new_h
-                ))
-
-    return all_detections
-
-
 class CardDetector:
     """
-    Hybrid card detector: HSV segmentation for face-down + template matching for face-up.
-    Instantiate once; call detect() for each frame.
+    Card and board state vision detector for Disney Solitaire.
+    Pre-loads center-glyph templates at varied angles for fast, rotation-resilient matching.
     """
 
     def __init__(self):
-        self._templates = _load_templates()
-        self._scales = config.TEMPLATE_SCALE_FACTORS
-        self._threshold = config.TEMPLATE_MATCH_THRESHOLD
+        self._glyph_templates: list[tuple[str, np.ndarray, float, int, int]] = []
+        self._load_glyph_templates()
+        self._undo_tmpl = self._load_template("UNDO.jpg")
+        self._wild_tmpl = self._load_template("WILD.jpg")
 
-    def detect(
-        self,
-        screen: np.ndarray,
-        region: tuple[int, int, int, int] | None = None,
-    ) -> list[Detection]:
+    def _load_template(self, filename: str) -> Optional[np.ndarray]:
+        path = TEMPLATES_DIR / filename
+        if not path.exists():
+            logger.warning(f"Template not found: {path}")
+            return None
+        return cv2.imread(str(path), cv2.IMREAD_GRAYSCALE)
+
+    def _load_glyph_templates(self):
+        """Extract center rank glyph and pre-rotate across angles."""
+        angles = config.TEMPLATE_ANGLES
+        for rank in ALL_RANKS:
+            path = TEMPLATES_DIR / f"{rank}.jpg"
+            if not path.exists():
+                logger.warning(f"Rank template missing: {path}")
+                continue
+            full_card = cv2.imread(str(path), cv2.IMREAD_GRAYSCALE)
+            if full_card is None:
+                continue
+
+            # Extract center glyph (large rank number/letter)
+            h, w = full_card.shape
+            glyph = full_card[int(h * 0.35):int(h * 0.85), int(w * 0.15):int(w * 0.85)]
+            gh, gw = glyph.shape
+
+            for ang in angles:
+                if ang == 0:
+                    self._glyph_templates.append((rank, glyph, 0.0, gw, gh))
+                else:
+                    M = cv2.getRotationMatrix2D((gw / 2, gh / 2), ang, 1.0)
+                    rot = cv2.warpAffine(glyph, M, (gw, gh), borderMode=cv2.BORDER_CONSTANT, borderValue=240)
+                    self._glyph_templates.append((rank, rot, float(ang), gw, gh))
+
+        logger.info(f"Loaded {len(ALL_RANKS)} rank glyphs ({len(self._glyph_templates)} rotated variants)")
+
+    def detect_facedown(self, screen: np.ndarray, region: tuple[int, int, int, int]) -> list[Detection]:
         """
-        Detect all cards in `screen` (BGR numpy array, landscape or portrait).
+        Detect face-down cards in region via HSV segmentation.
+        Differentiates between standard blue backs ("BACK") and green mystery cards ("MYSTERY").
+        """
+        rx, ry, rw, rh = region
+        roi = screen[ry:ry+rh, rx:rx+rw]
+        hsv_roi = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
 
-        Args:
-            screen: full screenshot (BGR)
-            region: optional (x, y, w, h) ROI to search within.
-                    Defaults to config.TABLEAU_ROI.
+        blue_mask = cv2.inRange(hsv_roi, BLUE_LOWER, BLUE_UPPER)
+        green_mask = cv2.inRange(hsv_roi, GREEN_LOWER, GREEN_UPPER)
 
-        Returns:
-            List of Detection objects after NMS, sorted top-to-bottom left-to-right.
+        kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5))
+        blue_mask = cv2.morphologyEx(blue_mask, cv2.MORPH_CLOSE, kernel)
+        blue_mask = cv2.morphologyEx(blue_mask, cv2.MORPH_OPEN, kernel)
+        green_mask = cv2.morphologyEx(green_mask, cv2.MORPH_CLOSE, kernel)
+        green_mask = cv2.morphologyEx(green_mask, cv2.MORPH_OPEN, kernel)
+
+        facedown_cards = []
+
+        # 1. Standard blue card backs
+        contours_blue, _ = cv2.findContours(blue_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        for cnt in contours_blue:
+            area = cv2.contourArea(cnt)
+            if area < MIN_FACEDOWN_AREA or area > MAX_FACEDOWN_AREA:
+                continue
+            rect = cv2.minAreaRect(cnt)
+            center, (w, h), angle = rect
+            cx = int(center[0]) + rx
+            cy = int(center[1]) + ry
+            facedown_cards.append(Detection(
+                rank="BACK",
+                cx=cx, cy=cy,
+                confidence=1.0,
+                tw=int(max(w, h)),
+                th=int(min(w, h)),
+                angle=angle,
+            ))
+
+        # 2. Green mystery question-mark cards
+        contours_green, _ = cv2.findContours(green_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        for cnt in contours_green:
+            area = cv2.contourArea(cnt)
+            if area < MIN_FACEDOWN_AREA or area > MAX_FACEDOWN_AREA:
+                continue
+            rect = cv2.minAreaRect(cnt)
+            center, (w, h), angle = rect
+            cx = int(center[0]) + rx
+            cy = int(center[1]) + ry
+            facedown_cards.append(Detection(
+                rank="MYSTERY",
+                cx=cx, cy=cy,
+                confidence=1.0,
+                tw=int(max(w, h)),
+                th=int(min(w, h)),
+                angle=angle,
+            ))
+
+        return facedown_cards
+
+    def detect_faceup(self, screen: np.ndarray, region: tuple[int, int, int, int]) -> list[Detection]:
+        """Detect face-up card ranks in region using multi-angle glyph matching."""
+        rx, ry, rw, rh = region
+        roi = screen[ry:ry+rh, rx:rx+rw]
+        gray_roi = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
+
+        hits: list[Detection] = []
+        threshold = config.TEMPLATE_MATCH_THRESHOLD
+
+        for rank, tmpl, ang, gw, gh in self._glyph_templates:
+            if gh > gray_roi.shape[0] or gw > gray_roi.shape[1]:
+                continue
+
+            res = cv2.matchTemplate(gray_roi, tmpl, cv2.TM_CCOEFF_NORMED)
+            locs = np.where(res >= threshold)
+
+            for py, px in zip(*locs):
+                cx = rx + px + gw // 2
+                cy = ry + py + gh // 2
+                hits.append(Detection(
+                    rank=rank,
+                    cx=cx, cy=cy,
+                    confidence=float(res[py, px]),
+                    tw=gw + 40,
+                    th=gh + 80,
+                    angle=-ang,
+                ))
+
+        return _nms(hits, iou_threshold=0.30)
+
+    def detect(self, screen: np.ndarray, region: tuple[int, int, int, int] | None = None) -> list[Detection]:
+        """
+        Detect all tableau cards (both face-down and face-up).
+        Returns combined list of Detections sorted top-to-bottom, left-to-right.
         """
         if region is None:
             region = config.TABLEAU_ROI
 
-        # 1. Face-down cards via HSV segmentation
-        facedown = _detect_facedown_cards(screen, region)
+        facedown = self.detect_facedown(screen, region)
+        faceup = self.detect_faceup(screen, region)
 
-        # 2. Face-up cards via template matching
-        faceup = _detect_faceup_cards(
-            screen, self._templates, region,
-            self._scales, self._threshold
-        )
-
-        # 3. NMS on face-up (template hits often overlap)
-        faceup = _nms(faceup, iou_threshold=0.4)
-
-        # 4. Combine and sort: top-to-bottom, left-to-right
         all_cards = facedown + faceup
         all_cards.sort(key=lambda d: (d.cy, d.cx))
-
-        logger.debug(
-            f"Total: {len(all_cards)} cards "
-            f"({len(facedown)} face-down, {len(faceup)} face-up)"
-        )
+        logger.debug(f"Detected {len(all_cards)} tableau cards ({len(faceup)} face-up, {len(facedown)} face-down)")
         return all_cards
 
-    def detect_waste(self, screen: np.ndarray) -> Detection | None:
+    def detect_waste(self, screen: np.ndarray) -> Optional[Detection]:
         """
-        Detect the rank of the current waste pile card.
-        Uses a fixed ROI around the waste pile position from config.
+        Detect the rank of the current waste pile card (bottom-center).
         """
         wx, wy = config.WASTE_CENTER
-        half_w, half_h = 110, 165  # half-card dimensions
-        region = (wx - half_w, wy - half_h, half_w * 2, half_h * 2)
+        hw, hh = 110, 160
+        region = (max(0, wx - hw), max(0, wy - hh), hw * 2, hh * 2)
 
-        # Clamp to screen bounds
-        sh, sw = screen.shape[:2]
-        rx = max(0, region[0])
-        ry = max(0, region[1])
-        rw = min(region[2], sw - rx)
-        rh = min(region[3], sh - ry)
-
-        # Only template matching for waste (it's always face-up)
-        hits = _detect_faceup_cards(
-            screen, self._templates, (rx, ry, rw, rh),
-            self._scales, self._threshold
-        )
-        hits = _nms(hits, iou_threshold=0.4)
-
-        if not hits:
-            logger.warning("Could not detect waste pile rank")
+        faceup = self.detect_faceup(screen, region)
+        if not faceup:
+            logger.warning("Waste pile card not detected")
             return None
-        best = max(hits, key=lambda d: d.confidence)
+        best = max(faceup, key=lambda d: d.confidence)
         logger.debug(f"Waste pile: {best.rank} (conf={best.confidence:.2f})")
         return best
+
+    def detect_stock_present(self, screen: np.ndarray) -> bool:
+        """Check if cards remain in the stock pile."""
+        sx, sy = config.STOCK_CENTER
+        roi = screen[sy-40:sy+40, sx-40:sx+40]
+        hsv = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
+        blue_mask = cv2.inRange(hsv, BLUE_LOWER, BLUE_UPPER)
+        ratio = float(np.count_nonzero(blue_mask)) / blue_mask.size
+        is_present = ratio > 0.40
+        return is_present
+
+    def detect_undo_present(self, screen: np.ndarray) -> bool:
+        """Check if UNDO button is visible and active."""
+        if self._undo_tmpl is None:
+            return False
+        ux, uy = config.UNDO_CENTER
+        hw, hh = 90, 80
+        roi = screen[uy-hh:uy+hh, ux-hw:ux+hw]
+        gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
+        res = cv2.matchTemplate(gray, self._undo_tmpl, cv2.TM_CCOEFF_NORMED)
+        max_val = float(res.max())
+        return max_val >= 0.80
+
+    def detect_wild_present(self, screen: np.ndarray) -> bool:
+        """Check if WILD card is available (matches lower 70% to ignore badge count)."""
+        if self._wild_tmpl is None:
+            return False
+        wx, wy = config.WILD_CENTER
+        hw, hh = 80, 120
+        roi = screen[wy-hh:wy+hh, wx-hw:wx+hw]
+        gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
+
+        # Match lower 70% of wild card
+        th, tw = self._wild_tmpl.shape
+        wild_body = self._wild_tmpl[int(th * 0.3):, :]
+        res = cv2.matchTemplate(gray, wild_body, cv2.TM_CCOEFF_NORMED)
+        max_val = float(res.max())
+        return max_val >= 0.80

@@ -52,29 +52,29 @@
 ### 2A — Card Segmentation (find all card regions)
 | # | Step | Status | Notes |
 |---|------|--------|-------|
-| 2A.1 | HSV color segmentation — separate blue backs from white faces | ⬜ | `cv2.inRange` on HSV; blue backs have distinctive Mickey watermark |
-| 2A.2 | Contour detection — find card boundaries from both masks | ⬜ | `cv2.findContours` + `cv2.minAreaRect` for rotated cards |
-| 2A.3 | Filter contours by area — reject noise, keep card-sized blobs | ⬜ | Min/max area thresholds based on known card size (~195×295 px) |
-| 2A.4 | Classify each contour as FACE_UP or FACE_DOWN | ⬜ | Based on which color mask it came from |
-| 2A.5 | Test segmentation on all 5 static screenshots | ⬜ | Draw detected card outlines, visually verify |
+| 2A.1 | HSV color segmentation — separate blue backs from white faces | ✅ | Calibrated HSV ranges in `config.py` |
+| 2A.2 | Contour detection — find card boundaries from both masks | ✅ | `cv2.findContours` + `cv2.minAreaRect` |
+| 2A.3 | Filter contours by area — reject noise, keep card-sized blobs | ✅ | Area thresholds (12k to 45k px²) |
+| 2A.4 | Classify each contour as FACE_UP or FACE_DOWN | ✅ | HSV segmentation for backs, template matching for faces |
+| 2A.5 | Test segmentation on all 5 static screenshots | ✅ | Verified across all test images |
 
 ### 2B — Face-Up Rank Recognition
 | # | Step | Status | Notes |
 |---|------|--------|-------|
-| 2B.1 | Templates already in `vision/templates/` | ✅ | A–K + BACK, ~136×210 px each |
-| 2B.2 | Measure template vs in-game size, determine scale factor | ⬜ | From screenshots: in-game ~195×295 → scale ~1.42× |
-| 2B.3 | For each FACE_UP contour: crop → template match per rank | ⬜ | Match within the card's bounding box only (not full screen) |
-| 2B.4 | Multi-scale matching fallback if single scale has weak hits | ⬜ | Range 1.25–1.60 in steps of 0.05 |
-| 2B.5 | NMS to deduplicate overlapping detections | ✅ | Already implemented in `detector.py` |
-| 2B.6 | Test rank recognition on all 5 screenshots | ⬜ | Print detected rank + confidence per card, compare with visual |
+| 2B.1 | Templates already in `vision/templates/` | ✅ | A–K, BACK, UNDO, WILD |
+| 2B.2 | Measure template vs in-game size, determine scale factor | ✅ | 1:1 scale confirmed in landscape |
+| 2B.3 | Multi-angle template matching per rank | ✅ | Pre-rotated templates (0°, ±12°, ±25°) |
+| 2B.4 | Multi-scale matching fallback | ✅ | Standard scale works with high confidence |
+| 2B.5 | NMS to deduplicate overlapping detections | ✅ | IoU 0.35 threshold in `detector.py` |
+| 2B.6 | Test rank recognition on all 5 screenshots | ✅ | 100% accuracy (29/29 face-up cards detected) |
 
 ### 2C — Waste/Stock/UI Detection
 | # | Step | Status | Notes |
 |---|------|--------|-------|
-| 2C.1 | Detect waste pile card (bottom-center, fixed ROI) | ⬜ | Template match in small region around `config.WASTE_CENTER` |
-| 2C.2 | Detect stock pile presence (is deck empty?) | ⬜ | Blue card presence check in `config.STOCK_CENTER` region |
-| 2C.3 | Detect WILD card availability | ⬜ | Check yellow WILD icon in bottom-right region |
-| 2C.4 | Test UI detection on screenshots | ⬜ | Verify waste rank, stock empty/not, WILD available |
+| 2C.1 | Detect waste pile card (bottom-center, fixed ROI) | ✅ | Verified (5/5 accurate with 0.96-1.00 conf) |
+| 2C.2 | Detect stock pile presence (is deck empty?) | ✅ | Blue presence ratio check at `STOCK_CENTER` |
+| 2C.3 | Detect WILD card availability | ✅ | Template match with user's cropped WILD template |
+| 2C.4 | Test UI detection on screenshots | ✅ | Waste, stock, undo, wild verified on all 5 images |
 
 ---
 
@@ -83,13 +83,13 @@
 
 | # | Step | Status | Notes |
 |---|------|--------|-------|
-| 3.1 | Write `board/state.py` — Card, BoardState dataclasses | ⬜ | Card: rank, position, bbox polygon, is_face_up, is_playable |
-| 3.2 | Build polygon representations for each detected card | ⬜ | Shapely `Polygon` from `cv2.minAreaRect` corners |
-| 3.3 | Compute pairwise polygon intersections → overlap graph | ⬜ | `poly_A.intersects(poly_B)` with area threshold |
-| 3.4 | Resolve Z-order / occlusion to determine blocking | ⬜ | Face-up on top of face-down; contour completeness for same-type |
-| 3.5 | Determine playable cards (top of stack = not covered by any other card) | ⬜ | Leaf nodes in the DAG = playable |
-| 3.6 | Write `board/parser.py` — screenshot → BoardState pipeline | ⬜ | Combines Phase 2 detection + Phase 3 DAG construction |
-| 3.7 | Test parser on all 5 static screenshots | ⬜ | Print BoardState, verify playable cards match visual |
+| 3.1 | Write `board/state.py` — Card, BoardState dataclasses | ✅ | Card, BoardState dataclasses with DAG tracking |
+| 3.2 | Build polygon representations for each detected card | ✅ | `cv2.boxPoints` from rotated rectangles |
+| 3.3 | Compute pairwise polygon intersections → overlap graph | ✅ | `cv2.rotatedRectangleIntersection` (exact & fast) |
+| 3.4 | Resolve Z-order / occlusion to determine blocking | ✅ | Face-up on top of face-down; lower-y on top of higher-y |
+| 3.5 | Determine playable cards (top of stack = not covered by any other card) | ✅ | `is_face_up` and `len(blocked_by) == 0` |
+| 3.6 | Write `board/parser.py` — screenshot → BoardState pipeline | ✅ | Vision detections → Card objects → DAG → BoardState |
+| 3.7 | Test parser on all 5 static screenshots | ✅ | Verified across all test images and visually annotated |
 
 ---
 
