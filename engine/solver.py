@@ -296,20 +296,56 @@ class Solver:
         # (Bought/expensive: only use if guarantees finishing the board)
         if state.has_wild:
             remaining_tableau = len(state.tableau)
-            if remaining_tableau == 1:
-                return Move(
-                    move_type=MoveType.PLAY_WILD,
-                    tap_coord=state.wild_coord,
-                    score=100.0,
-                    reason="Stock empty and only 1 card left — use right bottom WILD to finish!",
+            qualifies_for_wild = (remaining_tableau == 1) or (
+                remaining_tableau > 1 and can_chain_clear_tableau(state.tableau)
+            )
+
+            if qualifies_for_wild:
+                # Case 1: If we already have a free WILD card (red badge '1'), use it unconditionally
+                if state.has_free_wild:
+                    return Move(
+                        move_type=MoveType.PLAY_WILD,
+                        tap_coord=state.wild_coord,
+                        score=100.0 if remaining_tableau == 1 else 90.0,
+                        reason=(
+                            "Stock empty and only 1 card left — use right bottom WILD to finish!"
+                            if remaining_tableau == 1
+                            else f"Stock empty: remaining {remaining_tableau} cards can be 100% chain-cleared with right bottom WILD!"
+                        ),
+                    )
+
+                # Case 2: We do not have a free WILD card -> check funds to buy one
+                balance = state.balance
+                cost = state.wild_cost
+
+                # If balance and cost are known, compare them; if not provided (e.g. synthetic test), allow
+                has_insufficient_funds = (
+                    balance is not None and cost is not None and balance < cost
                 )
-            elif remaining_tableau > 1 and can_chain_clear_tableau(state.tableau):
-                return Move(
-                    move_type=MoveType.PLAY_WILD,
-                    tap_coord=state.wild_coord,
-                    score=90.0,
-                    reason=f"Stock empty: remaining {remaining_tableau} cards can be 100% chain-cleared with right bottom WILD!",
-                )
+
+                if has_insufficient_funds:
+                    logger.warning(
+                        f"Insufficient funds to buy WILD card: Balance ({balance}) < Cost ({cost})"
+                    )
+                    if state.has_end_level:
+                        return Move(
+                            move_type=MoveType.END_LEVEL,
+                            tap_coord=state.end_level_coord,
+                            score=1.0,
+                            reason=f"Stock empty: Insufficient funds to buy WILD (Balance {balance:,} < Cost {cost:,}) — tap END LEVEL",
+                        )
+                else:
+                    reason = (
+                        f"Stock empty: Purchasing WILD card (Balance {balance:,} >= Cost {cost:,}) to finish!"
+                        if (balance is not None and cost is not None)
+                        else "Stock empty and only 1 card left — use right bottom WILD to finish!"
+                    )
+                    return Move(
+                        move_type=MoveType.PLAY_WILD,
+                        tap_coord=state.wild_coord,
+                        score=100.0 if remaining_tableau == 1 else 90.0,
+                        reason=reason,
+                    )
             else:
                 logger.info("Right bottom WILD available, but remaining cards cannot finish the game without more cards.")
 

@@ -42,6 +42,22 @@ class MenuDetector:
         self.tmpl_tap_reward = self._load_template("tap_to_collect.png")
         self.tmpl_end_level_confirm = self._load_template("end_level_confirm.png")
         self.last_confirm_coord: tuple[int, int] = config.END_LEVEL_CONFIRM_CENTER
+        self._digit_detector = None
+
+    def detect_modal_cost(self, screen: np.ndarray) -> Optional[int]:
+        """
+        Detects the level entry coin cost from the pre-level modal bottom area.
+        """
+        if self._digit_detector is None:
+            from vision.digit_detector import DigitDetector
+            self._digit_detector = DigitDetector()
+
+        return self._digit_detector.parse_number(
+            screen,
+            roi=config.MODAL_COST_ROI,
+            mode="white_on_dark",
+            threshold=config.DIGIT_MATCH_THRESHOLD,
+        )
 
     def _load_template(self, filename: str) -> Optional[np.ndarray]:
         p = self.tmpl_path / filename

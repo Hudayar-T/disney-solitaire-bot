@@ -103,8 +103,17 @@ class BoardParser:
     Parses full screenshots into structured BoardState objects.
     """
 
-    def __init__(self, detector: Optional[CardDetector] = None):
+    def __init__(
+        self,
+        detector: Optional[CardDetector] = None,
+        balance_detector = None,
+    ):
         self.detector = detector or CardDetector()
+        if balance_detector is not None:
+            self.balance_detector = balance_detector
+        else:
+            from vision.balance_detector import BalanceDetector
+            self.balance_detector = BalanceDetector()
 
     def parse(self, screen: np.ndarray) -> BoardState:
         """
@@ -147,6 +156,9 @@ class BoardParser:
         stock_has_wild = self.detector.detect_stock_has_wild(screen)
         has_undo = self.detector.detect_undo_present(screen)
         has_wild = self.detector.detect_wild_present(screen)
+        has_free_wild = self.detector.detect_has_free_wild(screen) if has_wild else False
+        wild_cost = self.detector.detect_wild_cost(screen) if (has_wild and not has_free_wild) else None
+        balance = self.balance_detector.get_balance(screen)
         wild_coord = self.detector.last_wild_coord if has_wild else config.WILD_CENTER
         has_end_level = self.detector.detect_end_level_present(screen)
         end_level_coord = self.detector.last_end_level_coord if has_end_level else config.END_LEVEL_CENTER
@@ -158,6 +170,9 @@ class BoardParser:
             stock_has_wild=stock_has_wild,
             has_undo=has_undo,
             has_wild=has_wild,
+            has_free_wild=has_free_wild,
+            wild_cost=wild_cost,
+            balance=balance,
             wild_coord=wild_coord,
             has_end_level=has_end_level,
             end_level_coord=end_level_coord,

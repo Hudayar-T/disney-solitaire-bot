@@ -24,6 +24,11 @@ Core loop: Screen capture → Card detection & DAG parse → Move solver → ADB
     1. Exactly 1 card remains on the tableau (guarantees win), OR
     2. Remaining tableau cards can be 100% chain-cleared.
   - Never waste bottom-right WILD if remaining cards cannot clear the board.
+  - **Ownership & Fund Verification:**
+    - *Free WILD already owned:* Identified by the red circular badge with white count at top-right of the WILD card (`detect_has_free_wild()`). Play immediately!
+    - *No free WILD owned:* Card displays coin price at bottom (`detect_wild_cost()`). Check coin balance:
+      - If `balance >= wild_cost`: Tap to purchase and play WILD to win.
+      - If `balance < wild_cost`: Insufficient funds — do NOT buy! Tap `END LEVEL` instead.
 
 ### ⚠️ Stock Pile — "Buy More Cards" Trap & WILD Guard
 - When stock runs out of real cards, the game shows a paid "+N cards" prompt (e.g. "+5" with a coin cost like "7,500").

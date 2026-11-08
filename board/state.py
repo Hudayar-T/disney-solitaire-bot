@@ -60,6 +60,9 @@ class BoardState:
     stock_has_wild: bool = False      # Bought/expensive WILD card sitting in stock
     has_undo: bool = False
     has_wild: bool = False           # Bought/expensive WILD card in bottom-right corner
+    has_free_wild: bool = False      # Player already owns a free WILD card (red badge '1')
+    wild_cost: Optional[int] = None  # Cost to purchase WILD card if not free
+    balance: Optional[int] = None    # Player's current coin balance (read from top-left)
     wild_coord: tuple[int, int] = (2277, 875)  # Coordinates of bottom-right WILD card
     has_end_level: bool = False      # END LEVEL button visible in bottom-left corner
     end_level_coord: tuple[int, int] = (571, 978)  # Coordinates of END LEVEL button

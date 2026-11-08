@@ -29,7 +29,7 @@ class TestDigitDetector(unittest.TestCase):
 
     def test_white_on_dark_play_cost(self):
         """Tests parsing '4,600' from cost_example.png (white text on dark background)."""
-        img_path = ROOT / "tests/screenshots/final_play_button/cost_example.png"
+        img_path = ROOT / "tests/screenshots/modal_play_button/cost_example.png"
         img = cv2.imread(str(img_path))
         self.assertIsNotNone(img)
 
@@ -64,13 +64,13 @@ class TestDigitDetector(unittest.TestCase):
         self.assertEqual(res_dark.value, 25871)
 
         # 2. White on dark (play cost)
-        cost_img = cv2.imread(str(ROOT / "tests/screenshots/final_play_button/cost_example.png"))
+        cost_img = cv2.imread(str(ROOT / "tests/screenshots/modal_play_button/cost_example.png"))
         res_white = self.detector.detect(cost_img, mode="auto")
         self.assertEqual(res_white.raw_str, "4,600")
         self.assertEqual(res_white.value, 4600)
 
     def test_parse_number_convenience(self):
-        cost_img = cv2.imread(str(ROOT / "tests/screenshots/final_play_button/cost_example.png"))
+        cost_img = cv2.imread(str(ROOT / "tests/screenshots/modal_play_button/cost_example.png"))
         val = self.detector.parse_number(cost_img, mode="white_on_dark")
         self.assertEqual(val, 4600)
 

@@ -17,7 +17,7 @@ from vision.balance_detector import BalanceDetector
 TEST_CASES = [
     # (relative_path, expected_raw, expected_int)
     ("tests/screenshots/main_menu/main_menu.jpg", "25,871", 25871),
-    ("tests/screenshots/final_play_button/enough_money.jpg", "41,669", 41669),
+    ("tests/screenshots/modal_play_button/enough_money.jpg", "41,669", 41669),
     ("tests/screenshots/algorithm/1.jpg", "444", 444),
     ("tests/screenshots/algorithm/2.jpg", "144", 144),
     ("tests/screenshots/algorithm/6.jpg", "21,679", 21679),

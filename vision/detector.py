@@ -420,6 +420,41 @@ class CardDetector:
 
         return False
 
+    def detect_has_free_wild(self, screen: np.ndarray) -> bool:
+        """
+        Check if the player currently owns an available WILD card.
+        Indicated by a red circular badge (with number e.g. '1') at the top-right of the WILD card.
+        """
+        rx, ry, rw, rh = config.WILD_BADGE_ROI
+        sh, sw = screen.shape[:2]
+        crop = screen[max(0, ry):min(sh, ry + rh), max(0, rx):min(sw, rx + rw)]
+        if crop.size == 0:
+            return False
+
+        hsv = cv2.cvtColor(crop, cv2.COLOR_BGR2HSV)
+        r1 = cv2.inRange(hsv, (0, 140, 140), (10, 255, 255))
+        r2 = cv2.inRange(hsv, (170, 140, 140), (180, 255, 255))
+        red_count = cv2.countNonZero(r1 | r2)
+
+        has_free = red_count > 300
+        logger.debug(f"Free WILD badge check: red_px={red_count} -> {has_free}")
+        return has_free
+
+    def detect_wild_cost(self, screen: np.ndarray) -> Optional[int]:
+        """
+        Detects the coin cost to purchase a WILD card if the player doesn't already own one.
+        """
+        if not hasattr(self, "_digit_detector") or self._digit_detector is None:
+            from vision.digit_detector import DigitDetector
+            self._digit_detector = DigitDetector()
+
+        return self._digit_detector.parse_number(
+            screen,
+            roi=config.WILD_COST_ROI,
+            mode="white_on_dark",
+            threshold=config.DIGIT_MATCH_THRESHOLD,
+        )
+
     def detect_end_level_present(self, screen: np.ndarray) -> bool:
         """Check if END LEVEL button is visible in bottom-left corner."""
         rx, ry, rw, rh = config.END_LEVEL_ROI

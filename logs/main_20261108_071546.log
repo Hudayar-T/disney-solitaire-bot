@@ -1,0 +1,20 @@
+2026-11-08 07:15:46 | INFO     | ============================================================
+2026-11-08 07:15:46 | INFO     | DISNEY SOLITAIRE BOT — AUTONOMOUS MODE
+2026-11-08 07:15:46 | INFO     | ============================================================
+2026-11-08 07:15:46 | INFO     | Max steps : unlimited
+2026-11-08 07:15:46 | INFO     | Save screens: False
+2026-11-08 07:15:46 | INFO     | Connected to device: uknzs47tv8bugekf
+2026-11-08 07:15:46 | INFO     | Loaded 13 rank glyphs (143 rotated variants)
+2026-11-08 07:15:46 | DEBUG    | Loaded menu template: tap_anywhere_to_collect.png ((32, 530, 3))
+2026-11-08 07:15:46 | DEBUG    | Loaded menu template: tap_to_collect.png ((30, 300, 3))
+2026-11-08 07:15:46 | DEBUG    | Loaded menu template: end_level_confirm.png ((157, 337, 3))
+2026-11-08 07:15:46 | INFO     | Loaded 11 grayscale digit templates: [',', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+2026-11-08 07:15:46 | INFO     | ── Step 1 ──────────────────────────────────
+2026-11-08 07:15:47 | DEBUG    | Screenshot captured: 2400x1080
+2026-11-08 07:15:47 | INFO     | Detected screen state: PRE_LEVEL_MODAL (Level Start Confirmation)
+2026-11-08 07:15:47 | INFO     | Loaded 11 grayscale digit templates: [',', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+2026-11-08 07:15:47 | WARNING  | MenuHandler: Insufficient funds: Balance (1,315) < Cost (4,600). Closed modal (tapped X button), sleeping 300.0s
+2026-11-08 07:15:47 | INFO     | Navigation: PRE_LEVEL_MODAL -> Insufficient funds: Balance (1,315) < Cost (4,600). Closed modal (tapped X button), sleeping 300.0s at (1680, 135)
+2026-11-08 07:15:48 | DEBUG    | Tapped (1671, 155) [offset=(-9, +20)] after 0.25s delay
+2026-11-08 07:15:48 | DEBUG    | Executed navigation tap at (1671, 155)
+2026-11-08 07:16:45 | INFO     | Interrupted by user (Ctrl+C). Exiting.

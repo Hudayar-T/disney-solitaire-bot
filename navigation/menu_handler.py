@@ -14,6 +14,7 @@ from loguru import logger
 import config
 import adb_controller
 from vision.menu_detector import MenuDetector, ScreenState
+from vision.balance_detector import BalanceDetector
 
 
 @dataclass
@@ -30,8 +31,13 @@ class MenuHandler:
     Coordinates actions when the device is on a menu, popup, or deal transition screen.
     """
 
-    def __init__(self, detector: Optional[MenuDetector] = None):
+    def __init__(
+        self,
+        detector: Optional[MenuDetector] = None,
+        balance_detector: Optional[BalanceDetector] = None,
+    ):
         self.detector = detector or MenuDetector()
+        self.balance_detector = balance_detector or BalanceDetector()
 
     @staticmethod
     def get_random_dismiss_coord() -> tuple[int, int]:
@@ -98,9 +104,30 @@ class MenuHandler:
             wait_time = 1.5
 
         elif state == ScreenState.PRE_LEVEL_MODAL:
-            target_coord = config.MODAL_PLAY_CENTER
-            action_desc = "Started level (tapped green PLAY button in modal)"
-            wait_time = 2.5  # wait for level loading and dealing initiation
+            balance = self.balance_detector.get_balance(screen)
+            cost = self.detector.detect_modal_cost(screen)
+
+            if balance is not None and cost is not None and balance < cost:
+                target_coord = config.MODAL_CLOSE_CENTER
+                action_desc = (
+                    f"Insufficient funds: Balance ({balance:,}) < Cost ({cost:,}). "
+                    f"Closed modal (tapped X button), sleeping {config.INSUFFICIENT_FUNDS_WAIT}s"
+                )
+                wait_time = config.INSUFFICIENT_FUNDS_WAIT
+                logger.warning(f"MenuHandler: {action_desc}")
+            else:
+                target_coord = config.MODAL_PLAY_CENTER
+                if balance is not None and cost is not None:
+                    action_desc = (
+                        f"Balance ({balance:,}) >= Cost ({cost:,}). "
+                        f"Started level (tapped green PLAY button in modal)"
+                    )
+                else:
+                    action_desc = (
+                        f"Started level (tapped green PLAY button in modal, "
+                        f"balance={balance}, cost={cost})"
+                    )
+                wait_time = 2.5  # wait for level loading and dealing initiation
 
         else:
             return NavigationAction(

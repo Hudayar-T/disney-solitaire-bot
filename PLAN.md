@@ -21,6 +21,7 @@
 | **Phase 6** | Game Loop & Live Play | ✅ Done | Autonomous loop in `main.py`, win/stuck detection, live testing |
 | **Phase 7** | Menu & Level Progression | ✅ Done | Continuous multi-level play, bonus collection, deal guard |
 | **Phase 8** | Performance Optimization | ✅ Done | Multi-threaded template matching, waste-angle filtering, fast decoding |
+| **Phase 9** | Economy & Cost Management | ✅ Done | Balance & cost reader, insufficient funds guard (closes modal & 5m wait) |
 
 ---
 

@@ -27,16 +27,40 @@ def test_main_menu_bonus_detection():
     assert action.is_gameplay_ready is False
 
 
-def test_pre_level_modal_detection():
+def test_pre_level_modal_enough_money():
     detector = MenuDetector()
     handler = MenuHandler(detector=detector)
-    img = cv2.imread("tests/screenshots/final_play_button/enough_money.jpg")
+    img = cv2.imread("tests/screenshots/modal_play_button/enough_money.jpg")
     assert img is not None
 
     action = handler.handle(img, dev=None)
     assert action.state == ScreenState.PRE_LEVEL_MODAL
     assert action.tapped_coord == config.MODAL_PLAY_CENTER
+    assert action.wait_seconds == 2.5
     assert action.is_gameplay_ready is False
+
+
+def test_pre_level_modal_not_enough_money():
+    detector = MenuDetector()
+    handler = MenuHandler(detector=detector)
+
+    # Case 1: not_enough_money.png (Balance 2,065 < Cost 2,200)
+    img1 = cv2.imread("tests/screenshots/modal_play_button/not_enough_money.png")
+    assert img1 is not None
+    action1 = handler.handle(img1, dev=None)
+    assert action1.state == ScreenState.PRE_LEVEL_MODAL
+    assert action1.tapped_coord == config.MODAL_CLOSE_CENTER
+    assert action1.wait_seconds == config.INSUFFICIENT_FUNDS_WAIT
+    assert action1.is_gameplay_ready is False
+
+    # Case 2: not_enough_money2.png (Balance 1,315 < Cost 4,600)
+    img2 = cv2.imread("tests/screenshots/modal_play_button/not_enough_money2.png")
+    assert img2 is not None
+    action2 = handler.handle(img2, dev=None)
+    assert action2.state == ScreenState.PRE_LEVEL_MODAL
+    assert action2.tapped_coord == config.MODAL_CLOSE_CENTER
+    assert action2.wait_seconds == config.INSUFFICIENT_FUNDS_WAIT
+    assert action2.is_gameplay_ready is False
 
 
 def test_post_win_screen_detection():
@@ -105,7 +129,8 @@ def test_in_game_screen_detection():
 
 if __name__ == "__main__":
     test_main_menu_bonus_detection()
-    test_pre_level_modal_detection()
+    test_pre_level_modal_enough_money()
+    test_pre_level_modal_not_enough_money()
     test_post_win_screen_detection()
     test_random_reward_detection()
     test_end_level_confirmation_detection()
