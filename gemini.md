@@ -71,6 +71,8 @@ Core card detection engine. Segments face-down cards via HSV color, identifies f
 - **L370-435:** `detect_undo_present()`, `detect_wild_present()`, and `detect_end_level_present()` — template matches for undo button, bottom-right corner WILD card, and bottom-left red END LEVEL button (with HSV red fallback).
 
 **Also in `vision/`:**
+- `digit_detector.py` — Universal grayscale template matching digit detector (`0`–`9`, `,`) supporting both dark-on-light (balance) and white-on-dark (costs).
+- `balance_detector.py` — High-level parser for top-left coin balance.
 - `menu_detector.py` (147 lines) — See §5 below.
 
 ### 4. Board State & Dependency Graph — `board/`

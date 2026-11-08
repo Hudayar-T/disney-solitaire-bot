@@ -33,6 +33,11 @@ END_LEVEL_ROI = (380, 900, 380, 150)  # (x, y, w, h) search region in landscape 
 TEMPLATE_MATCH_THRESHOLD = 0.72   # minimum confidence score for center glyphs
 TEMPLATE_ANGLES          = [0, -10, 10, -20, 20, -30, 30, -40, 40, -48, 48]  # angles to handle steep card tilts up to ±48°
 
+# ── Digit & Balance Detection (landscape coords) ──────────────────────────────
+DIGIT_MATCH_THRESHOLD   = 0.78                 # minimum confidence for universal digit template match
+BALANCE_ROI             = (240, 65, 380, 60)   # (x, y, w, h) top-left balance display region
+BALANCE_MATCH_THRESHOLD = 0.78                 # minimum confidence for digit template match
+
 # ── Timing & Anti-Bot Jitter ──────────────────────────────────────────────────
 TAP_DELAY_MIN = 0.1   # seconds — minimum pause between taps
 TAP_DELAY_MAX = 1   # seconds — maximum pause (randomised for human feel)

@@ -1,0 +1,3 @@
+Before clicking the confirming (modal) "Play" or "Try again" green button, we should check the balance (balance_detector.py) and the cost for playing (cost_example.png)
+Only the balance is enough, click Play
+Else, it means we have no money left to play, we can only wait for the hourly bonus. So click the closing (X) button (returns to the main menu) and sleep 5 minutes
