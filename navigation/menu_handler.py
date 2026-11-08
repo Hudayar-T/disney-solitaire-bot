@@ -4,6 +4,7 @@ State machine controller for menu navigation, bonus collection, and level starts
 """
 
 from __future__ import annotations
+import random
 import time
 from dataclasses import dataclass
 from typing import Optional
@@ -31,6 +32,15 @@ class MenuHandler:
 
     def __init__(self, detector: Optional[MenuDetector] = None):
         self.detector = detector or MenuDetector()
+
+    @staticmethod
+    def get_random_dismiss_coord() -> tuple[int, int]:
+        """Compute a randomized (x, y) tap within the safe popup dismiss region."""
+        rx, ry, rw, rh = config.POPUP_DISMISS_ROI
+        return (
+            random.randint(rx, rx + rw),
+            random.randint(ry, ry + rh),
+        )
 
     def handle(self, screen: np.ndarray, dev=None) -> NavigationAction:
         """
@@ -63,13 +73,13 @@ class MenuHandler:
         wait_time = config.SCREENCAP_INTERVAL
 
         if state == ScreenState.POST_WIN:
-            target_coord = config.POPUP_DISMISS_COORD
-            action_desc = "Dismissed victory screen (tapped neutral center)"
+            target_coord = self.get_random_dismiss_coord()
+            action_desc = f"Dismissed victory screen (randomized tap at {target_coord})"
             wait_time = 2.0  # allow victory summary animations to clear
 
         elif state == ScreenState.RANDOM_REWARD:
-            target_coord = config.POPUP_DISMISS_COORD
-            action_desc = "Dismissed random reward popup (tapped neutral center)"
+            target_coord = self.get_random_dismiss_coord()
+            action_desc = f"Dismissed random reward popup (randomized tap at {target_coord})"
             wait_time = 1.5
 
         elif state == ScreenState.END_LEVEL_CONFIRM:

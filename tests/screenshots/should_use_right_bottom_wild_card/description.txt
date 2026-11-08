@@ -1,0 +1,9 @@
+we_have_a_wild_card.png shows a case where we have a WILD card (regardless, it should be used by the same old rules)
+we_dont_have_a_wild_card.png shows a case where we dont have a WILD card
+
+If current we have a wild card:
+	use according the same old rules (in gemini.md)
+If currently we dont have a wild card:
+	check the balance
+	If there is enough balance: tap on the WILD card (it'll be bought)
+	If there isn't enough balance: end level

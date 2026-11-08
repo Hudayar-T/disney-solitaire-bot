@@ -47,7 +47,9 @@ def test_post_win_screen_detection():
 
     action = handler.handle(img, dev=None)
     assert action.state == ScreenState.POST_WIN
-    assert action.tapped_coord == config.POPUP_DISMISS_COORD
+    rx, ry, rw, rh = config.POPUP_DISMISS_ROI
+    assert rx <= action.tapped_coord[0] <= rx + rw
+    assert ry <= action.tapped_coord[1] <= ry + rh
     assert action.is_gameplay_ready is False
 
 
@@ -59,7 +61,9 @@ def test_random_reward_detection():
 
     action = handler.handle(img, dev=None)
     assert action.state == ScreenState.RANDOM_REWARD
-    assert action.tapped_coord == config.POPUP_DISMISS_COORD
+    rx, ry, rw, rh = config.POPUP_DISMISS_ROI
+    assert rx <= action.tapped_coord[0] <= rx + rw
+    assert ry <= action.tapped_coord[1] <= ry + rh
     assert action.is_gameplay_ready is False
 
 

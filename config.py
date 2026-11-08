@@ -55,6 +55,7 @@ MODAL_PLAY_CENTER   = (1204, 814)
 
 # Neutral dismiss tap coordinate for popups ("TAP TO COLLECT", "TAP ANYWHERE TO COLLECT")
 POPUP_DISMISS_COORD = (1200, 930)
+POPUP_DISMISS_ROI   = (700, 860, 1000, 110)  # (x, y, w, h) safe randomized dismiss area
 
 # End-level confirmation modal: Red confirmation button ("END LEVEL")
 END_LEVEL_CONFIRM_ROI    = (800, 700, 420, 240)  # (x, y, w, h)
@@ -68,4 +69,4 @@ PURPLE_HSV_LOWER    = (125, 60, 60)
 PURPLE_HSV_UPPER    = (160, 255, 255)
 
 # Wait time when cards are being dealt (seconds)
-DEAL_ANIMATION_WAIT = 1.9
+DEAL_ANIMATION_WAIT = 2.1
