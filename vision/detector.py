@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import cv2
 import numpy as np
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from pathlib import Path
 from loguru import logger
@@ -109,6 +110,8 @@ class CardDetector:
     def __init__(self):
         self._glyph_templates: list[tuple[str, np.ndarray, float, int, int]] = []
         self._load_glyph_templates()
+        self._upright_glyph_templates = [t for t in self._glyph_templates if t[2] == 0.0]
+        self._executor = ThreadPoolExecutor(max_workers=8)
         self._undo_tmpl = self._load_template("UNDO.jpg")
         self._wild_tmpl = self._load_template("WILD.jpg")
         self._end_level_tmpl = self._load_template("end_level.png")
@@ -214,26 +217,32 @@ class CardDetector:
 
         return facedown_cards
 
-    def detect_faceup(self, screen: np.ndarray, region: tuple[int, int, int, int]) -> list[Detection]:
-        """Detect face-up card ranks in region using multi-angle glyph matching."""
+    def detect_faceup(
+        self,
+        screen: np.ndarray,
+        region: tuple[int, int, int, int],
+        upright_only: bool = False,
+    ) -> list[Detection]:
+        """Detect face-up card ranks in region using multi-angle glyph matching in parallel."""
         rx, ry, rw, rh = region
         roi = screen[ry:ry+rh, rx:rx+rw]
         gray_roi = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
 
-        hits: list[Detection] = []
         threshold = config.TEMPLATE_MATCH_THRESHOLD
+        templates = self._upright_glyph_templates if upright_only else self._glyph_templates
 
-        for rank, tmpl, ang, gw, gh in self._glyph_templates:
+        def _match_template(item: tuple[str, np.ndarray, float, int, int]) -> list[Detection]:
+            rank, tmpl, ang, gw, gh = item
             if gh > gray_roi.shape[0] or gw > gray_roi.shape[1]:
-                continue
+                return []
 
             res = cv2.matchTemplate(gray_roi, tmpl, cv2.TM_CCOEFF_NORMED)
             locs = np.where(res >= threshold)
-
+            tmpl_hits: list[Detection] = []
             for py, px in zip(*locs):
                 cx = rx + px + gw // 2
                 cy = ry + py + gh // 2
-                hits.append(Detection(
+                tmpl_hits.append(Detection(
                     rank=rank,
                     cx=cx, cy=cy,
                     confidence=float(res[py, px]),
@@ -241,6 +250,10 @@ class CardDetector:
                     th=gh + 80,
                     angle=-ang,
                 ))
+            return tmpl_hits
+
+        results = self._executor.map(_match_template, templates)
+        hits: list[Detection] = [hit for sublist in results for hit in sublist]
 
         return _nms(hits, iou_threshold=0.30)
 
@@ -263,12 +276,13 @@ class CardDetector:
     def detect_waste(self, screen: np.ndarray) -> Optional[Detection]:
         """
         Detect the rank of the current waste pile card (bottom-center).
+        Waste pile card is always upright, so only upright templates are checked.
         """
         wx, wy = config.WASTE_CENTER
         hw, hh = 110, 160
         region = (max(0, wx - hw), max(0, wy - hh), hw * 2, hh * 2)
 
-        faceup = self.detect_faceup(screen, region)
+        faceup = self.detect_faceup(screen, region, upright_only=True)
         if not faceup:
             # Check if a WILD card is sitting on the waste pile
             if self._wild_tmpl is not None:
