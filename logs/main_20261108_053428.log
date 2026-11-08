@@ -1,0 +1,510 @@
+2026-11-08 05:34:28 | INFO     | ============================================================
+2026-11-08 05:34:28 | INFO     | DISNEY SOLITAIRE BOT — AUTONOMOUS MODE
+2026-11-08 05:34:28 | INFO     | ============================================================
+2026-11-08 05:34:28 | INFO     | Max steps : unlimited
+2026-11-08 05:34:28 | INFO     | Save screens: False
+2026-11-08 05:34:28 | INFO     | Connected to device: uknzs47tv8bugekf
+2026-11-08 05:34:28 | INFO     | Loaded 13 rank glyphs (143 rotated variants)
+2026-11-08 05:34:28 | DEBUG    | Loaded menu template: tap_anywhere_to_collect.png ((32, 530, 3))
+2026-11-08 05:34:28 | DEBUG    | Loaded menu template: tap_to_collect.png ((30, 300, 3))
+2026-11-08 05:34:28 | DEBUG    | Loaded menu template: end_level_confirm.png ((157, 337, 3))
+2026-11-08 05:34:28 | INFO     | ── Step 1 ──────────────────────────────────
+2026-11-08 05:34:30 | DEBUG    | Screenshot captured: 2400x1080
+2026-11-08 05:34:30 | INFO     | Loaded 13 rank glyphs (143 rotated variants)
+2026-11-08 05:34:30 | DEBUG    | Waste pile: A (conf=0.99)
+2026-11-08 05:34:30 | DEBUG    | Detected screen state: IN_GAME
+2026-11-08 05:34:30 | DEBUG    | Detected 18 tableau cards (4 face-up, 14 face-down)
+2026-11-08 05:34:30 | DEBUG    | Occlusion: Card 2 (BACK) blocks Card 0 (BACK) [overlap=4300px²]
+2026-11-08 05:34:30 | DEBUG    | Occlusion: Card 6 (A) blocks Card 0 (BACK) [overlap=3312px²]
+2026-11-08 05:34:30 | DEBUG    | Occlusion: Card 3 (BACK) blocks Card 1 (BACK) [overlap=4300px²]
+2026-11-08 05:34:30 | DEBUG    | Occlusion: Card 6 (A) blocks Card 1 (BACK) [overlap=3496px²]
+2026-11-08 05:34:30 | DEBUG    | Occlusion: Card 7 (BACK) blocks Card 2 (BACK) [overlap=5014px²]
+2026-11-08 05:34:30 | DEBUG    | Occlusion: Card 8 (BACK) blocks Card 3 (BACK) [overlap=5014px²]
+2026-11-08 05:34:30 | DEBUG    | Occlusion: Card 6 (A) blocks Card 9 (BACK) [overlap=3456px²]
+2026-11-08 05:34:30 | DEBUG    | Occlusion: Card 6 (A) blocks Card 10 (BACK) [overlap=3624px²]
+2026-11-08 05:34:30 | DEBUG    | Occlusion: Card 9 (BACK) blocks Card 7 (BACK) [overlap=4318px²]
+2026-11-08 05:34:30 | DEBUG    | Occlusion: Card 10 (BACK) blocks Card 8 (BACK) [overlap=4301px²]
+2026-11-08 05:34:30 | DEBUG    | Occlusion: Card 9 (BACK) blocks Card 11 (MYSTERY) [overlap=4242px²]
+2026-11-08 05:34:30 | DEBUG    | Occlusion: Card 10 (BACK) blocks Card 12 (MYSTERY) [overlap=4192px²]
+2026-11-08 05:34:30 | DEBUG    | Occlusion: Card 14 (BACK) blocks Card 11 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:34:30 | DEBUG    | Occlusion: Card 15 (BACK) blocks Card 12 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:34:30 | DEBUG    | Occlusion: Card 13 (4) blocks Card 14 (BACK) [overlap=5307px²]
+2026-11-08 05:34:30 | DEBUG    | Waste pile: A (conf=0.99)
+2026-11-08 05:34:30 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-08 05:34:30 | INFO     | Parsed BoardState(waste=A, playable=['10', '10', 'A', '4'], faceup=4, facedown=14, stock=True, wild=True, end_level=False)
+2026-11-08 05:34:30 | INFO     | Waste=[A]  Playable=4 (10#4, 10#5, A#6, 4#13)  Tableau=18  Stock=YES  StockWILD=NO  WILD=YES  EndLevel=NO
+2026-11-08 05:34:30 | INFO     | Move: DRAW_STOCK  target=—  coord=(1134, 937)  score=5.0  reason=No legal tableau moves, draw next card from stock
+2026-11-08 05:34:32 | DEBUG    | Tapped (1127, 935) [offset=(-7, -2)] after 1.46s delay
+2026-11-08 05:34:32 | DEBUG    | Tapped (1127, 935)
+2026-11-08 05:34:33 | INFO     | ── Step 2 ──────────────────────────────────
+2026-11-08 05:34:35 | DEBUG    | Screenshot captured: 2400x1080
+2026-11-08 05:34:35 | DEBUG    | Waste pile: 3 (conf=0.99)
+2026-11-08 05:34:35 | DEBUG    | Detected screen state: IN_GAME
+2026-11-08 05:34:36 | DEBUG    | Detected 18 tableau cards (4 face-up, 14 face-down)
+2026-11-08 05:34:36 | DEBUG    | Occlusion: Card 2 (BACK) blocks Card 0 (BACK) [overlap=4300px²]
+2026-11-08 05:34:36 | DEBUG    | Occlusion: Card 6 (K) blocks Card 0 (BACK) [overlap=3146px²]
+2026-11-08 05:34:36 | DEBUG    | Occlusion: Card 3 (BACK) blocks Card 1 (BACK) [overlap=4300px²]
+2026-11-08 05:34:36 | DEBUG    | Occlusion: Card 6 (K) blocks Card 1 (BACK) [overlap=3322px²]
+2026-11-08 05:34:36 | DEBUG    | Occlusion: Card 7 (BACK) blocks Card 2 (BACK) [overlap=5014px²]
+2026-11-08 05:34:36 | DEBUG    | Occlusion: Card 8 (BACK) blocks Card 3 (BACK) [overlap=5014px²]
+2026-11-08 05:34:36 | DEBUG    | Occlusion: Card 6 (K) blocks Card 9 (BACK) [overlap=3432px²]
+2026-11-08 05:34:36 | DEBUG    | Occlusion: Card 6 (K) blocks Card 10 (BACK) [overlap=3600px²]
+2026-11-08 05:34:36 | DEBUG    | Occlusion: Card 9 (BACK) blocks Card 7 (BACK) [overlap=4318px²]
+2026-11-08 05:34:36 | DEBUG    | Occlusion: Card 10 (BACK) blocks Card 8 (BACK) [overlap=4301px²]
+2026-11-08 05:34:36 | DEBUG    | Occlusion: Card 9 (BACK) blocks Card 11 (MYSTERY) [overlap=4242px²]
+2026-11-08 05:34:36 | DEBUG    | Occlusion: Card 10 (BACK) blocks Card 12 (MYSTERY) [overlap=4192px²]
+2026-11-08 05:34:36 | DEBUG    | Occlusion: Card 14 (BACK) blocks Card 11 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:34:36 | DEBUG    | Occlusion: Card 15 (BACK) blocks Card 12 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:34:36 | DEBUG    | Occlusion: Card 13 (4) blocks Card 14 (BACK) [overlap=5307px²]
+2026-11-08 05:34:36 | DEBUG    | Waste pile: 3 (conf=0.99)
+2026-11-08 05:34:36 | DEBUG    | WILD button detected at (2277, 875) (conf=0.89)
+2026-11-08 05:34:36 | INFO     | Parsed BoardState(waste=3, playable=['10', '10', 'K', '4'], faceup=4, facedown=14, stock=True, wild=True, end_level=False)
+2026-11-08 05:34:36 | INFO     | Waste=[3]  Playable=4 (10#4, 10#5, K#6, 4#13)  Tableau=18  Stock=YES  StockWILD=NO  WILD=YES  EndLevel=NO
+2026-11-08 05:34:36 | DEBUG    | Candidate Move: 4 at (778, 572) -> score=35.0 (uncovers facedown #14)
+2026-11-08 05:34:36 | INFO     | Move: PLAY_CARD  target=4  coord=(np.int64(778), np.int64(572))  score=35.0  reason=uncovers facedown #14
+2026-11-08 05:34:36 | DEBUG    | Tapped (794, 596) [offset=(+16, +24)] after 0.41s delay
+2026-11-08 05:34:36 | DEBUG    | Tapped (794, 596)
+2026-11-08 05:34:37 | INFO     | ── Step 3 ──────────────────────────────────
+2026-11-08 05:34:39 | DEBUG    | Screenshot captured: 2400x1080
+2026-11-08 05:34:39 | DEBUG    | Waste pile: 4 (conf=0.99)
+2026-11-08 05:34:39 | DEBUG    | Detected screen state: IN_GAME
+2026-11-08 05:34:40 | DEBUG    | Detected 18 tableau cards (4 face-up, 14 face-down)
+2026-11-08 05:34:40 | DEBUG    | Occlusion: Card 2 (BACK) blocks Card 0 (BACK) [overlap=4300px²]
+2026-11-08 05:34:40 | DEBUG    | Occlusion: Card 6 (Q) blocks Card 0 (BACK) [overlap=3492px²]
+2026-11-08 05:34:40 | DEBUG    | Occlusion: Card 3 (BACK) blocks Card 1 (BACK) [overlap=4300px²]
+2026-11-08 05:34:40 | DEBUG    | Occlusion: Card 6 (Q) blocks Card 1 (BACK) [overlap=3686px²]
+2026-11-08 05:34:40 | DEBUG    | Occlusion: Card 7 (BACK) blocks Card 2 (BACK) [overlap=5014px²]
+2026-11-08 05:34:40 | DEBUG    | Occlusion: Card 8 (BACK) blocks Card 3 (BACK) [overlap=5014px²]
+2026-11-08 05:34:40 | DEBUG    | Occlusion: Card 6 (Q) blocks Card 9 (BACK) [overlap=3204px²]
+2026-11-08 05:34:40 | DEBUG    | Occlusion: Card 6 (Q) blocks Card 10 (BACK) [overlap=3360px²]
+2026-11-08 05:34:40 | DEBUG    | Occlusion: Card 9 (BACK) blocks Card 7 (BACK) [overlap=4318px²]
+2026-11-08 05:34:40 | DEBUG    | Occlusion: Card 10 (BACK) blocks Card 8 (BACK) [overlap=4301px²]
+2026-11-08 05:34:40 | DEBUG    | Occlusion: Card 9 (BACK) blocks Card 11 (MYSTERY) [overlap=4242px²]
+2026-11-08 05:34:40 | DEBUG    | Occlusion: Card 10 (BACK) blocks Card 12 (MYSTERY) [overlap=4192px²]
+2026-11-08 05:34:40 | DEBUG    | Occlusion: Card 14 (BACK) blocks Card 11 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:34:40 | DEBUG    | Occlusion: Card 15 (BACK) blocks Card 12 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:34:40 | DEBUG    | Occlusion: Card 13 (K) blocks Card 14 (BACK) [overlap=7438px²]
+2026-11-08 05:34:40 | DEBUG    | Waste pile: 4 (conf=0.99)
+2026-11-08 05:34:40 | INFO     | Parsed BoardState(waste=4, playable=['10', '10', 'Q', 'K'], faceup=4, facedown=14, stock=True, wild=False, end_level=False)
+2026-11-08 05:34:40 | INFO     | Waste=[4]  Playable=4 (10#4, 10#5, Q#6, K#13)  Tableau=18  Stock=YES  StockWILD=NO  WILD=NO  EndLevel=NO
+2026-11-08 05:34:40 | INFO     | Move: DRAW_STOCK  target=—  coord=(1134, 937)  score=5.0  reason=No legal tableau moves, draw next card from stock
+2026-11-08 05:34:40 | DEBUG    | Tapped (1131, 936) [offset=(-3, -1)] after 0.34s delay
+2026-11-08 05:34:40 | DEBUG    | Tapped (1131, 936)
+2026-11-08 05:34:41 | INFO     | ── Step 4 ──────────────────────────────────
+2026-11-08 05:34:43 | DEBUG    | Screenshot captured: 2400x1080
+2026-11-08 05:34:43 | DEBUG    | Waste pile: K (conf=1.00)
+2026-11-08 05:34:43 | DEBUG    | Detected screen state: IN_GAME
+2026-11-08 05:34:44 | DEBUG    | Detected 18 tableau cards (4 face-up, 14 face-down)
+2026-11-08 05:34:44 | DEBUG    | Occlusion: Card 2 (BACK) blocks Card 0 (BACK) [overlap=4300px²]
+2026-11-08 05:34:44 | DEBUG    | Occlusion: Card 6 (J) blocks Card 0 (BACK) [overlap=3371px²]
+2026-11-08 05:34:44 | DEBUG    | Occlusion: Card 3 (BACK) blocks Card 1 (BACK) [overlap=4300px²]
+2026-11-08 05:34:44 | DEBUG    | Occlusion: Card 6 (J) blocks Card 1 (BACK) [overlap=3557px²]
+2026-11-08 05:34:44 | DEBUG    | Occlusion: Card 7 (BACK) blocks Card 2 (BACK) [overlap=5014px²]
+2026-11-08 05:34:44 | DEBUG    | Occlusion: Card 8 (BACK) blocks Card 3 (BACK) [overlap=5014px²]
+2026-11-08 05:34:44 | DEBUG    | Occlusion: Card 6 (J) blocks Card 9 (BACK) [overlap=3371px²]
+2026-11-08 05:34:44 | DEBUG    | Occlusion: Card 6 (J) blocks Card 10 (BACK) [overlap=3534px²]
+2026-11-08 05:34:44 | DEBUG    | Occlusion: Card 9 (BACK) blocks Card 7 (BACK) [overlap=4318px²]
+2026-11-08 05:34:44 | DEBUG    | Occlusion: Card 10 (BACK) blocks Card 8 (BACK) [overlap=4301px²]
+2026-11-08 05:34:44 | DEBUG    | Occlusion: Card 9 (BACK) blocks Card 11 (MYSTERY) [overlap=4242px²]
+2026-11-08 05:34:44 | DEBUG    | Occlusion: Card 10 (BACK) blocks Card 12 (MYSTERY) [overlap=4192px²]
+2026-11-08 05:34:44 | DEBUG    | Occlusion: Card 14 (BACK) blocks Card 11 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:34:44 | DEBUG    | Occlusion: Card 15 (BACK) blocks Card 12 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:34:44 | DEBUG    | Occlusion: Card 13 (K) blocks Card 14 (BACK) [overlap=7438px²]
+2026-11-08 05:34:44 | DEBUG    | Waste pile: K (conf=1.00)
+2026-11-08 05:34:44 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-08 05:34:44 | INFO     | Parsed BoardState(waste=K, playable=['10', '10', 'J', 'K'], faceup=4, facedown=14, stock=True, wild=True, end_level=False)
+2026-11-08 05:34:44 | INFO     | Waste=[K]  Playable=4 (10#4, 10#5, J#6, K#13)  Tableau=18  Stock=YES  StockWILD=NO  WILD=YES  EndLevel=NO
+2026-11-08 05:34:44 | INFO     | Move: DRAW_STOCK  target=—  coord=(1134, 937)  score=5.0  reason=No legal tableau moves, draw next card from stock
+2026-11-08 05:34:45 | DEBUG    | Tapped (1129, 926) [offset=(-5, -11)] after 0.80s delay
+2026-11-08 05:34:45 | DEBUG    | Tapped (1129, 926)
+2026-11-08 05:34:46 | INFO     | ── Step 5 ──────────────────────────────────
+2026-11-08 05:34:47 | DEBUG    | Screenshot captured: 2400x1080
+2026-11-08 05:34:47 | DEBUG    | Waste pile: K (conf=1.00)
+2026-11-08 05:34:47 | DEBUG    | Detected screen state: IN_GAME
+2026-11-08 05:34:48 | DEBUG    | Detected 18 tableau cards (4 face-up, 14 face-down)
+2026-11-08 05:34:48 | DEBUG    | Occlusion: Card 2 (BACK) blocks Card 0 (BACK) [overlap=4300px²]
+2026-11-08 05:34:48 | DEBUG    | Occlusion: Card 6 (10) blocks Card 0 (BACK) [overlap=3218px²]
+2026-11-08 05:34:48 | DEBUG    | Occlusion: Card 3 (BACK) blocks Card 1 (BACK) [overlap=4300px²]
+2026-11-08 05:34:48 | DEBUG    | Occlusion: Card 6 (10) blocks Card 1 (BACK) [overlap=3488px²]
+2026-11-08 05:34:48 | DEBUG    | Occlusion: Card 7 (BACK) blocks Card 2 (BACK) [overlap=5014px²]
+2026-11-08 05:34:48 | DEBUG    | Occlusion: Card 8 (BACK) blocks Card 3 (BACK) [overlap=5014px²]
+2026-11-08 05:34:48 | DEBUG    | Occlusion: Card 6 (10) blocks Card 9 (BACK) [overlap=3504px²]
+2026-11-08 05:34:48 | DEBUG    | Occlusion: Card 6 (10) blocks Card 10 (BACK) [overlap=3773px²]
+2026-11-08 05:34:48 | DEBUG    | Occlusion: Card 9 (BACK) blocks Card 7 (BACK) [overlap=4318px²]
+2026-11-08 05:34:48 | DEBUG    | Occlusion: Card 10 (BACK) blocks Card 8 (BACK) [overlap=4301px²]
+2026-11-08 05:34:48 | DEBUG    | Occlusion: Card 9 (BACK) blocks Card 11 (MYSTERY) [overlap=4242px²]
+2026-11-08 05:34:48 | DEBUG    | Occlusion: Card 10 (BACK) blocks Card 12 (MYSTERY) [overlap=4192px²]
+2026-11-08 05:34:48 | DEBUG    | Occlusion: Card 14 (BACK) blocks Card 11 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:34:48 | DEBUG    | Occlusion: Card 15 (BACK) blocks Card 12 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:34:48 | DEBUG    | Occlusion: Card 13 (K) blocks Card 14 (BACK) [overlap=7438px²]
+2026-11-08 05:34:48 | DEBUG    | Waste pile: K (conf=1.00)
+2026-11-08 05:34:48 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-08 05:34:48 | INFO     | Parsed BoardState(waste=K, playable=['10', '10', '10', 'K'], faceup=4, facedown=14, stock=True, wild=True, end_level=False)
+2026-11-08 05:34:48 | INFO     | Waste=[K]  Playable=4 (10#4, 10#5, 10#6, K#13)  Tableau=18  Stock=YES  StockWILD=NO  WILD=YES  EndLevel=NO
+2026-11-08 05:34:48 | INFO     | Move: DRAW_STOCK  target=—  coord=(1134, 937)  score=5.0  reason=No legal tableau moves, draw next card from stock
+2026-11-08 05:34:48 | DEBUG    | Tapped (1136, 943) [offset=(+2, +6)] after 0.31s delay
+2026-11-08 05:34:48 | DEBUG    | Tapped (1136, 943)
+2026-11-08 05:34:50 | INFO     | ── Step 6 ──────────────────────────────────
+2026-11-08 05:34:51 | DEBUG    | Screenshot captured: 2400x1080
+2026-11-08 05:34:51 | DEBUG    | Waste pile: Q (conf=0.99)
+2026-11-08 05:34:51 | DEBUG    | Detected screen state: IN_GAME
+2026-11-08 05:34:52 | DEBUG    | Detected 18 tableau cards (4 face-up, 14 face-down)
+2026-11-08 05:34:52 | DEBUG    | Occlusion: Card 2 (BACK) blocks Card 0 (BACK) [overlap=4300px²]
+2026-11-08 05:34:52 | DEBUG    | Occlusion: Card 6 (9) blocks Card 0 (BACK) [overlap=3248px²]
+2026-11-08 05:34:52 | DEBUG    | Occlusion: Card 3 (BACK) blocks Card 1 (BACK) [overlap=4300px²]
+2026-11-08 05:34:52 | DEBUG    | Occlusion: Card 6 (9) blocks Card 1 (BACK) [overlap=3426px²]
+2026-11-08 05:34:52 | DEBUG    | Occlusion: Card 7 (BACK) blocks Card 2 (BACK) [overlap=5014px²]
+2026-11-08 05:34:52 | DEBUG    | Occlusion: Card 8 (BACK) blocks Card 3 (BACK) [overlap=5014px²]
+2026-11-08 05:34:52 | DEBUG    | Occlusion: Card 6 (9) blocks Card 9 (BACK) [overlap=3540px²]
+2026-11-08 05:34:52 | DEBUG    | Occlusion: Card 6 (9) blocks Card 10 (BACK) [overlap=3710px²]
+2026-11-08 05:34:52 | DEBUG    | Occlusion: Card 9 (BACK) blocks Card 7 (BACK) [overlap=4318px²]
+2026-11-08 05:34:52 | DEBUG    | Occlusion: Card 10 (BACK) blocks Card 8 (BACK) [overlap=4301px²]
+2026-11-08 05:34:52 | DEBUG    | Occlusion: Card 9 (BACK) blocks Card 11 (MYSTERY) [overlap=4242px²]
+2026-11-08 05:34:52 | DEBUG    | Occlusion: Card 10 (BACK) blocks Card 12 (MYSTERY) [overlap=4192px²]
+2026-11-08 05:34:52 | DEBUG    | Occlusion: Card 14 (BACK) blocks Card 11 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:34:52 | DEBUG    | Occlusion: Card 15 (BACK) blocks Card 12 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:34:52 | DEBUG    | Occlusion: Card 13 (K) blocks Card 14 (BACK) [overlap=7438px²]
+2026-11-08 05:34:52 | DEBUG    | Waste pile: Q (conf=0.99)
+2026-11-08 05:34:52 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-08 05:34:52 | INFO     | Parsed BoardState(waste=Q, playable=['10', '10', '9', 'K'], faceup=4, facedown=14, stock=True, wild=True, end_level=False)
+2026-11-08 05:34:52 | INFO     | Waste=[Q]  Playable=4 (10#4, 10#5, 9#6, K#13)  Tableau=18  Stock=YES  StockWILD=NO  WILD=YES  EndLevel=NO
+2026-11-08 05:34:52 | DEBUG    | Candidate Move: K at (803, 573) -> score=35.0 (uncovers facedown #14)
+2026-11-08 05:34:52 | INFO     | Move: PLAY_CARD  target=K  coord=(np.int64(803), np.int64(573))  score=35.0  reason=uncovers facedown #14
+2026-11-08 05:34:53 | DEBUG    | Tapped (823, 579) [offset=(+20, +6)] after 1.13s delay
+2026-11-08 05:34:53 | DEBUG    | Tapped (823, 579)
+2026-11-08 05:34:54 | INFO     | ── Step 7 ──────────────────────────────────
+2026-11-08 05:34:56 | DEBUG    | Screenshot captured: 2400x1080
+2026-11-08 05:34:56 | DEBUG    | Waste pile: K (conf=1.00)
+2026-11-08 05:34:56 | DEBUG    | Detected screen state: IN_GAME
+2026-11-08 05:34:57 | DEBUG    | Detected 17 tableau cards (3 face-up, 14 face-down)
+2026-11-08 05:34:57 | DEBUG    | Occlusion: Card 2 (BACK) blocks Card 0 (BACK) [overlap=4300px²]
+2026-11-08 05:34:57 | DEBUG    | Occlusion: Card 6 (8) blocks Card 0 (BACK) [overlap=3124px²]
+2026-11-08 05:34:57 | DEBUG    | Occlusion: Card 3 (BACK) blocks Card 1 (BACK) [overlap=4300px²]
+2026-11-08 05:34:57 | DEBUG    | Occlusion: Card 6 (8) blocks Card 1 (BACK) [overlap=3388px²]
+2026-11-08 05:34:57 | DEBUG    | Occlusion: Card 7 (BACK) blocks Card 2 (BACK) [overlap=5014px²]
+2026-11-08 05:34:57 | DEBUG    | Occlusion: Card 8 (BACK) blocks Card 3 (BACK) [overlap=5014px²]
+2026-11-08 05:34:57 | DEBUG    | Occlusion: Card 6 (8) blocks Card 9 (BACK) [overlap=3550px²]
+2026-11-08 05:34:57 | DEBUG    | Occlusion: Card 6 (8) blocks Card 10 (BACK) [overlap=3825px²]
+2026-11-08 05:34:57 | DEBUG    | Occlusion: Card 9 (BACK) blocks Card 7 (BACK) [overlap=4318px²]
+2026-11-08 05:34:57 | DEBUG    | Occlusion: Card 10 (BACK) blocks Card 8 (BACK) [overlap=4301px²]
+2026-11-08 05:34:57 | DEBUG    | Occlusion: Card 9 (BACK) blocks Card 11 (MYSTERY) [overlap=4242px²]
+2026-11-08 05:34:57 | DEBUG    | Occlusion: Card 10 (BACK) blocks Card 12 (MYSTERY) [overlap=4192px²]
+2026-11-08 05:34:57 | DEBUG    | Occlusion: Card 13 (BACK) blocks Card 11 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:34:57 | DEBUG    | Occlusion: Card 14 (BACK) blocks Card 12 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:34:57 | DEBUG    | Waste pile: K (conf=1.00)
+2026-11-08 05:34:57 | DEBUG    | WILD button detected at (2277, 875) (conf=0.79)
+2026-11-08 05:34:57 | INFO     | Parsed BoardState(waste=K, playable=['10', '10', '8'], faceup=3, facedown=14, stock=True, wild=True, end_level=False)
+2026-11-08 05:34:57 | INFO     | Waste=[K]  Playable=3 (10#4, 10#5, 8#6)  Tableau=17  Stock=YES  StockWILD=NO  WILD=YES  EndLevel=NO
+2026-11-08 05:34:57 | INFO     | Move: DRAW_STOCK  target=—  coord=(1134, 937)  score=5.0  reason=No legal tableau moves, draw next card from stock
+2026-11-08 05:34:58 | DEBUG    | Tapped (1129, 897) [offset=(-5, -40)] after 0.63s delay
+2026-11-08 05:34:58 | DEBUG    | Tapped (1129, 897)
+2026-11-08 05:34:59 | INFO     | ── Step 8 ──────────────────────────────────
+2026-11-08 05:35:00 | DEBUG    | Screenshot captured: 2400x1080
+2026-11-08 05:35:00 | DEBUG    | Waste pile: 8 (conf=0.99)
+2026-11-08 05:35:00 | DEBUG    | Detected screen state: IN_GAME
+2026-11-08 05:35:01 | DEBUG    | Detected 17 tableau cards (3 face-up, 14 face-down)
+2026-11-08 05:35:01 | DEBUG    | Occlusion: Card 2 (BACK) blocks Card 0 (BACK) [overlap=4300px²]
+2026-11-08 05:35:01 | DEBUG    | Occlusion: Card 6 (7) blocks Card 0 (BACK) [overlap=3204px²]
+2026-11-08 05:35:01 | DEBUG    | Occlusion: Card 3 (BACK) blocks Card 1 (BACK) [overlap=4300px²]
+2026-11-08 05:35:01 | DEBUG    | Occlusion: Card 6 (7) blocks Card 1 (BACK) [overlap=3382px²]
+2026-11-08 05:35:01 | DEBUG    | Occlusion: Card 7 (BACK) blocks Card 2 (BACK) [overlap=5014px²]
+2026-11-08 05:35:01 | DEBUG    | Occlusion: Card 8 (BACK) blocks Card 3 (BACK) [overlap=5014px²]
+2026-11-08 05:35:01 | DEBUG    | Occlusion: Card 6 (7) blocks Card 9 (BACK) [overlap=3492px²]
+2026-11-08 05:35:01 | DEBUG    | Occlusion: Card 6 (7) blocks Card 10 (BACK) [overlap=3662px²]
+2026-11-08 05:35:01 | DEBUG    | Occlusion: Card 9 (BACK) blocks Card 7 (BACK) [overlap=4318px²]
+2026-11-08 05:35:01 | DEBUG    | Occlusion: Card 10 (BACK) blocks Card 8 (BACK) [overlap=4301px²]
+2026-11-08 05:35:01 | DEBUG    | Occlusion: Card 9 (BACK) blocks Card 11 (MYSTERY) [overlap=4242px²]
+2026-11-08 05:35:01 | DEBUG    | Occlusion: Card 10 (BACK) blocks Card 12 (MYSTERY) [overlap=4192px²]
+2026-11-08 05:35:01 | DEBUG    | Occlusion: Card 13 (BACK) blocks Card 11 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:35:01 | DEBUG    | Occlusion: Card 14 (BACK) blocks Card 12 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:35:01 | DEBUG    | Waste pile: 8 (conf=0.99)
+2026-11-08 05:35:01 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-08 05:35:01 | INFO     | Parsed BoardState(waste=8, playable=['10', '10', '7'], faceup=3, facedown=14, stock=True, wild=True, end_level=False)
+2026-11-08 05:35:01 | INFO     | Waste=[8]  Playable=3 (10#4, 10#5, 7#6)  Tableau=17  Stock=YES  StockWILD=NO  WILD=YES  EndLevel=NO
+2026-11-08 05:35:01 | DEBUG    | Candidate Move: 7 at (1201, 402) -> score=70.0 (uncovers facedown #9, uncovers facedown #10)
+2026-11-08 05:35:01 | INFO     | Move: PLAY_CARD  target=7  coord=(np.int64(1201), np.int64(402))  score=70.0  reason=uncovers facedown #9, uncovers facedown #10
+2026-11-08 05:35:02 | DEBUG    | Tapped (1205, 406) [offset=(+4, +4)] after 0.71s delay
+2026-11-08 05:35:02 | DEBUG    | Tapped (1205, 406)
+2026-11-08 05:35:03 | INFO     | ── Step 9 ──────────────────────────────────
+2026-11-08 05:35:05 | DEBUG    | Screenshot captured: 2400x1080
+2026-11-08 05:35:05 | DEBUG    | Waste pile: 7 (conf=0.97)
+2026-11-08 05:35:05 | DEBUG    | Detected screen state: IN_GAME
+2026-11-08 05:35:06 | DEBUG    | Detected 16 tableau cards (6 face-up, 10 face-down)
+2026-11-08 05:35:06 | DEBUG    | Occlusion: Card 0 (4) blocks Card 7 (BACK) [overlap=5488px²]
+2026-11-08 05:35:06 | DEBUG    | Occlusion: Card 1 (5) blocks Card 6 (BACK) [overlap=5586px²]
+2026-11-08 05:35:06 | DEBUG    | Occlusion: Card 6 (BACK) blocks Card 2 (BACK) [overlap=5014px²]
+2026-11-08 05:35:06 | DEBUG    | Occlusion: Card 7 (BACK) blocks Card 3 (BACK) [overlap=5014px²]
+2026-11-08 05:35:06 | DEBUG    | Occlusion: Card 8 (J) blocks Card 6 (BACK) [overlap=3694px²]
+2026-11-08 05:35:06 | DEBUG    | Occlusion: Card 9 (Q) blocks Card 7 (BACK) [overlap=3577px²]
+2026-11-08 05:35:06 | DEBUG    | Occlusion: Card 12 (BACK) blocks Card 10 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:35:06 | DEBUG    | Occlusion: Card 13 (BACK) blocks Card 11 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:35:06 | DEBUG    | Waste pile: 7 (conf=0.97)
+2026-11-08 05:35:06 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-08 05:35:06 | INFO     | Parsed BoardState(waste=7, playable=['4', '5', '10', '10', 'J', 'Q'], faceup=6, facedown=10, stock=True, wild=True, end_level=False)
+2026-11-08 05:35:06 | INFO     | Waste=[7]  Playable=6 (4#0, 5#1, 10#4, 10#5, J#8, Q#9)  Tableau=16  Stock=YES  StockWILD=NO  WILD=YES  EndLevel=NO
+2026-11-08 05:35:06 | INFO     | Move: DRAW_STOCK  target=—  coord=(1134, 937)  score=5.0  reason=No legal tableau moves, draw next card from stock
+2026-11-08 05:35:06 | DEBUG    | Tapped (1131, 905) [offset=(-3, -32)] after 0.62s delay
+2026-11-08 05:35:06 | DEBUG    | Tapped (1131, 905)
+2026-11-08 05:35:08 | INFO     | ── Step 10 ──────────────────────────────────
+2026-11-08 05:35:09 | DEBUG    | Screenshot captured: 2400x1080
+2026-11-08 05:35:09 | DEBUG    | Waste pile: K (conf=1.00)
+2026-11-08 05:35:09 | DEBUG    | Detected screen state: IN_GAME
+2026-11-08 05:35:10 | DEBUG    | Detected 16 tableau cards (6 face-up, 10 face-down)
+2026-11-08 05:35:10 | DEBUG    | Occlusion: Card 0 (4) blocks Card 7 (BACK) [overlap=5488px²]
+2026-11-08 05:35:10 | DEBUG    | Occlusion: Card 1 (5) blocks Card 6 (BACK) [overlap=5586px²]
+2026-11-08 05:35:10 | DEBUG    | Occlusion: Card 6 (BACK) blocks Card 2 (BACK) [overlap=5014px²]
+2026-11-08 05:35:10 | DEBUG    | Occlusion: Card 7 (BACK) blocks Card 3 (BACK) [overlap=5014px²]
+2026-11-08 05:35:10 | DEBUG    | Occlusion: Card 8 (J) blocks Card 6 (BACK) [overlap=3694px²]
+2026-11-08 05:35:10 | DEBUG    | Occlusion: Card 9 (Q) blocks Card 7 (BACK) [overlap=3577px²]
+2026-11-08 05:35:10 | DEBUG    | Occlusion: Card 12 (BACK) blocks Card 10 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:35:10 | DEBUG    | Occlusion: Card 13 (BACK) blocks Card 11 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:35:10 | DEBUG    | Waste pile: K (conf=1.00)
+2026-11-08 05:35:10 | DEBUG    | WILD button detected at (2277, 875) (conf=0.78)
+2026-11-08 05:35:10 | INFO     | Parsed BoardState(waste=K, playable=['4', '5', '10', '10', 'J', 'Q'], faceup=6, facedown=10, stock=True, wild=True, end_level=False)
+2026-11-08 05:35:10 | INFO     | Waste=[K]  Playable=6 (4#0, 5#1, 10#4, 10#5, J#8, Q#9)  Tableau=16  Stock=YES  StockWILD=NO  WILD=YES  EndLevel=NO
+2026-11-08 05:35:10 | DEBUG    | Candidate Move: Q at (1289, 536) -> score=60.0 (enables chain of 3 (Q -> J -> 10))
+2026-11-08 05:35:10 | INFO     | Move: PLAY_CARD  target=Q  coord=(np.int64(1289), np.int64(536))  score=60.0  reason=enables chain of 3 (Q -> J -> 10)
+2026-11-08 05:35:11 | DEBUG    | Tapped (1288, 526) [offset=(-1, -10)] after 1.02s delay
+2026-11-08 05:35:11 | DEBUG    | Tapped (1288, 526)
+2026-11-08 05:35:12 | INFO     | ── Step 11 ──────────────────────────────────
+2026-11-08 05:35:14 | DEBUG    | Screenshot captured: 2400x1080
+2026-11-08 05:35:14 | DEBUG    | Waste pile: Q (conf=0.99)
+2026-11-08 05:35:14 | DEBUG    | Detected screen state: IN_GAME
+2026-11-08 05:35:15 | DEBUG    | Detected 16 tableau cards (5 face-up, 11 face-down)
+2026-11-08 05:35:15 | DEBUG    | Occlusion: Card 0 (4) blocks Card 7 (BACK) [overlap=5488px²]
+2026-11-08 05:35:15 | DEBUG    | Occlusion: Card 1 (5) blocks Card 6 (BACK) [overlap=5586px²]
+2026-11-08 05:35:15 | DEBUG    | Occlusion: Card 6 (BACK) blocks Card 2 (BACK) [overlap=5014px²]
+2026-11-08 05:35:15 | DEBUG    | Occlusion: Card 7 (BACK) blocks Card 3 (BACK) [overlap=5014px²]
+2026-11-08 05:35:15 | DEBUG    | Occlusion: Card 9 (J) blocks Card 6 (BACK) [overlap=3694px²]
+2026-11-08 05:35:15 | DEBUG    | Occlusion: Card 9 (J) blocks Card 8 (BACK) [overlap=7412px²]
+2026-11-08 05:35:15 | DEBUG    | Occlusion: Card 12 (BACK) blocks Card 10 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:35:15 | DEBUG    | Occlusion: Card 14 (BACK) blocks Card 11 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:35:15 | DEBUG    | Waste pile: Q (conf=0.99)
+2026-11-08 05:35:15 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-08 05:35:15 | INFO     | Parsed BoardState(waste=Q, playable=['4', '5', '10', '10', 'J'], faceup=5, facedown=11, stock=True, wild=True, end_level=False)
+2026-11-08 05:35:15 | INFO     | Waste=[Q]  Playable=5 (4#0, 5#1, 10#4, 10#5, J#9)  Tableau=16  Stock=YES  StockWILD=NO  WILD=YES  EndLevel=NO
+2026-11-08 05:35:15 | DEBUG    | Candidate Move: J at (1109, 535) -> score=60.0 (uncovers facedown #8, enables chain of 2 (J -> 10))
+2026-11-08 05:35:15 | INFO     | Move: PLAY_CARD  target=J  coord=(np.int64(1109), np.int64(535))  score=60.0  reason=uncovers facedown #8, enables chain of 2 (J -> 10)
+2026-11-08 05:35:15 | DEBUG    | Tapped (1112, 536) [offset=(+3, +1)] after 0.45s delay
+2026-11-08 05:35:15 | DEBUG    | Tapped (1112, 536)
+2026-11-08 05:35:16 | INFO     | ── Step 12 ──────────────────────────────────
+2026-11-08 05:35:18 | DEBUG    | Screenshot captured: 2400x1080
+2026-11-08 05:35:18 | DEBUG    | Waste pile: J (conf=1.00)
+2026-11-08 05:35:18 | DEBUG    | Detected screen state: IN_GAME
+2026-11-08 05:35:19 | DEBUG    | Detected 15 tableau cards (5 face-up, 10 face-down)
+2026-11-08 05:35:19 | DEBUG    | Occlusion: Card 0 (4) blocks Card 7 (BACK) [overlap=5488px²]
+2026-11-08 05:35:19 | DEBUG    | Occlusion: Card 1 (5) blocks Card 6 (BACK) [overlap=5586px²]
+2026-11-08 05:35:19 | DEBUG    | Occlusion: Card 6 (BACK) blocks Card 2 (BACK) [overlap=5014px²]
+2026-11-08 05:35:19 | DEBUG    | Occlusion: Card 7 (BACK) blocks Card 3 (BACK) [overlap=5014px²]
+2026-11-08 05:35:19 | DEBUG    | Occlusion: Card 8 (9) blocks Card 12 (BACK) [overlap=3712px²]
+2026-11-08 05:35:19 | DEBUG    | Occlusion: Card 8 (9) blocks Card 13 (BACK) [overlap=3688px²]
+2026-11-08 05:35:19 | DEBUG    | Occlusion: Card 11 (BACK) blocks Card 9 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:35:19 | DEBUG    | Occlusion: Card 14 (BACK) blocks Card 10 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:35:19 | DEBUG    | Waste pile: J (conf=1.00)
+2026-11-08 05:35:19 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-08 05:35:19 | INFO     | Parsed BoardState(waste=J, playable=['4', '5', '10', '10', '9'], faceup=5, facedown=10, stock=True, wild=True, end_level=False)
+2026-11-08 05:35:19 | INFO     | Waste=[J]  Playable=5 (4#0, 5#1, 10#4, 10#5, 9#8)  Tableau=15  Stock=YES  StockWILD=NO  WILD=YES  EndLevel=NO
+2026-11-08 05:35:19 | DEBUG    | Candidate Move: 10 at (804, 344) -> score=100.0 (enables chain of 3 (10 -> 9 -> 10))
+2026-11-08 05:35:19 | DEBUG    | Candidate Move: 10 at (1596, 344) -> score=100.0 (enables chain of 3 (10 -> 9 -> 10))
+2026-11-08 05:35:19 | INFO     | Move: PLAY_CARD  target=10  coord=(np.int64(804), np.int64(344))  score=100.0  reason=enables chain of 3 (10 -> 9 -> 10)
+2026-11-08 05:35:20 | DEBUG    | Tapped (810, 359) [offset=(+6, +15)] after 1.30s delay
+2026-11-08 05:35:20 | DEBUG    | Tapped (810, 359)
+2026-11-08 05:35:21 | INFO     | ── Step 13 ──────────────────────────────────
+2026-11-08 05:35:23 | DEBUG    | Screenshot captured: 2400x1080
+2026-11-08 05:35:23 | DEBUG    | Waste pile: 10 (conf=1.00)
+2026-11-08 05:35:23 | DEBUG    | Detected screen state: IN_GAME
+2026-11-08 05:35:24 | DEBUG    | Detected 14 tableau cards (4 face-up, 10 face-down)
+2026-11-08 05:35:24 | DEBUG    | Occlusion: Card 0 (4) blocks Card 6 (BACK) [overlap=5488px²]
+2026-11-08 05:35:24 | DEBUG    | Occlusion: Card 1 (5) blocks Card 5 (BACK) [overlap=5586px²]
+2026-11-08 05:35:24 | DEBUG    | Occlusion: Card 5 (BACK) blocks Card 2 (BACK) [overlap=5014px²]
+2026-11-08 05:35:24 | DEBUG    | Occlusion: Card 6 (BACK) blocks Card 3 (BACK) [overlap=5014px²]
+2026-11-08 05:35:24 | DEBUG    | Occlusion: Card 7 (9) blocks Card 11 (BACK) [overlap=3712px²]
+2026-11-08 05:35:24 | DEBUG    | Occlusion: Card 7 (9) blocks Card 12 (BACK) [overlap=3688px²]
+2026-11-08 05:35:24 | DEBUG    | Occlusion: Card 10 (BACK) blocks Card 8 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:35:24 | DEBUG    | Occlusion: Card 13 (BACK) blocks Card 9 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:35:24 | DEBUG    | Waste pile: 10 (conf=1.00)
+2026-11-08 05:35:24 | DEBUG    | WILD button detected at (2277, 875) (conf=0.77)
+2026-11-08 05:35:24 | INFO     | Parsed BoardState(waste=10, playable=['4', '5', '10', '9'], faceup=4, facedown=10, stock=True, wild=True, end_level=False)
+2026-11-08 05:35:24 | INFO     | Waste=[10]  Playable=4 (4#0, 5#1, 10#4, 9#7)  Tableau=14  Stock=YES  StockWILD=NO  WILD=YES  EndLevel=NO
+2026-11-08 05:35:24 | DEBUG    | Candidate Move: 9 at (1199, 535) -> score=80.0 (uncovers facedown #11, uncovers facedown #12, enables chain of 2 (9 -> 10))
+2026-11-08 05:35:24 | INFO     | Move: PLAY_CARD  target=9  coord=(np.int64(1199), np.int64(535))  score=80.0  reason=uncovers facedown #11, uncovers facedown #12, enables chain of 2 (9 -> 10)
+2026-11-08 05:35:25 | DEBUG    | Tapped (1229, 553) [offset=(+30, +18)] after 0.87s delay
+2026-11-08 05:35:25 | DEBUG    | Tapped (1229, 553)
+2026-11-08 05:35:26 | INFO     | ── Step 14 ──────────────────────────────────
+2026-11-08 05:35:28 | DEBUG    | Screenshot captured: 2400x1080
+2026-11-08 05:35:28 | DEBUG    | Waste pile: 9 (conf=1.00)
+2026-11-08 05:35:28 | DEBUG    | Detected screen state: IN_GAME
+2026-11-08 05:35:28 | DEBUG    | Detected 13 tableau cards (5 face-up, 8 face-down)
+2026-11-08 05:35:28 | DEBUG    | Occlusion: Card 0 (4) blocks Card 6 (BACK) [overlap=5488px²]
+2026-11-08 05:35:28 | DEBUG    | Occlusion: Card 1 (5) blocks Card 5 (BACK) [overlap=5586px²]
+2026-11-08 05:35:28 | DEBUG    | Occlusion: Card 5 (BACK) blocks Card 2 (BACK) [overlap=5014px²]
+2026-11-08 05:35:28 | DEBUG    | Occlusion: Card 6 (BACK) blocks Card 3 (BACK) [overlap=5014px²]
+2026-11-08 05:35:28 | DEBUG    | Occlusion: Card 9 (BACK) blocks Card 7 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:35:28 | DEBUG    | Occlusion: Card 10 (BACK) blocks Card 8 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:35:28 | DEBUG    | Waste pile: 9 (conf=1.00)
+2026-11-08 05:35:28 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-08 05:35:28 | INFO     | Parsed BoardState(waste=9, playable=['4', '5', '10', '7', '8'], faceup=5, facedown=8, stock=True, wild=True, end_level=False)
+2026-11-08 05:35:28 | INFO     | Waste=[9]  Playable=5 (4#0, 5#1, 10#4, 7#11, 8#12)  Tableau=13  Stock=YES  StockWILD=NO  WILD=YES  EndLevel=NO
+2026-11-08 05:35:28 | DEBUG    | Candidate Move: 10 at (1596, 344) -> score=10.0 (plays 10)
+2026-11-08 05:35:28 | DEBUG    | Candidate Move: 8 at (1290, 668) -> score=30.0 (enables chain of 2 (8 -> 7))
+2026-11-08 05:35:28 | INFO     | Move: PLAY_CARD  target=8  coord=(np.int64(1290), np.int64(668))  score=30.0  reason=enables chain of 2 (8 -> 7)
+2026-11-08 05:35:29 | DEBUG    | Tapped (1294, 660) [offset=(+4, -8)] after 0.68s delay
+2026-11-08 05:35:29 | DEBUG    | Tapped (1294, 660)
+2026-11-08 05:35:30 | INFO     | ── Step 15 ──────────────────────────────────
+2026-11-08 05:35:32 | DEBUG    | Screenshot captured: 2400x1080
+2026-11-08 05:35:32 | DEBUG    | Waste pile: 8 (conf=0.99)
+2026-11-08 05:35:32 | DEBUG    | Detected screen state: IN_GAME
+2026-11-08 05:35:33 | DEBUG    | Detected 13 tableau cards (4 face-up, 9 face-down)
+2026-11-08 05:35:33 | DEBUG    | Occlusion: Card 0 (4) blocks Card 6 (BACK) [overlap=5488px²]
+2026-11-08 05:35:33 | DEBUG    | Occlusion: Card 1 (5) blocks Card 5 (BACK) [overlap=5586px²]
+2026-11-08 05:35:33 | DEBUG    | Occlusion: Card 5 (BACK) blocks Card 2 (BACK) [overlap=5014px²]
+2026-11-08 05:35:33 | DEBUG    | Occlusion: Card 6 (BACK) blocks Card 3 (BACK) [overlap=5014px²]
+2026-11-08 05:35:33 | DEBUG    | Occlusion: Card 9 (BACK) blocks Card 7 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:35:33 | DEBUG    | Occlusion: Card 10 (BACK) blocks Card 8 (MYSTERY) [overlap=4212px²]
+2026-11-08 05:35:33 | DEBUG    | Occlusion: Card 11 (BACK) blocks Card 8 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:35:33 | DEBUG    | Occlusion: Card 10 (BACK) blocks Card 11 (BACK) [overlap=4216px²]
+2026-11-08 05:35:33 | DEBUG    | Waste pile: 8 (conf=0.99)
+2026-11-08 05:35:33 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-08 05:35:33 | INFO     | Parsed BoardState(waste=8, playable=['4', '5', '10', '7'], faceup=4, facedown=9, stock=True, wild=True, end_level=False)
+2026-11-08 05:35:33 | INFO     | Waste=[8]  Playable=4 (4#0, 5#1, 10#4, 7#12)  Tableau=13  Stock=YES  StockWILD=NO  WILD=YES  EndLevel=NO
+2026-11-08 05:35:33 | DEBUG    | Candidate Move: 7 at (1109, 668) -> score=10.0 (plays 7)
+2026-11-08 05:35:33 | INFO     | Move: PLAY_CARD  target=7  coord=(np.int64(1109), np.int64(668))  score=10.0  reason=plays 7
+2026-11-08 05:35:34 | DEBUG    | Tapped (1111, 701) [offset=(+2, +33)] after 1.57s delay
+2026-11-08 05:35:34 | DEBUG    | Tapped (1111, 701)
+2026-11-08 05:35:35 | INFO     | ── Step 16 ──────────────────────────────────
+2026-11-08 05:35:37 | DEBUG    | Screenshot captured: 2400x1080
+2026-11-08 05:35:37 | DEBUG    | Waste pile: 7 (conf=0.99)
+2026-11-08 05:35:37 | DEBUG    | Detected screen state: IN_GAME
+2026-11-08 05:35:38 | DEBUG    | Detected 13 tableau cards (3 face-up, 10 face-down)
+2026-11-08 05:35:38 | DEBUG    | Occlusion: Card 0 (4) blocks Card 6 (BACK) [overlap=5488px²]
+2026-11-08 05:35:38 | DEBUG    | Occlusion: Card 1 (5) blocks Card 5 (BACK) [overlap=5586px²]
+2026-11-08 05:35:38 | DEBUG    | Occlusion: Card 5 (BACK) blocks Card 2 (BACK) [overlap=5014px²]
+2026-11-08 05:35:38 | DEBUG    | Occlusion: Card 6 (BACK) blocks Card 3 (BACK) [overlap=5014px²]
+2026-11-08 05:35:38 | DEBUG    | Occlusion: Card 9 (BACK) blocks Card 7 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:35:38 | DEBUG    | Occlusion: Card 10 (BACK) blocks Card 7 (MYSTERY) [overlap=4212px²]
+2026-11-08 05:35:38 | DEBUG    | Occlusion: Card 11 (BACK) blocks Card 8 (MYSTERY) [overlap=4212px²]
+2026-11-08 05:35:38 | DEBUG    | Occlusion: Card 12 (BACK) blocks Card 8 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:35:38 | DEBUG    | Occlusion: Card 9 (BACK) blocks Card 10 (BACK) [overlap=4216px²]
+2026-11-08 05:35:38 | DEBUG    | Occlusion: Card 11 (BACK) blocks Card 12 (BACK) [overlap=4216px²]
+2026-11-08 05:35:38 | DEBUG    | Waste pile: 7 (conf=0.99)
+2026-11-08 05:35:38 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-08 05:35:38 | INFO     | Parsed BoardState(waste=7, playable=['4', '5', '10'], faceup=3, facedown=10, stock=True, wild=True, end_level=False)
+2026-11-08 05:35:38 | INFO     | Waste=[7]  Playable=3 (4#0, 5#1, 10#4)  Tableau=13  Stock=YES  StockWILD=NO  WILD=YES  EndLevel=NO
+2026-11-08 05:35:38 | INFO     | Move: DRAW_STOCK  target=—  coord=(1134, 937)  score=5.0  reason=No legal tableau moves, draw next card from stock
+2026-11-08 05:35:39 | DEBUG    | Tapped (1138, 931) [offset=(+4, -6)] after 0.99s delay
+2026-11-08 05:35:39 | DEBUG    | Tapped (1138, 931)
+2026-11-08 05:35:40 | INFO     | ── Step 17 ──────────────────────────────────
+2026-11-08 05:35:41 | DEBUG    | Screenshot captured: 2400x1080
+2026-11-08 05:35:41 | DEBUG    | Waste pile: 4 (conf=0.99)
+2026-11-08 05:35:41 | DEBUG    | Detected screen state: IN_GAME
+2026-11-08 05:35:42 | DEBUG    | Detected 13 tableau cards (3 face-up, 10 face-down)
+2026-11-08 05:35:42 | DEBUG    | Occlusion: Card 0 (4) blocks Card 6 (BACK) [overlap=5488px²]
+2026-11-08 05:35:42 | DEBUG    | Occlusion: Card 1 (5) blocks Card 5 (BACK) [overlap=5586px²]
+2026-11-08 05:35:42 | DEBUG    | Occlusion: Card 5 (BACK) blocks Card 2 (BACK) [overlap=5014px²]
+2026-11-08 05:35:42 | DEBUG    | Occlusion: Card 6 (BACK) blocks Card 3 (BACK) [overlap=5014px²]
+2026-11-08 05:35:42 | DEBUG    | Occlusion: Card 9 (BACK) blocks Card 7 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:35:42 | DEBUG    | Occlusion: Card 10 (BACK) blocks Card 7 (MYSTERY) [overlap=4212px²]
+2026-11-08 05:35:42 | DEBUG    | Occlusion: Card 11 (BACK) blocks Card 8 (MYSTERY) [overlap=4212px²]
+2026-11-08 05:35:42 | DEBUG    | Occlusion: Card 12 (BACK) blocks Card 8 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:35:42 | DEBUG    | Occlusion: Card 9 (BACK) blocks Card 10 (BACK) [overlap=4216px²]
+2026-11-08 05:35:42 | DEBUG    | Occlusion: Card 11 (BACK) blocks Card 12 (BACK) [overlap=4216px²]
+2026-11-08 05:35:42 | DEBUG    | Waste pile: 4 (conf=0.99)
+2026-11-08 05:35:42 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-08 05:35:42 | INFO     | Parsed BoardState(waste=4, playable=['4', '5', '10'], faceup=3, facedown=10, stock=True, wild=True, end_level=False)
+2026-11-08 05:35:42 | INFO     | Waste=[4]  Playable=3 (4#0, 5#1, 10#4)  Tableau=13  Stock=YES  StockWILD=NO  WILD=YES  EndLevel=NO
+2026-11-08 05:35:42 | DEBUG    | Candidate Move: 5 at (1109, 308) -> score=80.0 (uncovers facedown #5, enables chain of 2 (5 -> 4))
+2026-11-08 05:35:42 | INFO     | Move: PLAY_CARD  target=5  coord=(np.int64(1109), np.int64(308))  score=80.0  reason=uncovers facedown #5, enables chain of 2 (5 -> 4)
+2026-11-08 05:35:43 | DEBUG    | Tapped (1111, 301) [offset=(+2, -7)] after 1.04s delay
+2026-11-08 05:35:43 | DEBUG    | Tapped (1111, 301)
+2026-11-08 05:35:45 | INFO     | ── Step 18 ──────────────────────────────────
+2026-11-08 05:35:46 | DEBUG    | Screenshot captured: 2400x1080
+2026-11-08 05:35:46 | DEBUG    | Waste pile: 5 (conf=1.00)
+2026-11-08 05:35:46 | DEBUG    | Detected screen state: IN_GAME
+2026-11-08 05:35:47 | DEBUG    | Detected 13 tableau cards (3 face-up, 10 face-down)
+2026-11-08 05:35:47 | DEBUG    | Occlusion: Card 1 (4) blocks Card 0 (BACK) [overlap=7480px²]
+2026-11-08 05:35:47 | DEBUG    | Occlusion: Card 1 (4) blocks Card 5 (BACK) [overlap=5488px²]
+2026-11-08 05:35:47 | DEBUG    | Occlusion: Card 6 (6) blocks Card 2 (BACK) [overlap=3900px²]
+2026-11-08 05:35:47 | DEBUG    | Occlusion: Card 5 (BACK) blocks Card 3 (BACK) [overlap=5014px²]
+2026-11-08 05:35:47 | DEBUG    | Occlusion: Card 6 (6) blocks Card 7 (MYSTERY) [overlap=3311px²]
+2026-11-08 05:35:47 | DEBUG    | Occlusion: Card 9 (BACK) blocks Card 7 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:35:47 | DEBUG    | Occlusion: Card 10 (BACK) blocks Card 7 (MYSTERY) [overlap=4212px²]
+2026-11-08 05:35:47 | DEBUG    | Occlusion: Card 11 (BACK) blocks Card 8 (MYSTERY) [overlap=4212px²]
+2026-11-08 05:35:47 | DEBUG    | Occlusion: Card 12 (BACK) blocks Card 8 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:35:47 | DEBUG    | Occlusion: Card 9 (BACK) blocks Card 10 (BACK) [overlap=4216px²]
+2026-11-08 05:35:47 | DEBUG    | Occlusion: Card 11 (BACK) blocks Card 12 (BACK) [overlap=4216px²]
+2026-11-08 05:35:47 | DEBUG    | Waste pile: 5 (conf=1.00)
+2026-11-08 05:35:47 | DEBUG    | WILD button detected at (2277, 875) (conf=0.80)
+2026-11-08 05:35:47 | INFO     | Parsed BoardState(waste=5, playable=['4', '10', '6'], faceup=3, facedown=10, stock=True, wild=True, end_level=False)
+2026-11-08 05:35:47 | INFO     | Waste=[5]  Playable=3 (4#1, 10#4, 6#6)  Tableau=13  Stock=YES  StockWILD=NO  WILD=YES  EndLevel=NO
+2026-11-08 05:35:47 | DEBUG    | Candidate Move: 4 at (1289, 307) -> score=60.0 (uncovers facedown #0, uncovers facedown #5)
+2026-11-08 05:35:47 | DEBUG    | Candidate Move: 6 at (1045, 432) -> score=40.0 (uncovers facedown #2)
+2026-11-08 05:35:47 | INFO     | Move: PLAY_CARD  target=4  coord=(np.int64(1289), np.int64(307))  score=60.0  reason=uncovers facedown #0, uncovers facedown #5
+2026-11-08 05:35:49 | DEBUG    | Tapped (1293, 315) [offset=(+4, +8)] after 1.53s delay
+2026-11-08 05:35:49 | DEBUG    | Tapped (1293, 315)
+2026-11-08 05:35:50 | INFO     | ── Step 19 ──────────────────────────────────
+2026-11-08 05:35:51 | DEBUG    | Screenshot captured: 2400x1080
+2026-11-08 05:35:51 | DEBUG    | Waste pile: 4 (conf=0.99)
+2026-11-08 05:35:51 | DEBUG    | Detected screen state: IN_GAME
+2026-11-08 05:35:52 | DEBUG    | Detected 12 tableau cards (4 face-up, 8 face-down)
+2026-11-08 05:35:52 | DEBUG    | Occlusion: Card 4 (7) blocks Card 1 (BACK) [overlap=3939px²]
+2026-11-08 05:35:52 | DEBUG    | Occlusion: Card 5 (3) blocks Card 2 (BACK) [overlap=4018px²]
+2026-11-08 05:35:52 | DEBUG    | Occlusion: Card 4 (7) blocks Card 6 (MYSTERY) [overlap=3350px²]
+2026-11-08 05:35:52 | DEBUG    | Occlusion: Card 5 (3) blocks Card 7 (MYSTERY) [overlap=3564px²]
+2026-11-08 05:35:52 | DEBUG    | Occlusion: Card 8 (BACK) blocks Card 6 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:35:52 | DEBUG    | Occlusion: Card 9 (BACK) blocks Card 6 (MYSTERY) [overlap=4212px²]
+2026-11-08 05:35:52 | DEBUG    | Occlusion: Card 10 (BACK) blocks Card 7 (MYSTERY) [overlap=4212px²]
+2026-11-08 05:35:52 | DEBUG    | Occlusion: Card 11 (BACK) blocks Card 7 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:35:52 | DEBUG    | Occlusion: Card 8 (BACK) blocks Card 9 (BACK) [overlap=4216px²]
+2026-11-08 05:35:52 | DEBUG    | Occlusion: Card 10 (BACK) blocks Card 11 (BACK) [overlap=4216px²]
+2026-11-08 05:35:52 | DEBUG    | Waste pile: 4 (conf=0.99)
+2026-11-08 05:35:52 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-08 05:35:52 | INFO     | Parsed BoardState(waste=4, playable=['J', '10', '7', '3'], faceup=4, facedown=8, stock=True, wild=True, end_level=False)
+2026-11-08 05:35:52 | INFO     | Waste=[4]  Playable=4 (J#0, 10#3, 7#4, 3#5)  Tableau=12  Stock=YES  StockWILD=NO  WILD=YES  EndLevel=NO
+2026-11-08 05:35:52 | DEBUG    | Candidate Move: 3 at (1357, 433) -> score=40.0 (uncovers facedown #2)
+2026-11-08 05:35:52 | INFO     | Move: PLAY_CARD  target=3  coord=(np.int64(1357), np.int64(433))  score=40.0  reason=uncovers facedown #2
+2026-11-08 05:35:53 | DEBUG    | Tapped (1371, 393) [offset=(+14, -40)] after 0.67s delay
+2026-11-08 05:35:53 | DEBUG    | Tapped (1371, 393)
+2026-11-08 05:35:54 | INFO     | ── Step 20 ──────────────────────────────────
+2026-11-08 05:35:56 | DEBUG    | Screenshot captured: 2400x1080
+2026-11-08 05:35:56 | DEBUG    | Waste pile: 3 (conf=0.94)
+2026-11-08 05:35:56 | DEBUG    | Detected screen state: IN_GAME
+2026-11-08 05:35:57 | DEBUG    | Detected 11 tableau cards (5 face-up, 6 face-down)
+2026-11-08 05:35:57 | DEBUG    | Occlusion: Card 4 (8) blocks Card 1 (BACK) [overlap=3850px²]
+2026-11-08 05:35:57 | DEBUG    | Occlusion: Card 4 (8) blocks Card 5 (MYSTERY) [overlap=3420px²]
+2026-11-08 05:35:57 | DEBUG    | Occlusion: Card 7 (BACK) blocks Card 5 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:35:57 | DEBUG    | Occlusion: Card 8 (BACK) blocks Card 5 (MYSTERY) [overlap=4212px²]
+2026-11-08 05:35:57 | DEBUG    | Occlusion: Card 6 (2) blocks Card 9 (BACK) [overlap=6712px²]
+2026-11-08 05:35:57 | DEBUG    | Occlusion: Card 6 (2) blocks Card 10 (BACK) [overlap=7567px²]
+2026-11-08 05:35:57 | DEBUG    | Occlusion: Card 7 (BACK) blocks Card 8 (BACK) [overlap=4216px²]
+2026-11-08 05:35:57 | DEBUG    | Occlusion: Card 9 (BACK) blocks Card 10 (BACK) [overlap=4216px²]
+2026-11-08 05:35:57 | DEBUG    | Waste pile: 3 (conf=0.94)
+2026-11-08 05:35:57 | DEBUG    | WILD button detected at (2277, 875) (conf=0.85)
+2026-11-08 05:35:57 | INFO     | Parsed BoardState(waste=3, playable=['J', '10', 'A', '8', '2'], faceup=5, facedown=6, stock=True, wild=True, end_level=False)
+2026-11-08 05:35:57 | INFO     | Waste=[3]  Playable=5 (J#0, 10#2, A#3, 8#4, 2#6)  Tableau=11  Stock=YES  StockWILD=NO  WILD=YES  EndLevel=NO
+2026-11-08 05:35:57 | DEBUG    | Candidate Move: 2 at (1441, 571) -> score=60.0 (uncovers facedown #9, enables chain of 2 (2 -> A))
+2026-11-08 05:35:57 | INFO     | Move: PLAY_CARD  target=2  coord=(np.int64(1441), np.int64(571))  score=60.0  reason=uncovers facedown #9, enables chain of 2 (2 -> A)
+2026-11-08 05:35:58 | DEBUG    | Tapped (1443, 567) [offset=(+2, -4)] after 1.08s delay
+2026-11-08 05:35:58 | DEBUG    | Tapped (1443, 567)
+2026-11-08 05:35:59 | INFO     | ── Step 21 ──────────────────────────────────
+2026-11-08 05:36:00 | DEBUG    | Screenshot captured: 2400x1080
+2026-11-08 05:36:00 | DEBUG    | Waste pile: 2 (conf=0.94)
+2026-11-08 05:36:00 | DEBUG    | Detected screen state: IN_GAME
+2026-11-08 05:36:01 | DEBUG    | Detected 10 tableau cards (6 face-up, 4 face-down)
+2026-11-08 05:36:01 | DEBUG    | Occlusion: Card 4 (9) blocks Card 1 (BACK) [overlap=3990px²]
+2026-11-08 05:36:01 | DEBUG    | Occlusion: Card 4 (9) blocks Card 5 (MYSTERY) [overlap=3393px²]
+2026-11-08 05:36:01 | DEBUG    | Occlusion: Card 6 (BACK) blocks Card 5 (MYSTERY) [overlap=4446px²]
+2026-11-08 05:36:01 | DEBUG    | Occlusion: Card 7 (BACK) blocks Card 5 (MYSTERY) [overlap=4212px²]
+2026-11-08 05:36:01 | DEBUG    | Occlusion: Card 6 (BACK) blocks Card 7 (BACK) [overlap=4216px²]
+2026-11-08 05:36:01 | DEBUG    | Waste pile: 2 (conf=0.94)
+2026-11-08 05:36:01 | DEBUG    | WILD button detected at (2277, 875) (conf=0.83)
+2026-11-08 05:36:01 | INFO     | Parsed BoardState(waste=2, playable=['J', '10', 'A', '9', '2', '8'], faceup=6, facedown=4, stock=True, wild=True, end_level=False)
+2026-11-08 05:36:01 | INFO     | Waste=[2]  Playable=6 (J#0, 10#2, A#3, 9#4, 2#8, 8#9)  Tableau=10  Stock=YES  StockWILD=NO  WILD=YES  EndLevel=NO
+2026-11-08 05:36:01 | DEBUG    | Candidate Move: A at (1439, 345) -> score=30.0 (enables chain of 2 (A -> 2))
+2026-11-08 05:36:01 | INFO     | Move: PLAY_CARD  target=A  coord=(np.int64(1439), np.int64(345))  score=30.0  reason=enables chain of 2 (A -> 2)
+2026-11-08 05:36:03 | DEBUG    | Tapped (1449, 344) [offset=(+10, -1)] after 1.44s delay
+2026-11-08 05:36:03 | DEBUG    | Tapped (1449, 344)
+2026-11-08 05:36:04 | INFO     | ── Step 22 ──────────────────────────────────
+2026-11-08 05:36:06 | DEBUG    | Screenshot captured: 2400x1080
+2026-11-08 05:36:06 | DEBUG    | Waste pile: A (conf=0.99)
+2026-11-08 05:36:06 | DEBUG    | Detected screen state: IN_GAME
+2026-11-08 05:36:06 | INFO     | Interrupted by user (Ctrl+C). Exiting.

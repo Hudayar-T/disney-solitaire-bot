@@ -20,7 +20,7 @@ DEBUG_DIR = Path("tests/debug")
 DEBUG_DIR.mkdir(parents=True, exist_ok=True)
 
 detector = CardDetector()
-screenshots = sorted(Path("tests/screenshots").glob("*.jpg"))
+screenshots = sorted(Path("tests/screenshots/algorithm").glob("*.jpg"))
 print(f"Testing detector on {len(screenshots)} screenshots\n")
 
 for ss_path in screenshots:

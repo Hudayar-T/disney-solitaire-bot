@@ -53,7 +53,7 @@ Single source of truth for every coordinate, ROI, threshold, and timing constant
 
 Handles all device I/O: connection, screenshots, and humanized tapping.
 
-- **L23-54:** `connect()` finds the first ADB device via `adbutils`; `screencap()` runs `screencap -p` and returns a PIL Image (RGB).
+- **L23-54:** `connect()` finds the first ADB device via `adbutils`; `screencap()` runs `screencap -p` and decodes directly to an OpenCV BGR numpy array via `cv2.imdecode`.
 - **L57-68:** `save_screenshot()` writes a timestamped PNG to `tests/screenshots/`.
 - **L71-105:** `compute_jittered_coord()` applies Gaussian 2D offset; `tap()` sends `input tap` with random delay and jitter, checks for Xiaomi `SecurityException`.
 

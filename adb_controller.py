@@ -13,6 +13,8 @@ from pathlib import Path
 os.environ["NO_PROXY"] = "*"
 os.environ["no_proxy"] = "*"
 
+import cv2
+import numpy as np
 from adbutils import adb, AdbError
 from loguru import logger
 from PIL import Image
@@ -40,30 +42,35 @@ def connect() -> object:
     return device
 
 
-def screencap(device) -> Image.Image:
+def screencap(device) -> np.ndarray:
     """
-    Capture a screenshot from the device.
-    Returns a PIL Image (RGB).
+    Capture a screenshot from the device directly into an OpenCV BGR numpy array.
+    Uses cv2.imdecode from memory buffer to eliminate PIL roundtrips.
     """
     try:
         png_bytes = device.shell("screencap -p", encoding=None)
-        image = Image.open(io.BytesIO(png_bytes)).convert("RGB")
-        logger.debug(f"Screenshot captured: {image.size}")
+        image = cv2.imdecode(np.frombuffer(png_bytes, np.uint8), cv2.IMREAD_COLOR)
+        if image is None:
+            raise RuntimeError("cv2.imdecode failed to decode screenshot bytes from device")
+        logger.debug(f"Screenshot captured: {image.shape[1]}x{image.shape[0]}")
         return image
     except AdbError as e:
         raise RuntimeError(f"screencap failed: {e}") from e
 
 
-def save_screenshot(image: Image.Image, folder: str = "tests/screenshots") -> Path:
+def save_screenshot(image: np.ndarray | Image.Image, folder: str = "tests/screenshots") -> Path:
     """
-    Save a PIL Image to disk with a timestamp filename.
+    Save a BGR numpy array or PIL Image to disk with a timestamp filename.
     Returns the saved file path.
     """
     out_dir = Path(folder)
     out_dir.mkdir(parents=True, exist_ok=True)
     timestamp = time.strftime("%Y%m%d_%H%M%S")
     path = out_dir / f"screen_{timestamp}.png"
-    image.save(path)
+    if isinstance(image, np.ndarray):
+        cv2.imwrite(str(path), image)
+    else:
+        image.save(path)
     logger.info(f"Screenshot saved: {path}")
     return path
 
@@ -115,4 +122,4 @@ if __name__ == "__main__":
 
     path = save_screenshot(img)
     logger.success(f"All good! Screenshot saved to: {path}")
-    logger.info(f"Resolution reported by PIL: {img.size[0]}×{img.size[1]} px")
+    logger.info(f"Resolution: {img.shape[1]}×{img.shape[0]} px")

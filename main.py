@@ -93,8 +93,7 @@ def parse_args() -> argparse.Namespace:
 def capture_screen(dev) -> np.ndarray | None:
     """Grab a screenshot and return it as a BGR numpy array, or None on failure."""
     try:
-        pil_img = adb_controller.screencap(dev)
-        return cv2.cvtColor(np.array(pil_img), cv2.COLOR_RGB2BGR)
+        return adb_controller.screencap(dev)
     except Exception as e:
         logger.error(f"Screencap failed: {e}")
         return None
@@ -143,10 +142,7 @@ def run(args: argparse.Namespace) -> None:
             logger.warning(f"Unexpected resolution {w}×{h} (expected {config.SCREEN_WIDTH}×{config.SCREEN_HEIGHT})")
 
         if args.save_screens:
-            adb_controller.save_screenshot(
-                Image.fromarray(cv2.cvtColor(screen, cv2.COLOR_BGR2RGB)),
-                folder="tests/screenshots",
-            )
+            adb_controller.save_screenshot(screen, folder="tests/screenshots")
 
         # ── 2. Menu / Popup / Dealing Guard ───────────────────────────────────
         nav_action = menu_handler.handle(screen, dev=dev)

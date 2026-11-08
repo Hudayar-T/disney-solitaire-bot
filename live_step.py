@@ -97,8 +97,7 @@ def run_interactive_loop():
         logger.info(f"▶ STEP {step_count}: Capturing live screen...")
 
         try:
-            pil_img = adb_controller.screencap(dev)
-            screen = cv2.cvtColor(np.array(pil_img), cv2.COLOR_RGB2BGR)
+            screen = adb_controller.screencap(dev)
         except Exception as e:
             logger.error(f"Screencap failed: {e}")
             break

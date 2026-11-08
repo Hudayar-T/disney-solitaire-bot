@@ -34,8 +34,8 @@ TEMPLATE_MATCH_THRESHOLD = 0.72   # minimum confidence score for center glyphs
 TEMPLATE_ANGLES          = [0, -10, 10, -20, 20, -30, 30, -40, 40, -48, 48]  # angles to handle steep card tilts up to ±48°
 
 # ── Timing & Anti-Bot Jitter ──────────────────────────────────────────────────
-TAP_DELAY_MIN = 0.3   # seconds — minimum pause between taps
-TAP_DELAY_MAX = 1.6   # seconds — maximum pause (randomised for human feel)
+TAP_DELAY_MIN = 0.1   # seconds — minimum pause between taps
+TAP_DELAY_MAX = 1   # seconds — maximum pause (randomised for human feel)
 TAP_JITTER_X  = 30    # px — maximum random horizontal offset from center (68)
 TAP_JITTER_Y  = 40    # px — maximum random vertical offset from center (92)
 SCREENCAP_INTERVAL = 1.2  # seconds — wait after tap for flight & flip animations to settle
@@ -68,4 +68,4 @@ PURPLE_HSV_LOWER    = (125, 60, 60)
 PURPLE_HSV_UPPER    = (160, 255, 255)
 
 # Wait time when cards are being dealt (seconds)
-DEAL_ANIMATION_WAIT = 2.0
+DEAL_ANIMATION_WAIT = 1.9
