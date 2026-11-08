@@ -72,6 +72,11 @@ class MenuHandler:
             action_desc = "Dismissed random reward popup (tapped neutral center)"
             wait_time = 1.5
 
+        elif state == ScreenState.END_LEVEL_CONFIRM:
+            target_coord = self.detector.last_confirm_coord or config.END_LEVEL_CONFIRM_CENTER
+            action_desc = "Confirmed end level modal (tapped red confirmation button)"
+            wait_time = 2.0  # allow level forfeit/defeat transition to settle
+
         elif state == ScreenState.MAIN_MENU_COLLECT:
             target_coord = config.MENU_COLLECT_CENTER
             action_desc = "Claimed hourly bonus (tapped purple COLLECT button)"

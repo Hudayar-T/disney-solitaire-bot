@@ -64,9 +64,9 @@ Core card detection engine. Segments face-down cards via HSV color, identifies f
 - **L22-62:** Constants — HSV color ranges (blue backs, green mystery, yellow buy-prompt), area filters (8K-45K px²), template dir.
 - **L28-44:** `Detection` dataclass — `rank, cx, cy, confidence, tw, th, angle`.
 - **L65-100:** `_nms()` — Non-Maximum Suppression (IoU 0.30).
-- **L103-148:** `CardDetector.__init__` + `_load_glyph_templates()` — loads A-K rank images, extracts center glyphs, pre-rotates at all `TEMPLATE_ANGLES`.
-- **L150-259:** Card detection — `detect_facedown()` uses HSV segmentation + contour analysis; `detect_faceup()` uses multi-angle template matching (threshold ≥ 0.72); `detect()` combines both, sorted by position.
-- **L261-286:** `detect_waste()` — glyph match in 220×320 ROI around waste center, with WILD template fallback.
+- **L103-148:** `CardDetector.__init__` + `_load_glyph_templates()` — loads A-K rank images, extracts center glyphs, pre-rotates at all `TEMPLATE_ANGLES`, and initializes `ThreadPoolExecutor` for parallel matching.
+- **L150-259:** Card detection — `detect_facedown()` uses HSV segmentation + contour analysis; `detect_faceup()` uses multithreaded template matching across all angles (threshold ≥ 0.72); `detect()` combines both, sorted by position.
+- **L261-286:** `detect_waste()` — glyph match in 220×320 ROI around waste center using upright templates (`0°` only), with WILD template fallback.
 - **L288-368:** Stock detection — `detect_normal_stock_present()` implements the WILD-first disambiguation algorithm (yellow ratio → WILD template → right-half yellow check → blue ratio fallback); `detect_stock_has_wild()` and `detect_stock_present()` wrap the logic.
 - **L370-435:** `detect_undo_present()`, `detect_wild_present()`, and `detect_end_level_present()` — template matches for undo button, bottom-right corner WILD card, and bottom-left red END LEVEL button (with HSV red fallback).
 
@@ -86,9 +86,9 @@ Core card detection engine. Segments face-down cards via HSV color, identifies f
 
 The `handle_menu_navigation/` folder is **reference screenshots only** (no code). Actual logic lives in these two files:
 
-**`vision/menu_detector.py` (147 lines):** Screen state classifier. `ScreenState` enum (L18-27) covers `MAIN_MENU_COLLECT/PLAY`, `PRE_LEVEL_MODAL`, `POST_WIN`, `RANDOM_REWARD`, `CARDS_DEALING`, `IN_GAME`, `UNKNOWN`. `detect_state()` (L52-85) is a priority-ordered classifier using template matching (post-win, random reward popups) and HSV color ratios (menu buttons, pre-level modal green). Falls back to `IN_GAME`.
+**`vision/menu_detector.py` (147 lines):** Screen state classifier. `ScreenState` enum (L18-27) covers `MAIN_MENU_COLLECT/PLAY`, `PRE_LEVEL_MODAL`, `POST_WIN`, `RANDOM_REWARD`, `END_LEVEL_CONFIRM`, `CARDS_DEALING`, `IN_GAME`, `UNKNOWN`. `detect_state()` (L52-85) is a priority-ordered classifier using template matching (post-win, random reward popups, end-level confirm) and HSV color ratios (menu buttons, pre-level modal green). Falls back to `IN_GAME`.
 
-**`navigation/menu_handler.py` (111 lines):** Tap dispatch controller. `MenuHandler.handle()` (L35-111) calls `detect_state()` and dispatches: IN_GAME → gameplay ready; CARDS_DEALING → sleep 2s; POST_WIN/RANDOM_REWARD → tap dismiss; MAIN_MENU → tap collect or play; PRE_LEVEL_MODAL → tap play button. Executes jittered tap if device is provided.
+**`navigation/menu_handler.py` (111 lines):** Tap dispatch controller. `MenuHandler.handle()` (L35-111) calls `detect_state()` and dispatches: IN_GAME → gameplay ready; CARDS_DEALING → sleep 2s; POST_WIN/RANDOM_REWARD → tap dismiss; END_LEVEL_CONFIRM → tap red confirm button; MAIN_MENU → tap collect or play; PRE_LEVEL_MODAL → tap play button. Executes jittered tap if device is provided.
 
 ### 6. Decision Solver — `engine/solver.py` (320 lines)
 
@@ -171,9 +171,3 @@ disney-solitaire-bot/
 - **Autonomous Loop:** `.venv\Scripts\python main.py [--max-steps N] [--save-screens]`
 - **Interactive Step Debug:** `.venv\Scripts\python live_step.py`
 - **Run Tests:** `.venv\Scripts\python tests/test_detector.py` (or `test_solver.py`, `test_board_parser.py`)
-
-## Agent Guidelines
-- Always verify coordinates against `config.py` — never hardcode.
-- Never tap yellow-bordered stock.
-- Update `PLAN.md` upon completing milestone tasks.
-- Confirm with user before creating new modules or starting major phases.

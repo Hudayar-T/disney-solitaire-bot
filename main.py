@@ -157,6 +157,11 @@ def run(args: argparse.Namespace) -> None:
                 if args.single_level:
                     logger.info("Stopping because --single-level was specified.")
                     break
+            elif nav_action.state == ScreenState.END_LEVEL_CONFIRM:
+                logger.warning("End Level confirmation modal dismissed.")
+                if args.single_level:
+                    logger.info("Stopping because --single-level was specified.")
+                    break
             continue
 
         # ── 3. Parse board state ───────────────────────────────────────────────
@@ -218,11 +223,8 @@ def run(args: argparse.Namespace) -> None:
 
         # ── 6. Wait for animations ─────────────────────────────────────────────
         if move.move_type == MoveType.END_LEVEL:
-            logger.warning("Ending level — waiting for defeat/transition screen...")
-            if args.single_level:
-                logger.info("Stopping because --single-level was specified.")
-                break
-            time.sleep(2.5)  # Allow transition to settle
+            logger.warning("Tapped End Level — waiting for confirmation modal or transition...")
+            time.sleep(2.0)  # Allow confirmation modal or defeat transition to appear
             continue
 
         time.sleep(config.SCREENCAP_INTERVAL)

@@ -21,6 +21,7 @@ class ScreenState(Enum):
     PRE_LEVEL_MODAL = auto()    # Level pre-start popup with green "PLAY" button
     POST_WIN = auto()           # "MEGA WIN!" overlay ("TAP ANYWHERE TO COLLECT")
     RANDOM_REWARD = auto()      # "YOUR REWARDS!" popup ("TAP TO COLLECT")
+    END_LEVEL_CONFIRM = auto()  # End level confirmation modal ("END LEVEL" button)
     CARDS_DEALING = auto()      # Level entry dealing animation (wait)
     IN_GAME = auto()            # Active gameplay with waste and cards
     UNKNOWN = auto()            # Unrecognized state
@@ -39,6 +40,8 @@ class MenuDetector:
         # Load navigation popup templates
         self.tmpl_tap_win = self._load_template("tap_anywhere_to_collect.png")
         self.tmpl_tap_reward = self._load_template("tap_to_collect.png")
+        self.tmpl_end_level_confirm = self._load_template("end_level_confirm.png")
+        self.last_confirm_coord: tuple[int, int] = config.END_LEVEL_CONFIRM_CENTER
 
     def _load_template(self, filename: str) -> Optional[np.ndarray]:
         p = self.tmpl_path / filename
@@ -65,18 +68,23 @@ class MenuDetector:
             logger.info("Detected screen state: RANDOM_REWARD (Bonus/Mission Popup)")
             return ScreenState.RANDOM_REWARD
 
-        # ── 3. Check Pre-Level Modal (Green "PLAY" button at center bottom) ────
+        # ── 3. Check End-Level Confirmation Modal ("END LEVEL" button) ────────
+        if self._is_end_level_confirm(screen):
+            logger.info("Detected screen state: END_LEVEL_CONFIRM (Level Exit Confirmation)")
+            return ScreenState.END_LEVEL_CONFIRM
+
+        # ── 4. Check Pre-Level Modal (Green "PLAY" button at center bottom) ────
         if self._is_pre_level_modal(hsv):
             logger.info("Detected screen state: PRE_LEVEL_MODAL (Level Start Confirmation)")
             return ScreenState.PRE_LEVEL_MODAL
 
-        # ── 4. Check Main Menu (Hourly bonus or Level play button) ─────────────
+        # ── 5. Check Main Menu (Hourly bonus or Level play button) ─────────────
         menu_state = self._check_main_menu(hsv)
         if menu_state is not None:
             logger.info(f"Detected screen state: {menu_state.name} (Main Menu)")
             return menu_state
 
-        # ── 5. Check In-Game vs Cards Dealing ─────────────────────────────────
+        # ── 6. Check In-Game vs Cards Dealing ─────────────────────────────────
         if self._is_cards_dealing(screen):
             logger.info("Detected screen state: CARDS_DEALING (Animations in progress)")
             return ScreenState.CARDS_DEALING
@@ -108,6 +116,21 @@ class MenuDetector:
         bot_search = screen[950:1050, 1000:1400]
         res = cv2.matchTemplate(bot_search, self.tmpl_tap_reward, cv2.TM_CCOEFF_NORMED)
         return cv2.minMaxLoc(res)[1] > 0.70
+
+    def _is_end_level_confirm(self, screen: np.ndarray) -> bool:
+        if self.tmpl_end_level_confirm is None:
+            return False
+        rx, ry, rw, rh = config.END_LEVEL_CONFIRM_ROI
+        search_roi = screen[ry:ry+rh, rx:rx+rw]
+        th, tw = self.tmpl_end_level_confirm.shape[:2]
+        if search_roi.shape[0] < th or search_roi.shape[1] < tw:
+            return False
+        res = cv2.matchTemplate(search_roi, self.tmpl_end_level_confirm, cv2.TM_CCOEFF_NORMED)
+        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+        if max_val >= 0.75:
+            self.last_confirm_coord = (rx + max_loc[0] + tw // 2, ry + max_loc[1] + th // 2)
+            return True
+        return False
 
     def _is_pre_level_modal(self, hsv: np.ndarray) -> bool:
         mx, my, mw, mh = config.MODAL_PLAY_ROI

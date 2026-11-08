@@ -56,6 +56,10 @@ MODAL_PLAY_CENTER   = (1204, 814)
 # Neutral dismiss tap coordinate for popups ("TAP TO COLLECT", "TAP ANYWHERE TO COLLECT")
 POPUP_DISMISS_COORD = (1200, 930)
 
+# End-level confirmation modal: Red confirmation button ("END LEVEL")
+END_LEVEL_CONFIRM_ROI    = (800, 700, 420, 240)  # (x, y, w, h)
+END_LEVEL_CONFIRM_CENTER = (1006, 818)
+
 # ── Menu Detection Thresholds & Color Ranges ──────────────────────────────────
 GREEN_HSV_LOWER     = (35, 100, 100)
 GREEN_HSV_UPPER     = (85, 255, 255)

@@ -20,7 +20,9 @@ print("TEST 1: SOLVER DECISIONS ON REAL SCREENSHOTS")
 print("=" * 60)
 
 for idx in range(1, 13):
-    img = cv2.imread(f"tests/screenshots/{idx}.jpg")
+    img = cv2.imread(f"tests/screenshots/algorithm/{idx}.jpg")
+    if img is None:
+        continue
     state = parser.parse(img)
     move = solver.choose_move(state)
     print(f"\nScreenshot {idx} (Waste: {state.waste.rank if state.waste else 'None'}):")
